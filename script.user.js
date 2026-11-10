@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         로펙 시뮬레이터 베이스 스킬 데미지 시뮬레이터
 // @namespace    https://github.com/N84jld3qhj/Lostark_WindWielder_Simulator
-// @version      1.1.3
+// @version      1.2.0
 // @description  로펙 시뮬레이터 DOM 데이터를 읽어와 실시간으로 입력된 세팅을 기준으로 스킬 데미지 시뮬레이션을 제공합니다.
 // @author       N84jld3qhj
 // @match        https://lopec.kr/character/simulator/*
@@ -4349,7 +4349,7 @@
                                 <!-- 버전 및 날짜 -->
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                                     <span style="background: rgba(74, 222, 128, 0.15); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3); font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 20px;">
-                                        v1.1.3
+                                        v1.2.0
                                     </span>
                                     <span style="color: #64748b; font-size: 0.72rem; font-weight: 500;">2026.11.11</span>
                                 </div>

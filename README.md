@@ -27,19 +27,38 @@
    <details>
     <summary>📸 설치 안내 스크린샷 보기 (클릭)</summary>
     
-    <img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/66cb2d6be34c1aa7e1a85a69b9075febea6a335b/images/_00.jpg"><br>  
-    <img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/650af9aab5664661099f185e3eb4b9e4155f74fa/images/_01.png" width=75%>  
+    <img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/main/images/_00.jpg"><br>  
+    <img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/main/images/_01.png" width=75%>  
     
     </details>
-   
-
-4. 로펙 시뮬레이터 접속 시 좌측 하단에 컨트롤 패널이 생성됩니다.  
+3. 로펙 시뮬레이터 접속 시 좌측 하단에 컨트롤 패널이 생성됩니다.  
    <details>
     <summary>📸 컨트롤 패널 생성 화면 보기 (클릭)</summary>
     
-    <img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/0c7fa16ec560ac2f601dbb215758f874d5ec41c2/images/_02.png">  
+    <img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/main/images/_02.png">  
     
-    </details> 
+    </details>  
+
+### 3단계: 데이터 입력
+
+1. 메인 저장소 → lostark_game_data.json 다운로드  
+2. 샘플 데이터 → 질풍기상 데이터 전체 다운로드  
+   <details>
+     <summary>📸 설치 안내 스크린샷 보기 (클릭)</summary>
+     
+     <img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/main/images/_05.jpg"><br>
+     <img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/main/images/_06.jpg">
+   </details>
+3. 로펙 시뮬레이터 컨트롤 패널 → 데이터 불러오기 → 데이터 파일 선택. 카테고리 맞게 넣어주시고 5. 게임 데이터에는 lostark_game_data.json 넣으면 됩니다.
+   <details>
+     <summary>📸 설치 안내 스크린샷 보기 (클릭)</summary>
+     
+     <img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/main/images/_07.jpg"><br>
+   </details>  
+
+  
+  
+
 
 ---
 
@@ -109,7 +128,7 @@
 
 * 탭 메뉴: `🛡️ 기본 스탯 생성기`
 
-<img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/5d12cd7762b654d2b9aa855c246c15ff0bd84e1d/images/03.png" style="border: 1px solid #cccccc;">
+<img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/main/images/03.png" style="border: 1px solid #cccccc;">
 
 **캐릭터 시너지**, **펫 효과**, **아크 패시브 깨달음**, **아크 패시브 도약** 과 추가적인 캐릭터에 적용되는 고유 버프 정보(ex 버서커 폭주)를 입력합니다. 
 
@@ -141,7 +160,7 @@
 
 * 탭 메뉴: `⚡ 스킬 데이터 생성기`
 
-<img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/5d12cd7762b654d2b9aa855c246c15ff0bd84e1d/images/04.png" style="border: 1px solid #cccccc;">
+<img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/main/images/04.png" style="border: 1px solid #cccccc;">
 
 앞서 작성한 **질서 코어, 특화, 버프에서 사용했던 태그들을 포함**하여 최종 스킬 데이터를 구성합니다.
 

@@ -46,14 +46,14 @@
    <details>
      <summary>📸 설치 안내 스크린샷 보기 (클릭)</summary>
      
-     <img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/main/images/_05.jpg"><br>
-     <img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/main/images/_06.jpg">
+     <img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/main/images/05.png"><br>
+     <img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/main/images/06.png">
    </details>
 3. 로펙 시뮬레이터 컨트롤 패널 → 데이터 불러오기 → 데이터 파일 선택. 카테고리 맞게 넣어주시고 5. 게임 데이터에는 lostark_game_data.json 넣으면 됩니다.
    <details>
      <summary>📸 설치 안내 스크린샷 보기 (클릭)</summary>
      
-     <img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/main/images/_07.jpg"><br>
+     <img src="https://github.com/N84jld3qhj/Lostark_Skill_Damage_Simulator/blob/main/images/07.png"><br>
    </details>  
 
   

@@ -1,0 +1,175 @@
+{
+    "진 파천섬광": {
+        "type": "달",
+        "고대": {
+            "10": [
+                {
+                    "id": "node_1787035374740_t1pt",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 3,
+                            "unit": "%",
+                            "requireTags": [
+                                "파천섬광"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "17": [
+                {
+                    "id": "node_1787035410355_hlrx",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": -10,
+                            "unit": "%",
+                            "requireTags": [
+                                "충격"
+                            ]
+                        },
+                        {
+                            "category": "치명타 시 적에게 주는 피해",
+                            "val": 20,
+                            "unit": "%",
+                            "requireTags": [
+                                "파천섬광"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "18": [
+                {
+                    "id": "node_1787035418772_48sa",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.4,
+                            "unit": "%",
+                            "requireTags": [
+                                "파천섬광"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "19": [
+                {
+                    "id": "node_1787035418772_48sa",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.4,
+                            "unit": "%",
+                            "requireTags": [
+                                "파천섬광"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "20": [
+                {
+                    "id": "node_1787035418772_48sa",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.4,
+                            "unit": "%",
+                            "requireTags": [
+                                "파천섬광"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "유물": {
+            "10": [
+                {
+                    "id": "node_1787035374740_t1pt",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 3,
+                            "unit": "%",
+                            "requireTags": [
+                                "파천섬광"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "17": [
+                {
+                    "id": "node_1787035410355_hlrx",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": -10,
+                            "unit": "%",
+                            "requireTags": [
+                                "충격"
+                            ]
+                        },
+                        {
+                            "category": "치명타 시 적에게 주는 피해",
+                            "val": 17,
+                            "unit": "%",
+                            "requireTags": [
+                                "파천섬광"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "18": [
+                {
+                    "id": "node_1787035418772_48sa",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.4,
+                            "unit": "%",
+                            "requireTags": [
+                                "파천섬광"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "19": [
+                {
+                    "id": "node_1787035418772_48sa",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.4,
+                            "unit": "%",
+                            "requireTags": [
+                                "파천섬광"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "20": [
+                {
+                    "id": "node_1787035418772_48sa",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.4,
+                            "unit": "%",
+                            "requireTags": [
+                                "파천섬광"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

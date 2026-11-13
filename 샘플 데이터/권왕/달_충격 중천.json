@@ -1,0 +1,159 @@
+{
+    "충격 충전": {
+        "type": "달",
+        "고대": {
+            "10": [
+                {
+                    "id": "node_1786746640789_yq1u",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 1.5,
+                            "unit": "%",
+                            "requireTags": [
+                                "충격"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "17": [
+                {
+                    "id": "node_1786746656350_18sy",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": -8,
+                            "unit": "%",
+                            "requireTags": [
+                                "충격"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "18": [
+                {
+                    "id": "node_1786746660854_yh1q",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.2,
+                            "unit": "%",
+                            "requireTags": [
+                                "충격"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "19": [
+                {
+                    "id": "node_1786746660854_yh1q",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.2,
+                            "unit": "%",
+                            "requireTags": [
+                                "충격"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "20": [
+                {
+                    "id": "node_1786746660854_yh1q",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.2,
+                            "unit": "%",
+                            "requireTags": [
+                                "충격"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "유물": {
+            "10": [
+                {
+                    "id": "node_1786746640789_yq1u",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 1.5,
+                            "unit": "%",
+                            "requireTags": [
+                                "충격"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "17": [
+                {
+                    "id": "node_1786746656350_18sy",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": -10.5,
+                            "unit": "%",
+                            "requireTags": [
+                                "충격"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "18": [
+                {
+                    "id": "node_1786746660854_yh1q",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.2,
+                            "unit": "%",
+                            "requireTags": [
+                                "충격"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "19": [
+                {
+                    "id": "node_1786746660854_yh1q",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.2,
+                            "unit": "%",
+                            "requireTags": [
+                                "충격"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "20": [
+                {
+                    "id": "node_1786746660854_yh1q",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.2,
+                            "unit": "%",
+                            "requireTags": [
+                                "충격"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

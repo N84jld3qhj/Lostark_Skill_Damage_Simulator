@@ -1,0 +1,159 @@
+{
+    "일점돌파": {
+        "type": "별",
+        "고대": {
+            "14": [
+                {
+                    "id": "node_1786955613930_0wyw",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 14,
+                            "unit": "%",
+                            "requireTags": [
+                                "바람송곳"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "17": [
+                {
+                    "id": "node_1786955624514_2qd8",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 20,
+                            "unit": "%",
+                            "requireTags": [
+                                "바람송곳"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "18": [
+                {
+                    "id": "node_1786955631490_1ewe",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.8,
+                            "unit": "%",
+                            "requireTags": [
+                                "바람송곳"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "19": [
+                {
+                    "id": "node_1786955631490_1ewe",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.8,
+                            "unit": "%",
+                            "requireTags": [
+                                "바람송곳"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "20": [
+                {
+                    "id": "node_1786955631490_1ewe",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.8,
+                            "unit": "%",
+                            "requireTags": [
+                                "바람송곳"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "유물": {
+            "14": [
+                {
+                    "id": "node_1786955613930_0wyw",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 14,
+                            "unit": "%",
+                            "requireTags": [
+                                "바람송곳"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "17": [
+                {
+                    "id": "node_1786955624514_2qd8",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 15,
+                            "unit": "%",
+                            "requireTags": [
+                                "바람송곳"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "18": [
+                {
+                    "id": "node_1786955631490_1ewe",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.8,
+                            "unit": "%",
+                            "requireTags": [
+                                "바람송곳"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "19": [
+                {
+                    "id": "node_1786955631490_1ewe",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.8,
+                            "unit": "%",
+                            "requireTags": [
+                                "바람송곳"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "20": [
+                {
+                    "id": "node_1786955631490_1ewe",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.8,
+                            "unit": "%",
+                            "requireTags": [
+                                "바람송곳"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

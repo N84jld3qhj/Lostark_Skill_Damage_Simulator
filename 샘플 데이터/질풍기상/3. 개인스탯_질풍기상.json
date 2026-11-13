@@ -1,0 +1,137 @@
+[
+    {
+        "name": "깨달음 - 바람의 길",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 2.4,
+                "unit": "%"
+            }
+        ]
+    },
+    {
+        "name": "깨달음 - 질풍노도",
+        "effects": [
+            {
+                "category": "이동 속도",
+                "val": 12,
+                "unit": "%"
+            }
+        ]
+    },
+    {
+        "name": "깨달음 - 질풍노도",
+        "effects": [
+            {
+                "category": "공격 속도",
+                "val": 12,
+                "unit": "%"
+            }
+        ]
+    },
+    {
+        "name": "시너지",
+        "effects": [
+            {
+                "category": "치명타 적중률",
+                "val": 10,
+                "unit": "%"
+            }
+        ]
+    },
+    {
+        "name": "깨달음 - 기민함",
+        "effects": [
+            {
+                "category": "치명타 적중률",
+                "formula": "Math.min(finalMoveSpeed,40)*0.3",
+                "unit": "%"
+            },
+            {
+                "category": "치명타 피해",
+                "formula": "Math.min(finalAtkSpeed,40)*1.2",
+                "unit": "%"
+            }
+        ]
+    },
+    {
+        "name": "펫 신속",
+        "effects": [
+            {
+                "category": "신속",
+                "val": 160,
+                "unit": ""
+            }
+        ]
+    },
+    {
+        "name": "깨달음 - 공간 가르기",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 200,
+                "unit": "%",
+                "requireTags": [
+                    "공간 가르기"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "도약 - 풀려난 힘",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 15,
+                "unit": "%",
+                "requireTags": [
+                    "우레바람"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "도약 - 잠재력 해방",
+        "effects": [
+            {
+                "category": "쿨타임 감소",
+                "val": 8,
+                "unit": "%",
+                "requireTags": [
+                    "우레바람"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "도약 - 단련된 가르기",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 70,
+                "unit": "%",
+                "requireTags": [
+                    "우레바람"
+                ]
+            },
+            {
+                "category": "태그 제거",
+                "val": "홀딩",
+                "unit": "",
+                "requireTags": [
+                    "우레바람"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "깨달음 - 질풍노도",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 3,
+                "unit": "%"
+            }
+        ]
+    }
+]

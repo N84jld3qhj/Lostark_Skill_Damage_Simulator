@@ -1,0 +1,175 @@
+{
+    "강풍일섬": {
+        "type": "별",
+        "고대": {
+            "14": [
+                {
+                    "id": "node_1786955360211_0sf4",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 30,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        },
+                        {
+                            "category": "고정 쿨타임 증가",
+                            "val": 5,
+                            "unit": "",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "17": [
+                {
+                    "id": "node_1786955360211_jkmm",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 12,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "18": [
+                {
+                    "id": "node_1786955360211_zlb4",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.5,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "19": [
+                {
+                    "id": "node_1786955360211_zlb4",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.5,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "20": [
+                {
+                    "id": "node_1786955360211_zlb4",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.5,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "유물": {
+            "14": [
+                {
+                    "id": "node_1786955360211_0sf4",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 30,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        },
+                        {
+                            "category": "고정 쿨타임 증가",
+                            "val": 5,
+                            "unit": "",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "17": [
+                {
+                    "id": "node_1786955360211_jkmm",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 9,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "18": [
+                {
+                    "id": "node_1786955360211_zlb4",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.5,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "19": [
+                {
+                    "id": "node_1786955360211_zlb4",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.5,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "20": [
+                {
+                    "id": "node_1786955360211_zlb4",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.5,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

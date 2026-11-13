@@ -1,0 +1,601 @@
+[
+    {
+        "name": "파천섬광",
+        "constant": 6220,
+        "coefficient": 41.2,
+        "baseCooldown": 40,
+        "mana": 0,
+        "tags": [
+            "파천섬광",
+            "충격",
+            "헤드어택"
+        ],
+        "tripods": [
+            {
+                "tier": 2,
+                "name": "완벽한 일격",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 90,
+                        "unit": "%"
+                    },
+                    {
+                        "category": "태그 추가",
+                        "val": "차지",
+                        "unit": ""
+                    }
+                ]
+            },
+            {
+                "tier": 3,
+                "name": "한계 돌파",
+                "effects": [
+                    {
+                        "category": "치명타 적중률",
+                        "val": 15,
+                        "unit": "%"
+                    },
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 200,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "초근접 타격",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 75,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "준비된 공격",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 80,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 3,
+                "name": "전천극",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 120,
+                        "unit": "%"
+                    },
+                    {
+                        "category": "고정 쿨타임 감소",
+                        "val": 10,
+                        "unit": ""
+                    }
+                ]
+            },
+            {
+                "tier": 1,
+                "name": "도전자",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 10,
+                        "unit": "%"
+                    },
+                    {
+                        "category": "태그 추가",
+                        "val": "타대",
+                        "unit": ""
+                    },
+                    {
+                        "category": "태그 제거",
+                        "val": "헤드어택",
+                        "unit": ""
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "권왕십이식 : 낙화",
+        "constant": 3965,
+        "coefficient": 22.45,
+        "baseCooldown": 40,
+        "mana": 0,
+        "tags": [
+            "권왕십이식 : 낙화",
+            "충격",
+            "낙화",
+            "타대",
+            "차지"
+        ],
+        "tripods": []
+    },
+    {
+        "name": "권왕십이식 : 풍랑",
+        "constant": 1887,
+        "coefficient": 10.25,
+        "baseCooldown": 40,
+        "mana": 0,
+        "tags": [
+            "권왕십이식 : 풍랑",
+            "충격",
+            "풍랑",
+            "타대",
+            "차지"
+        ],
+        "tripods": []
+    },
+    {
+        "name": "천기심권",
+        "constant": 3165,
+        "coefficient": 21.05,
+        "baseCooldown": 24,
+        "mana": 0,
+        "tags": [
+            "천기심권",
+            "충격",
+            "타대"
+        ],
+        "tripods": [
+            {
+                "tier": 2,
+                "name": "공간 장악",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 100,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 3,
+                "name": "한계 돌파",
+                "effects": [
+                    {
+                        "category": "치명타 적중률",
+                        "val": 15,
+                        "unit": "%"
+                    },
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 200,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "준비된 공격",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 80,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "초집중",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 92,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 3,
+                "name": "광풍권",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 120,
+                        "unit": "%"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "연의붕권",
+        "constant": 2359,
+        "coefficient": 15.61,
+        "baseCooldown": 18,
+        "mana": 0,
+        "tags": [
+            "연의붕권",
+            "충격",
+            "타대"
+        ],
+        "tripods": [
+            {
+                "tier": 3,
+                "name": "한계 돌파",
+                "effects": [
+                    {
+                        "category": "치명타 적중률",
+                        "val": 15,
+                        "unit": "%"
+                    },
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 200,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "결정타",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 70,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "약점 포착",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 80,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 3,
+                "name": "천뢰격",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 100,
+                        "unit": "%"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "대지파쇄권",
+        "constant": 828,
+        "coefficient": 24.3,
+        "baseCooldown": 20,
+        "mana": 0,
+        "tags": [
+            "대지파쇄권",
+            "충격",
+            "타대"
+        ],
+        "tripods": [
+            {
+                "tier": 3,
+                "name": "격파",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 116,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "약점 포착",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 80,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "견고한 움직임",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 68,
+                        "unit": "%"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "금강난격",
+        "constant": 280,
+        "coefficient": 6.91,
+        "baseCooldown": 16,
+        "mana": 0,
+        "tags": [
+            "금강난격",
+            "기력",
+            "헤드어택"
+        ],
+        "tripods": [
+            {
+                "tier": 1,
+                "name": "확정된 연격",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 35,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "불굴의 투지",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 50,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 3,
+                "name": "필살격",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 120,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 1,
+                "name": "분노의 타격",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 40,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "암영보",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 60,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "암영타",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 60,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 3,
+                "name": "폭발권",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 120,
+                        "unit": "%"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "백렬권",
+        "constant": 1284,
+        "coefficient": 6.99,
+        "baseCooldown": 16,
+        "mana": 0,
+        "tags": [
+            "백렬권",
+            "기력",
+            "헤드어택",
+            "홀딩"
+        ],
+        "tripods": [
+            {
+                "tier": 2,
+                "name": "거침없는 투지",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 40,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 3,
+                "name": "암영권",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 116,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "일순 연격",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 80,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "빠른 판단",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 90,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 3,
+                "name": "다재다능",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 100,
+                        "unit": "%"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "비뢰격",
+        "constant": 449,
+        "coefficient": 2.4,
+        "baseCooldown": 8,
+        "mana": 0,
+        "tags": [
+            "비뢰격",
+            "기력",
+            "헤드어택"
+        ],
+        "tripods": [
+            {
+                "tier": 3,
+                "name": "축지",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 100,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "분노의 타격",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 40,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 3,
+                "name": "강렬한 일격",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 105,
+                        "unit": "%"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "권왕의 진격",
+        "constant": 767,
+        "coefficient": 4.17,
+        "baseCooldown": 8,
+        "mana": 0,
+        "tags": [
+            "권왕의 진격",
+            "기력",
+            "헤드어택"
+        ],
+        "tripods": [
+            {
+                "tier": 2,
+                "name": "어깨치기",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 80,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 3,
+                "name": "주먹 회수",
+                "effects": [
+                    {
+                        "category": "쿨타임 감소",
+                        "val": 50,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "파괴자",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 90,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "회오리 주먹",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 120,
+                        "unit": "%"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "성운멸쇄권",
+        "constant": 46849,
+        "coefficient": 254.18,
+        "baseCooldown": 72,
+        "mana": 0,
+        "tags": [
+            "성운멸쇄권",
+            "충격",
+            "타대",
+            "차지"
+        ],
+        "tripods": []
+    }
+]

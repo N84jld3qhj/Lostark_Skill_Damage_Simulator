@@ -1,0 +1,195 @@
+{
+    "비연참": {
+        "type": "해",
+        "고대": {
+            "10": [
+                {
+                    "id": "node_1786778788383_bx5l",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 2,
+                            "unit": "%",
+                            "requireTags": [
+                                "우산"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "14": [
+                {
+                    "id": "node_1786778805951_0b5y",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 5,
+                            "unit": "%",
+                            "requireTags": [
+                                "회오리 걸음",
+                                "몰아치기",
+                                "바람송곳",
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "17": [
+                {
+                    "id": "node_1786778816007_7f1d",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 1,
+                            "unit": "%",
+                            "requireTags": [
+                                "우산"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "18": [
+                {
+                    "id": "node_1786778822015_rvek",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.2,
+                            "unit": "%",
+                            "requireTags": [
+                                "우산"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "19": [
+                {
+                    "id": "node_1786778822015_rvek",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.2,
+                            "unit": "%",
+                            "requireTags": [
+                                "우산"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "20": [
+                {
+                    "id": "node_1786778822015_rvek",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.2,
+                            "unit": "%",
+                            "requireTags": [
+                                "우산"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "유물": {
+            "10": [
+                {
+                    "id": "node_1786778788383_bx5l",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 2,
+                            "unit": "%",
+                            "requireTags": [
+                                "우산"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "14": [
+                {
+                    "id": "node_1786778805951_0b5y",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 5,
+                            "unit": "%",
+                            "requireTags": [
+                                "회오리 걸음",
+                                "몰아치기",
+                                "바람송곳",
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "17": [
+                {
+                    "id": "node_1786778816007_7f1d",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0,
+                            "unit": "%",
+                            "requireTags": [
+                                "우산"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "18": [
+                {
+                    "id": "node_1786778822015_rvek",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.2,
+                            "unit": "%",
+                            "requireTags": [
+                                "우산"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "19": [
+                {
+                    "id": "node_1786778822015_rvek",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.2,
+                            "unit": "%",
+                            "requireTags": [
+                                "우산"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "20": [
+                {
+                    "id": "node_1786778822015_rvek",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.2,
+                            "unit": "%",
+                            "requireTags": [
+                                "우산"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,149 @@
+[
+    {
+        "name": "깨달음 - 권왕파천무",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 400,
+                "unit": "%",
+                "requireTags": [
+                    "낙화"
+                ]
+            },
+            {
+                "category": "공격 속도",
+                "val": 20,
+                "unit": "%"
+            }
+        ]
+    },
+    {
+        "name": "깨달음 - 단전 호흡",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 21,
+                "unit": "%"
+            }
+        ]
+    },
+    {
+        "name": "깨달음 - 권왕십이식 : 낙화 강화",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 80,
+                "unit": "%",
+                "requireTags": [
+                    "낙화"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "깨달음 - 권왕십이식 : 풍랑",
+        "effects": [
+            {
+                "category": "치명타 적중률",
+                "val": 15,
+                "unit": "%",
+                "requireTags": [
+                    "풍랑"
+                ]
+            },
+            {
+                "category": "적에게 주는 피해",
+                "val": 460,
+                "unit": "%",
+                "requireTags": [
+                    "풍랑"
+                ]
+            },
+            {
+                "category": "적에게 주는 피해",
+                "val": 8,
+                "unit": "%"
+            }
+        ]
+    },
+    {
+        "name": "깨달음 - 권왕심법",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 2,
+                "unit": "%",
+                "requireTags": [
+                    "충격"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "도약 - 풀려난 힘",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 15,
+                "unit": "%",
+                "requireTags": [
+                    "성운멸쇄권"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "도약 - 잠재력 해방",
+        "effects": [
+            {
+                "category": "쿨타임 감소",
+                "val": 8,
+                "unit": "%",
+                "requireTags": [
+                    "성운멸쇄권"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "도약 - 충격 폭발",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 40,
+                "unit": "%",
+                "requireTags": [
+                    "성운멸쇄권"
+                ]
+            },
+            {
+                "category": "치명타 적중률",
+                "val": 20,
+                "unit": "%",
+                "requireTags": [
+                    "성운멸쇄권"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "펫효과",
+        "effects": [
+            {
+                "category": "특화",
+                "val": 160,
+                "unit": ""
+            }
+        ]
+    },
+    {
+        "name": "시너지",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 8,
+                "unit": "%"
+            }
+        ]
+    }
+]

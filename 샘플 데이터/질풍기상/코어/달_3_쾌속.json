@@ -1,0 +1,159 @@
+{
+    "쾌속": {
+        "type": "달",
+        "고대": {
+            "10": [
+                {
+                    "id": "node_1786955206008_vqie",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 8,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "17": [
+                {
+                    "id": "node_1786955206008_9gad",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 7,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "18": [
+                {
+                    "id": "node_1786955206008_ocz3",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.5,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "19": [
+                {
+                    "id": "node_1786955206008_ocz3",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.5,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "20": [
+                {
+                    "id": "node_1786955206008_ocz3",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.5,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "유물": {
+            "10": [
+                {
+                    "id": "node_1786955206008_vqie",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 8,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "17": [
+                {
+                    "id": "node_1786955206008_9gad",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 4,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "18": [
+                {
+                    "id": "node_1786955206008_ocz3",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.5,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "19": [
+                {
+                    "id": "node_1786955206008_ocz3",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.5,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "20": [
+                {
+                    "id": "node_1786955206008_ocz3",
+                    "effects": [
+                        {
+                            "category": "적에게 주는 피해",
+                            "val": 0.5,
+                            "unit": "%",
+                            "requireTags": [
+                                "칼바람"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

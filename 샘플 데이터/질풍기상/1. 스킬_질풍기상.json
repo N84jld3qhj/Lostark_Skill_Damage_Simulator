@@ -411,54 +411,6 @@
         ]
     },
     {
-        "name": "소용돌이",
-        "constant": 3515,
-        "coefficient": 18.68,
-        "baseCooldown": 16,
-        "mana": 412,
-        "tags": [
-            "소용돌이",
-            "마나",
-            "기상",
-            "타대"
-        ],
-        "tripods": [
-            {
-                "tier": 2,
-                "name": "바람 기둥",
-                "effects": [
-                    {
-                        "category": "적에게 주는 피해",
-                        "val": 58.6,
-                        "unit": "%"
-                    }
-                ]
-            },
-            {
-                "tier": 3,
-                "name": "증기 조절",
-                "effects": [
-                    {
-                        "category": "적에게 주는 피해",
-                        "val": 80,
-                        "unit": "%"
-                    }
-                ]
-            },
-            {
-                "tier": 2,
-                "name": "죽음의 소용돌이",
-                "effects": [
-                    {
-                        "category": "적에게 주는 피해",
-                        "val": 70,
-                        "unit": "%"
-                    }
-                ]
-            }
-        ]
-    },
-    {
         "name": "마주바람",
         "constant": 10701,
         "coefficient": 56.85,

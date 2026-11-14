@@ -43,6 +43,16 @@
 .arkoptions li{margin:3px 0}
 @media(max-width:760px){.arkcolumns{grid-template-columns:1fr}.arkgemhead{display:none}.arkgem{grid-template-columns:60px minmax(0,1fr) 42px 42px 20px}.arkcorecontrols{grid-template-columns:1fr 1fr}}
 
+.la-warn{position:fixed;inset:0;z-index:9999;background:rgba(5,9,14,.68);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:16px;animation:lawf .15s ease-out}
+.la-warn-box{width:min(380px,100%);background:linear-gradient(180deg,#1c2735,#151f2b);border:1px solid #3a2f26;border-top:3px solid var(--gold);border-radius:12px;padding:24px 22px 18px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.55);animation:law .18s ease-out}
+.la-warn-ico{width:42px;height:42px;margin:0 auto 12px;border-radius:50%;background:rgba(255,200,92,.14);border:1px solid rgba(255,200,92,.5);color:var(--gold);font-size:24px;font-weight:800;line-height:40px}
+.la-warn-t{font-size:16px;font-weight:700;color:var(--text);margin-bottom:10px}
+.la-warn-s{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.la-warn-s span{background:rgba(255,200,92,.12);border:1px solid rgba(255,200,92,.4);color:var(--gold);font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px}
+.la-warn-d{font-size:12.5px;line-height:1.6;color:var(--muted);margin-bottom:18px}
+.la-warn-b{width:100%;padding:10px;border-radius:8px;border:1px solid #4c7aa8;background:linear-gradient(180deg,#34608a,#2a4d6f);color:#fff;font-size:13px;font-weight:600;cursor:pointer}
+.la-warn-b:hover{filter:brightness(1.15)}
+@keyframes lawf{from{opacity:0}to{opacity:1}}@keyframes law{from{transform:translateY(8px) scale(.97);opacity:0}to{transform:none;opacity:1}}
 </style><style>
 .equip-bulk{display:grid;grid-template-columns:auto 1fr 1fr;gap:6px;align-items:center;margin:8px 0 12px;padding:8px;background:var(--panel2,#151e2b);border-radius:9px;font-size:11px}
 .equip-detail{padding:10px 0;border-bottom:1px solid var(--line,#263244)}.equip-detail-head{display:flex;justify-content:space-between;align-items:center}.equip-detail .editgrid{margin-top:7px}.batch-check{display:flex;gap:5px;align-items:center;font-size:11px;color:var(--muted)}
@@ -593,7 +603,7 @@ button,input,select,textarea{font-family:inherit}
 .lx-acc{grid-template-columns:152px minmax(0,1fr)}
 .lx-acctier .field{padding-left:8px;padding-right:4px}
 </style>
-<style>.profile .avatar.has-img{padding:0;overflow:hidden;background:#182433}.profile .avatar img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;transform-origin:50% 12%;transform:scale(2.3)}
+<style>.profile .avatar{height:auto;min-height:115px;align-self:stretch;position:relative}.profile .avatar.has-img{padding:0;overflow:hidden;background:#182433}.profile .avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;transform-origin:50% 12%;transform:scale(2.3)}
 .profile .avatar[data-shift="up"] img{transform:translateY(-30%) scale(2.3)}
 </style>
 <style>#arkpoints-panel>.panel-content{padding-top:16px}#points-bar{margin-bottom:10px}#gemcount,#eqcount2,#engcount,#corecount{display:none}#arkgrid>.panel-content{padding-top:16px}.metric small{font-size:13px;margin-bottom:3px}.metric strong{font-size:19px;font-weight:700;color:#eef6ff}.big{font-size:19px;font-weight:700;color:#eef6ff}.profile .avatar{background:#182433}#arkgrid .arktoolbar>.muted{font-size:15px;font-weight:700;color:#cfe0f5}</style>
@@ -820,7 +830,7 @@ window.LAParser={parseCharacter};
     const tier = w && w.simulation && w.simulation.tier ? w.simulation.tier : 'T4 전율';
     const equipment = {
       helmet: lvl('투구'), shoulder: lvl('어깨'), armor: lvl('상의'), pants: lvl('하의'), gloves: lvl('장갑'), weapon: lvl('무기'),
-      weaponTier: tier === '에스더' ? 'T4 전율' : tier, isEsther: tier === '에스더', estherElla: 0,
+      weaponTier: tier === '에스더' ? 'T4 전율' : tier, isEsther: tier === '에스더', estherElla: Math.max(0, Math.min(3, Number(w && w.simulation && w.simulation.ella) || 0)),
       vambrace: lvl('완갑'), vambraceGrade: v ? (v.grade || '고대') : '고대'
     };
     return { engravings, accessories, gems, jewels, chaosCores, orderCores, arkPassive, bracelet, equipment };
@@ -2704,7 +2714,7 @@ const $=id=>document.getElementById(id), esc=s=>String(s??'').replace(/[&<>"']/g
 const fmt=n=>Number(n??0).toLocaleString('ko-KR');
 function field(value,attrs=''){return `<input class="field" value="${esc(value??'')}" ${attrs}>`;}
 function select(value,opts,attrs=''){return `<select class="field" ${attrs}>${opts.map(x=>`<option ${String(x)===String(value)?'selected':''}>${esc(x)}</option>`).join('')}</select>`;}
-function bindInputs(root,handler){root.querySelectorAll('[data-path]').forEach(el=>{el.addEventListener('change',()=>{const raw=el.dataset.path;if(raw.endsWith('.__coreName')){const path=raw.split('.');const i=Number(path[2]);const c=state.arkGrid.cores[i];c.name=(i<3?'질서':'혼돈')+'의 '+['해','달','별'][i%3]+' 코어 : '+el.value;}else{const path=raw.split('.');let obj=state;for(let i=0;i<path.length-1;i++)obj=obj[path[i]];obj[path.at(-1)]=(el.type==='number'||el.dataset.num)?Number(el.value):el.type==='checkbox'?el.checked:el.value;}render();});});}
+function bindInputs(root,handler){root.querySelectorAll('[data-path]').forEach(el=>{el.addEventListener('change',()=>{const raw=el.dataset.path;if(raw.endsWith('.__coreName')){const path=raw.split('.');const i=Number(path[2]);const c=state.arkGrid.cores[i];c.name=(i<3?'질서':'혼돈')+'의 '+['해','달','별'][i%3]+' 코어 : '+el.value;}else{const path=raw.split('.');let obj=state;for(let i=0;i<path.length-1;i++)obj=obj[path[i]];obj[path.at(-1)]=(el.type==='number'||el.dataset.num)?Number(el.value):el.type==='checkbox'?el.checked:el.value;if(path.includes('bracelet')&&path[path.length-3]==='stats'){const st=state.equipment[Number(path[1])].bracelet.stats;const cap=['치명','신속','특화'];if(path.at(-1)==='val'&&cap.includes(obj.name)&&obj.val>120)obj.val=120;if(path.at(-1)==='val'&&obj.val<0)obj.val=0;if(path.at(-1)==='name'&&cap.includes(obj.name)&&obj.val>120)obj.val=120;}if(path.at(-1)==='tier'&&el.value==='에스더'&&path[0]==='equipment'&&state.equipment[Number(path[1])].slot==='무기'){obj.ella=3;obj.normalLevel=ellaMax(3);}}render();});});}
 
 const BANGLE_CATALOG=[{"row": "타대 스킬 피해", "g": {"하": {"v": "방향성공격이아닌스킬이적에게주는피해가2.5%증가한다.각성기는적용되지않는다.", "t": "타대 스킬 피해 +2.5%"}, "중": {"v": "방향성공격이아닌스킬이적에게주는피해가3%증가한다.각성기는적용되지않는다.", "t": "타대 스킬 피해 +3.0%"}, "상": {"v": "방향성공격이아닌스킬이적에게주는피해가3.5%증가한다.각성기는적용되지않는다.", "t": "타대 스킬 피해 +3.5%"}}}, {"row": "공이속", "g": {"하": {"v": "공격및이동속도가4%증가한다.", "t": "공이속 +4%"}, "중": {"v": "공격및이동속도가5%증가한다.", "t": "공이속 +5%"}, "상": {"v": "공격및이동속도가6%증가한다.", "t": "공이속 +6%"}}}, {"row": "치적 | 치명타 주는 피해", "g": {"하": {"v": "치명타적중률이3.4%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치적 +3.4% | 치명타 주는 피해 +1.5%"}, "중": {"v": "치명타적중률이4.2%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치적 +4.2% | 치명타 주는 피해 +1.5%"}, "상": {"v": "치명타적중률이5%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치적 +5.0% | 치명타 주는 피해 +1.5%"}}}, {"row": "치피 | 치명타 주는 피해", "g": {"하": {"v": "치명타피해가6.8%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치피 +6.8% | 치명타 주는 피해 +1.5%"}, "중": {"v": "치명타피해가8.4%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치피 +8.4% | 치명타 주는 피해 +1.5%"}, "상": {"v": "치명타피해가10%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치피 +10.0% | 치명타 주는 피해 +1.5%"}}}, {"row": "적에게 주는 피해", "g": {"하": {"v": "적에게주는피해가2%증가한다.", "t": "적에게 주는 피해 +2%"}, "중": {"v": "적에게주는피해가2.5%증가한다.", "t": "적에게 주는 피해 +2.5%"}, "상": {"v": "적에게주는피해가3%증가한다.", "t": "적에게 주는 피해 +3%"}}}, {"row": "적주피 | 무력화 적 피해량", "g": {"하": {"v": "적에게주는피해가2%증가하며,무력화상태의적에게주는피해가4%증가한다.", "t": "적주피 +2% | 무력화 적 피해량 +4%"}, "중": {"v": "적에게주는피해가2.5%증가하며,무력화상태의적에게주는피해가4.5%증가한다.", "t": "적주피 +2.5% | 무력화 적 피해량 +4.5%"}, "상": {"v": "적에게주는피해가3%증가하며,무력화상태의적에게주는피해가5%증가한다.", "t": "적주피 +3% | 무력화 적 피해량 +5%"}}}, {"row": "쿨 | 적에게 주는 피해", "g": {"하": {"v": "스킬의재사용대기시간이2%증가하지만,적에게주는피해가4.5%증가한다.", "t": "쿨 +2% | 적에게 주는 피해 +4.5%"}, "중": {"v": "스킬의재사용대기시간이2%증가하지만,적에게주는피해가5%증가한다.", "t": "쿨 +2% | 적에게 주는 피해 +5.0%"}, "상": {"v": "스킬의재사용대기시간이2%증가하지만,적에게주는피해가5.5%증가한다.", "t": "쿨 +2% | 적에게 주는 피해 +5.5%"}}}, {"row": "추피 | 악마&대악마 피해량", "g": {"하": {"v": "추가피해가2.5%증가한다.악마및대악마계열피해량이2.5%증가한다.", "t": "추피 +2.5% | 악마&대악마 피해량 +2.5%"}, "중": {"v": "추가피해가3%증가한다.악마및대악마계열피해량이2.5%증가한다.", "t": "추피 +3.0% | 악마&대악마 피해량 +2.5%"}, "상": {"v": "추가피해가3.5%증가한다.악마및대악마계열피해량이2.5%증가한다.", "t": "추피 +3.5% | 악마&대악마 피해량 +2.5%"}}}, {"row": "공격 적중 시 무공, 공이속", "g": {"하": {"v": "공격적중시매초마다10초동안무기공격력이1160,공격및이동속도가1%증가한다.(최대6중첩)", "t": "공격 적중 시 무공 1160, 공이속 1%"}, "중": {"v": "공격적중시매초마다10초동안무기공격력이1320,공격및이동속도가1%증가한다.(최대6중첩)", "t": "공격 적중 시 무공 1320, 공이속 1%"}, "상": {"v": "공격적중시매초마다10초동안무기공격력이1480,공격및이동속도가1%증가한다.(최대6중첩)", "t": "공격 적중 시 무공 1480, 공이속 1%"}}}, {"row": "무공 | 조건부 무공", "g": {"하": {"v": "무기공격력이7200증가한다.자신의생명력이50%이상일경우적에게공격적중시5초동안무기공격력이2000증가한다.", "t": "무공 7200 | 조건부 무공 2000"}, "중": {"v": "무기공격력이8100증가한다.자신의생명력이50%이상일경우적에게공격적중시5초동안무기공격력이2200증가한다.", "t": "무공 8100 | 조건부 무공 2200"}, "상": {"v": "무기공격력이9000증가한다.자신의생명력이50%이상일경우적에게공격적중시5초동안무기공격력이2400증가한다.", "t": "무공 9000 | 조건부 무공 2400"}}}, {"row": "무공 | 스택당 무공", "g": {"하": {"v": "무기공격력이6900증가한다.공격적중시30초마다120초동안무기공격력이130증가한다.(최대30중첩)", "t": "무공 6900 | 스택당 무공 130"}, "중": {"v": "무기공격력이7800증가한다.공격적중시30초마다120초동안무기공격력이140증가한다.(최대30중첩)", "t": "무공 7800 | 스택당 무공 140"}, "상": {"v": "무기공격력이8700증가한다.공격적중시30초마다120초동안무기공격력이150증가한다.(최대30중첩)", "t": "무공 8700 | 스택당 무공 150"}}}, {"row": "백어택 스킬 피해", "g": {"하": {"v": "백어택스킬이적에게주는피해가2.5%증가한다.", "t": "백어택 스킬 피해 +2.5%"}, "중": {"v": "백어택스킬이적에게주는피해가3%증가한다.", "t": "백어택 스킬 피해 +3.0%"}, "상": {"v": "백어택스킬이적에게주는피해가3.5%증가한다.", "t": "백어택 스킬 피해 +3.5%"}}}, {"row": "헤드어택 스킬 피해", "g": {"하": {"v": "헤드어택스킬이적에게주는피해가2.5%증가한다.", "t": "헤드어택 스킬 피해 +2.5%"}, "중": {"v": "헤드어택스킬이적에게주는피해가3%증가한다.", "t": "헤드어택 스킬 피해 +3.0%"}, "상": {"v": "헤드어택스킬이적에게주는피해가3.5%증가한다.", "t": "헤드어택 스킬 피해 +3.5%"}}}, {"row": "추가 피해", "g": {"하": {"v": "추가피해+3.00%", "t": "추가 피해 +3.0%"}, "중": {"v": "추가피해+3.50%", "t": "추가 피해 +3.5%"}, "상": {"v": "추가피해+4.00%", "t": "추가 피해 +4.0%"}}}, {"row": "아군 공격력 강화", "g": {"하": {"v": "아군공격력강화효과+4.00%", "t": "아군 공격력 강화 +4.0%"}, "중": {"v": "아군공격력강화효과+5.00%", "t": "아군 공격력 강화 +5.0%"}, "상": {"v": "아군공격력강화효과+6.00%", "t": "아군 공격력 강화 +6.0%"}}}, {"row": "아군 피해량 강화", "g": {"하": {"v": "아군피해량강화효과+6.00%", "t": "아군 피해량 강화 +6.0%"}, "중": {"v": "아군피해량강화효과+7.50%", "t": "아군 피해량 강화 +7.5%"}, "상": {"v": "아군피해량강화효과+9.00%", "t": "아군 피해량 강화 +9.0%"}}}, {"row": "치명타 적중률", "g": {"하": {"v": "치명타적중률+3.40%", "t": "치명타 적중률 +3.40%"}, "중": {"v": "치명타적중률+4.20%", "t": "치명타 적중률 +4.20%"}, "상": {"v": "치명타적중률+5.00%", "t": "치명타 적중률 +5.00%"}}}, {"row": "치명타 피해", "g": {"하": {"v": "치명타피해+6.80%", "t": "치명타 피해 +6.8%"}, "중": {"v": "치명타피해+8.40%", "t": "치명타 피해 +8.4%"}, "상": {"v": "치명타피해+10.00%", "t": "치명타 피해 +10.0%"}}}, {"row": "무기 공격력", "g": {"하": {"v": "무기공격력+7200", "t": "무기 공격력 +7200"}, "중": {"v": "무기공격력+8100", "t": "무기 공격력 +8100"}, "상": {"v": "무기공격력+9000", "t": "무기 공격력 +9000"}}}, {"row": "방깎 | 아공강", "g": {"하": {"v": "몬스터에게공격적중시8초동안대상의방어력을1.8%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가2%증가한다.", "t": "방깎 1.8% | 아공강 +2.0%"}, "중": {"v": "몬스터에게공격적중시8초동안대상의방어력을2.1%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가2.5%증가한다.", "t": "방깎 2.1% | 아공강 +2.5%"}, "상": {"v": "몬스터에게공격적중시8초동안대상의방어력을2.5%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가3%증가한다.", "t": "방깎 2.5% | 아공강 +3.0%"}}}, {"row": "치명타 저항 | 아공강", "g": {"하": {"v": "몬스터에게공격적중시8초동안대상의치명타저항을1.8%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가2%증가한다.", "t": "치명타 저항 -1.8% | 아공강 +2.0%"}, "중": {"v": "몬스터에게공격적중시8초동안대상의치명타저항을2.1%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가2.5%증가한다.", "t": "치명타 저항 -2.1% | 아공강 +2.5%"}, "상": {"v": "몬스터에게공격적중시8초동안대상의치명타저항을2.5%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가3%증가한다.", "t": "치명타 저항 -2.5% | 아공강 +3.0%"}}}, {"row": "보호 대상 피해량 | 아공강", "g": {"하": {"v": "파티효과로보호효과(보호막,생명력회복,받는피해감소)가적용된대상이5초동안적에게주는피해가0.9%증가한다.해당효과는한파티당하나만적용되며,지속시간이없는보호효과에는적용되지않는다.아군공격력강화효과가2%증가한다.", "t": "보호 대상 피해량 +0.9% | 아공강 +2.0%"}, "중": {"v": "파티효과로보호효과(보호막,생명력회복,받는피해감소)가적용된대상이5초동안적에게주는피해가1.1%증가한다.해당효과는한파티당하나만적용되며,지속시간이없는보호효과에는적용되지않는다.아군공격력강화효과가2.5%증가한다.", "t": "보호 대상 피해량 +1.1% | 아공강 +2.5%"}, "상": {"v": "파티효과로보호효과(보호막,생명력회복,받는피해감소)가적용된대상이5초동안적에게주는피해가1.3%증가한다.해당효과는한파티당하나만적용되며,지속시간이없는보호효과에는적용되지않는다.아군공격력강화효과가3%증가한다.", "t": "보호 대상 피해량 +1.3% | 아공강 +3.0%"}}}, {"row": "치명타 피해 저항 | 아공강", "g": {"하": {"v": "몬스터에게공격적중시8초동안대상의치명타피해저항을3.6%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가2%증가한다.", "t": "치명타 피해 저항 -3.6% | 아공강 +2.0%"}, "중": {"v": "몬스터에게공격적중시8초동안대상의치명타피해저항을4.2%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가2.5%증가한다.", "t": "치명타 피해 저항 -4.2% | 아공강 +2.5%"}, "상": {"v": "몬스터에게공격적중시8초동안대상의치명타피해저항을4.8%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가3%증가한다.", "t": "치명타 피해 저항 -4.8% | 아공강 +3.0%"}}}, {"row": "시드 이하 몬스터에게 주는 피해량", "g": {"하": {"v": "시드등급이하몬스터에게주는피해량이4%증가한다.", "t": "시드 이하 몬스터에게 주는 피해량 +4%"}, "중": {"v": "시드등급이하몬스터에게주는피해량이5%증가한다.", "t": "시드 이하 몬스터에게 주는 피해량 +5%"}, "상": {"v": "시드등급이하몬스터에게주는피해량이6%증가한다.", "t": "시드 이하 몬스터에게 주는 피해량 +6%"}}}, {"row": "시드 이하 몬스터에게 받는 피해량", "g": {"하": {"v": "시드등급이하몬스터에게받는피해량이6%감소한다.", "t": "시드 이하 몬스터에게 받는 피해량 +6%"}, "중": {"v": "시드등급이하몬스터에게받는피해량이8%감소한다.", "t": "시드 이하 몬스터에게 받는 피해량 +8%"}, "상": {"v": "시드등급이하몬스터에게받는피해량이10%감소한다.", "t": "시드 이하 몬스터에게 받는 피해량 +10%"}}}, {"row": "물리 방어력", "g": {"하": {"v": "물리방어력+5000", "t": "물리 방어력 +5000"}, "중": {"v": "물리방어력+6000", "t": "물리 방어력 +6000"}, "상": {"v": "물리방어력+7000", "t": "물리 방어력 +7000"}}}, {"row": "마법 방어력", "g": {"하": {"v": "마법방어력+5000", "t": "마법 방어력 +5000"}, "중": {"v": "마법방어력+6000", "t": "마법 방어력 +6000"}, "상": {"v": "마법방어력+7000", "t": "마법 방어력 +7000"}}}, {"row": "최대 생명력", "g": {"하": {"v": "최대생명력+11200", "t": "최대 생명력 +11200"}, "중": {"v": "최대생명력+14000", "t": "최대 생명력 +14000"}, "상": {"v": "최대생명력+16800", "t": "최대 생명력 +16800"}}}, {"row": "전투 중 생명력 회복량", "g": {"하": {"v": "전투중생명력회복량+100", "t": "전투 중 생명력 회복량 +100"}, "중": {"v": "전투중생명력회복량+130", "t": "전투 중 생명력 회복량 +130"}, "상": {"v": "전투중생명력회복량+160", "t": "전투 중 생명력 회복량 +160"}}}, {"row": "전투자원 자연 회복량", "g": {"하": {"v": "전투자원자연회복량+8.00%", "t": "전투자원 자연 회복량 +8%"}, "중": {"v": "전투자원자연회복량+10.00%", "t": "전투자원 자연 회복량 +10%"}, "상": {"v": "전투자원자연회복량+12.00%", "t": "전투자원 자연 회복량 +12%"}}}, {"row": "이동기 및 기상기 쿨감", "g": {"하": {"v": "이동기및기상기재사용대기시간이8%감소한다.", "t": "이동기 및 기상기 쿨감 +8%"}, "중": {"v": "이동기및기상기재사용대기시간이10%감소한다.", "t": "이동기 및 기상기 쿨감 +10%"}, "상": {"v": "이동기및기상기재사용대기시간이12%감소한다.", "t": "이동기 및 기상기 쿨감 +12%"}}}, {"row": "공격 적중 시 경피면", "g": {"하": {"v": "공격적중시80초동안경직및피격이상에면역이된다.(재사용대기시간80초)해당효과는1회피격시사라진다.", "t": "공격 적중 시 80초간 경피면"}, "중": {"v": "공격적중시70초동안경직및피격이상에면역이된다.(재사용대기시간70초)해당효과는1회피격시사라진다.", "t": "공격 적중 시 70초간 경피면"}, "상": {"v": "공격적중시60초동안경직및피격이상에면역이된다.(재사용대기시간60초)해당효과는1회피격시사라진다.", "t": "공격 적중 시 60초간 경피면"}}}, {"row": "보호 및 회복 효과", "g": {"하": {"v": "파티원보호및회복효과가2.5%증가한다.", "t": "보호 및 회복 효과 +2.5%"}, "중": {"v": "파티원보호및회복효과가3%증가한다.", "t": "보호 및 회복 효과 +3.0%"}, "상": {"v": "파티원보호및회복효과가3.5%증가한다.", "t": "보호 및 회복 효과 +3.5%"}}}];
 const ENG_NAMES=['원한','돌격대장','예리한 둔기','아드레날린','질량 증가','저주받은 인형','타격의 대가','기습의 대가','결투의 대가','달인의 저력','마나 효율 증가','바리케이드','속전속결','슈퍼 차지','안정된 상태','정밀 단도'];
@@ -2716,6 +2726,11 @@ const ACC_CATALOG={
  '반지':[{g:'치명타 적중률 (%)',n:'치명타 적중률',u:'%',v:{하:0.4,중:0.95,상:1.55}},{g:'치명타 피해 (%)',n:'치명타 피해',u:'%',v:{하:1.1,중:2.4,상:4}},...flatOpts]
 };
 const BASE_TIERS=['T4 유물','T4 고대','T4 전율'];
+const ELLA_MAX_DEFAULT={0:8,1:8,2:9,3:10};
+function ellaMax(n){
+ try{const t=((DATA.game||{}).equipmentDataset||{})['에스더']||{};const ks=Object.keys(t['엘라 '+n]||{}).map(Number).filter(Number.isFinite);if(ks.length)return Math.max(...ks);}catch(e){}
+ return ELLA_MAX_DEFAULT[n]??10;
+}
 const SLOT_GLYPH={투구:'투',어깨:'어',상의:'상',하의:'하',장갑:'장',무기:'무',완갑:'완',목걸이:'목',귀걸이:'귀',반지:'반','어빌리티 스톤':'석',팔찌:'팔'};
 const fmtAccVal=(c,val)=>c.u==='%'?'+'+Number(val).toFixed(2)+'%':'+'+val;
 const optText=(c,val)=>c.n+' '+fmtAccVal(c,val);
@@ -2767,9 +2782,9 @@ function openPicker(trigger,spec){
 }
 
 function eqSim(e){
- if(e.simulation)return e.simulation;
+ if(e.simulation){const t=e.simulation.tier;if(t!=='T4 전율'&&!(t==='에스더'&&e.slot==='무기'))e.simulation.tier='T4 전율';return e.simulation;}
  const nm=(e.name||'').match(/^\+(\d+)/);
- const tier=/전율/.test(e.name||'')?'T4 전율':e.grade==='유물'?'T4 유물':'T4 고대';
+ const tier=/에스더/.test(e.grade||'')?'에스더':'T4 전율';
  return e.simulation={normalLevel:nm?Number(nm[1]):0,advancedLevel:0,tier,batch:true};
 }
 function renderEquipment(){
@@ -2777,14 +2792,16 @@ function renderEquipment(){
  const slots=['투구','어깨','상의','하의','장갑','무기','완갑'];
  const row=(e,i)=>{
   const x=eqSim(e);
-  const tiers=e.slot==='무기'?[...BASE_TIERS,'에스더']:e.slot==='완갑'?['T4 전율']:BASE_TIERS;
+  const tiers=e.slot==='무기'?['T4 전율','에스더']:['T4 전율'];
   const adv=e.slot!=='완갑';
   const jeon=(x.tier||tiers[0])==='T4 전율';
-  if(jeon||!adv)x.advancedLevel=0;
-  return `<div class="lx-eq"><div class="lx-eqicon">${icon(e,e.slot,e.itemLevel?`<div class="lx-il">${esc(e.itemLevel)}</div>`:'')}</div>
+  const isEs=e.slot==='무기'&&x.tier==='에스더';
+  if(isEs){x.ella=Math.max(0,Math.min(3,Number(x.ella)||0));const mx=ellaMax(x.ella);if((Number(x.normalLevel)||0)>mx)x.normalLevel=mx;}
+  if(jeon||!adv||isEs)x.advancedLevel=0;
+  return `<div class="lx-eq"><div class="lx-eqicon">${icon(e,e.slot)}</div>
   <div class="lx-eqmain">
-   <div class="lx-line">${sel(`equipment.${i}.simulation.tier`,x.tier||tiers[0],tiers,null,false,e.slot==='완갑')}</div>
-   <div class="lx-line">${sel(`equipment.${i}.simulation.normalLevel`,x.normalLevel??0,Array.from({length:26},(_,n)=>25-n),Array.from({length:26},(_,n)=>'+'+(25-n)),true)}${adv&&!jeon?`<label>상급재련</label>${sel(`equipment.${i}.simulation.advancedLevel`,x.advancedLevel??0,Array.from({length:41},(_,n)=>40-n),Array.from({length:41},(_,n)=>'X'+(40-n)),true)}`:''}</div></div></div>`;
+   <div class="lx-line">${sel(`equipment.${i}.simulation.tier`,x.tier||tiers[0],tiers,null,false,e.slot!=='무기')}</div>
+   <div class="lx-line">${isEs?(()=>{const mx=ellaMax(x.ella);return sel(`equipment.${i}.simulation.normalLevel`,x.normalLevel??0,Array.from({length:mx+1},(_,n)=>mx-n),Array.from({length:mx+1},(_,n)=>'+'+(mx-n)),true)+'<label>엘라</label>'+sel(`equipment.${i}.simulation.ella`,x.ella,[0,1,2,3],['엘라 0','엘라 1','엘라 2','엘라 3'],true);})():sel(`equipment.${i}.simulation.normalLevel`,x.normalLevel??0,Array.from({length:26},(_,n)=>25-n),Array.from({length:26},(_,n)=>'+'+(25-n)),true)}${adv&&!jeon&&!isEs?`<label>상급재련</label>${sel(`equipment.${i}.simulation.advancedLevel`,x.advancedLevel??0,Array.from({length:41},(_,n)=>40-n),Array.from({length:41},(_,n)=>'X'+(40-n)),true)}`:''}</div></div></div>`;
  };
  $('equiplist').innerHTML=(slots.map(s=>{const i=eq.findIndex(e=>e.slot===s);return i<0?'':row(eq[i],i)}).join('')||'<div class="muted">장비 데이터 없음</div>');
 }
@@ -2876,7 +2893,7 @@ function renderBracelet(){
  const statNames=['없음','힘','민첩','지능','치명','특화','신속','제압','인내','숙련','체력'];
  const slotRow=(s,k)=>{const c=BANGLE_CATALOG.find(x=>x.row===s.row),g=c&&c.g[s.grade];return `<div class="lx-opt">${s.row==='없음'?gradeBadge('-',true):gradeBadge(s.grade)}${trig(`bangle:${k}`,g?g.t:'없음')}</div>`;};
  $('bracelet-editor').innerHTML=`<div class="lx-bangle"><div class="lx-eqicon">${icon(e,'팔찌')}</div><div class="lx-bangpick">
-  ${br.stats.slice(0,2).map((x,k)=>`<div class="lx-line">${sel(`equipment.${bi}.bracelet.stats.${k}.name`,x.name,statNames)}<input class="field lx-num" type="number" value="${x.val}" data-path="equipment.${bi}.bracelet.stats.${k}.val"></div>`).join('')}
+  ${br.stats.slice(0,2).map((x,k)=>`<div class="lx-line">${sel(`equipment.${bi}.bracelet.stats.${k}.name`,x.name,statNames)}<input class="field lx-num" type="number" value="${x.val}" data-path="equipment.${bi}.bracelet.stats.${k}.val" ${['치명','신속','특화'].includes(x.name)?'max="120" ':''}min="0"></div>`).join('')}
   ${br.slots.map(slotRow).join('')}</div></div>`;
 }
 function bangleSpec(k){
@@ -3440,11 +3457,26 @@ render();
     state = S; ensureEvo(true); ensureTripodSel(true);
     render(); renderEvo(); renderSkillSim(); scheduleCalc(); histReset();
   }
+  function warnModal(slots) {
+    const old = document.getElementById('la-warn'); if (old) old.remove();
+    const ov = document.createElement('div'); ov.id = 'la-warn'; ov.className = 'la-warn';
+    ov.innerHTML = '<div class="la-warn-box" role="alertdialog" aria-modal="true"><div class="la-warn-ico">!</div><div class="la-warn-t">T4 전율 장비가 아닌 부위가 있어요</div><div class="la-warn-s">' + slots.map(x => '<span>' + x + '</span>').join('') + '</div><div class="la-warn-d">이 시뮬레이터는 T4 전율 장비 기준으로만 정상 작동합니다.<br>해당 부위가 포함되면 계산 결과가 올바르지 않을 수 있어요.</div><button type="button" class="la-warn-b">확인</button></div>';
+    const close = () => { ov.remove(); document.removeEventListener('keydown', key, true); };
+    const key = e => { if (e.key === 'Escape' || e.key === 'Enter') { e.preventDefault(); close(); } };
+    ov.addEventListener('mousedown', e => { if (e.target === ov) close(); });
+    ov.querySelector('.la-warn-b').onclick = close;
+    document.addEventListener('keydown', key, true);
+    document.body.appendChild(ov); ov.querySelector('.la-warn-b').focus();
+  }
   function applyRaw(raw, cache) {
     try { const pr = raw && raw.profiles; ; } catch (e) {}
     const S = LAParser.parseCharacter(raw);
     if (cache) saveChar(JSON.parse(JSON.stringify(S)));
     applyState(S);
+    try {
+      const bad = (S.equipment || []).filter(e => ['투구', '어깨', '상의', '하의', '장갑', '무기'].includes(e.slot) && !/에스더/.test(e.grade || '') && !/전율/.test(e.name || ''));
+      if (bad.length) warnModal(bad.map(e => e.slot));
+    } catch (e) { }
   }
   async function loadFromApi() {
     const name = $q('#imp-name').value.trim(), key = $q('#imp-key').value.trim().replace(/^bearer\s+/i, '');

@@ -1226,7 +1226,7 @@ function makeEnv(o) {
             const nodeList = pointData.nodes || (Array.isArray(pointData) ? pointData : [pointData]);
             nodeList.forEach(nodeItem => {
                 const targetEffects = Array.isArray(nodeItem.effects) ? nodeItem.effects : [nodeItem];
-                targetEffects.forEach(effect => cb(effect, reqPoint));
+                targetEffects.forEach(effect => cb(effect, reqPoint, nodeItem.groupId));
             });
         });
     }
@@ -1243,19 +1243,25 @@ function makeEnv(o) {
         return isSkillMatch || isTagMatch || isGlobalMatch;
     }
 
-    function accumulateCoreEffect(pendingGroups, effect, reqPoint) {
-        const { category, val, unit, groupId } = effect;
+    function accumulateCoreEffect(pendingGroups, effect, reqPoint, nodeGid) {
+        const { category, val, unit } = effect;
+        const groupId = effect.groupId ?? nodeGid;
         if (!category || val === undefined) return;
 
         const numVal = Number(val);
-        const groupKey = groupId || `point_${reqPoint}_${category}`;
+        const hasGroup = groupId !== undefined && groupId !== null && groupId !== '';
+        const groupKey = hasGroup ? `group_${groupId}_${category}` : `point_${reqPoint}_${category}`;
         const group = pendingGroups[groupKey];
 
         if (!group) {
-            pendingGroups[groupKey] = { category, val: numVal, unit: unit === "%" ? "%" : "", pointList: [reqPoint] };
+            pendingGroups[groupKey] = { category, val: numVal, unit: unit === "%" ? "%" : "", pointList: [reqPoint], maxPoint: reqPoint };
             return;
         }
-        group.val = groupId ? Math.max(group.val, numVal) : group.val + numVal;
+        if (hasGroup) {
+            if (reqPoint >= group.maxPoint) { group.val = numVal; group.maxPoint = reqPoint; group.pointList = [reqPoint]; }
+            return;
+        }
+        group.val = group.val + numVal;
         if (!group.pointList.includes(reqPoint)) group.pointList.push(reqPoint);
     }
 
@@ -1296,8 +1302,8 @@ function makeEnv(o) {
             if (!gradeKey || !gradesObj[gradeKey]) return;
 
             const pendingGroups = {};
-            forEachCoreEffect(gradesObj[gradeKey], Number(core.level) || 0, (effect, reqPoint) => {
-                if (matchCoreEffect(effect, ctx, true)) accumulateCoreEffect(pendingGroups, effect, reqPoint);
+            forEachCoreEffect(gradesObj[gradeKey], Number(core.level) || 0, (effect, reqPoint, nodeGid) => {
+                if (matchCoreEffect(effect, ctx, true)) accumulateCoreEffect(pendingGroups, effect, reqPoint, nodeGid);
             });
 
             flushCoreGroups(stats, pendingGroups, (pts) =>
@@ -1336,7 +1342,7 @@ function makeEnv(o) {
                 rawEffectList.forEach(item => {
                     const targetEffects = Array.isArray(item.effects) ? item.effects : [item];
                     targetEffects.forEach(effect => {
-                        if (matchCoreEffect(effect, ctx, false)) accumulateCoreEffect(pendingGroups, effect, reqPoint);
+                        if (matchCoreEffect(effect, ctx, false)) accumulateCoreEffect(pendingGroups, effect, reqPoint, item.groupId);
                     });
                 });
             });

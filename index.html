@@ -1729,7 +1729,7 @@ function makeEnv(o) {
         const normalAtkPercent = getStatSum(stats, "기본 공격력 %");
 
         const calculatedBaseAtk = finalStat > 0 && finalWeaponAtk > 0
-            ? (Math.sqrt((finalStat * finalWeaponAtk) / 6)) * (1 + (normalAtkPercent + carveAtkBonusPercent) / 100)
+            ? (Math.sqrt((finalStat * finalWeaponAtk) / 6) + getStatSum(stats, "기본 공격력")) * (1 + (normalAtkPercent + carveAtkBonusPercent) / 100)
             : 0;
 
         const flatAtkBonus = getStatSum(stats, "공격력");
@@ -2498,7 +2498,7 @@ if (window.isArkPassiveOpen === undefined) window.isArkPassiveOpen = true;
                     <div style="background: #181920; border: 1px solid #2e323d; padding: 14px; border-radius: 8px;">
                         <div style="font-weight: 600; color: #c084fc; margin-bottom: 8px; font-size: 0.95rem;">2. 기본 공격력</div>
                         <div style="background: #0f1015; padding: 8px 12px; border-radius: 6px; border: 1px solid #222634; margin-bottom: 8px; font-size: 0.82rem; color: #cbd5e1;">
-                            💡 <strong>공식:</strong> ( √(주스탯 ${Math.floor(finalStat).toLocaleString()} × 최종무공 ${Math.floor(finalWeaponAtk).toLocaleString()}) / 6 )*계수
+                            💡 <strong>공식:</strong> ( √(주스탯 ${Math.floor(finalStat).toLocaleString()} × 최종무공 ${Math.floor(finalWeaponAtk).toLocaleString()} / 6) + 기본 공격력 합산 ) × 계수
                         </div>
                         ${formatItemListToTable(stats["기본 공격력"], vambracePercentList, { flat: "[기본 공격력 합산]", percent: "[기본 공격력 % 계수]" })}
                         <div style="text-align: right; font-weight: bold; color: #e2e8f0; margin-top: 10px; font-size: 0.95rem; border-top: 1px dashed #2e323d; padding-top: 8px;">

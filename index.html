@@ -44,7 +44,7 @@
 @media(max-width:760px){.arkcolumns{grid-template-columns:1fr}.arkgemhead{display:none}.arkgem{grid-template-columns:60px minmax(0,1fr) 42px 42px 20px}.arkcorecontrols{grid-template-columns:1fr 1fr}}
 
 .la-warn{position:fixed;inset:0;z-index:9999;background:rgba(5,9,14,.68);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:16px;animation:lawf .15s ease-out}
-.la-warn-box{width:min(380px,100%);background:linear-gradient(180deg,#1c2735,#151f2b);border:1px solid #3a2f26;border-top:3px solid var(--gold);border-radius:12px;padding:24px 22px 18px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.55);animation:law .18s ease-out}
+.la-warn-box{width:min(380px,100%);max-height:90vh;overflow:auto;background:linear-gradient(180deg,#1c2735,#151f2b);border:1px solid #3a2f26;border-top:3px solid var(--gold);border-radius:12px;padding:24px 22px 18px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.55);animation:law .18s ease-out}
 .la-warn-ico{width:42px;height:42px;margin:0 auto 12px;border-radius:50%;background:rgba(255,200,92,.14);border:1px solid rgba(255,200,92,.5);color:var(--gold);font-size:24px;font-weight:800;line-height:40px}
 .la-warn-t{font-size:16px;font-weight:700;color:var(--text);margin-bottom:10px}
 .la-warn-s{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
@@ -53,6 +53,38 @@
 .la-warn-b{width:100%;padding:10px;border-radius:8px;border:1px solid #4c7aa8;background:linear-gradient(180deg,#34608a,#2a4d6f);color:#fff;font-size:13px;font-weight:600;cursor:pointer}
 .la-warn-b:hover{filter:brightness(1.15)}
 @keyframes lawf{from{opacity:0}to{opacity:1}}@keyframes law{from{transform:translateY(8px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+.ark-node.ark-unsup{opacity:.45;cursor:not-allowed;position:relative}
+.ark-node.ark-unsup .ark-icon{filter:grayscale(1) brightness(.7);cursor:not-allowed}
+.ark-node.ark-unsup .btn-node{cursor:not-allowed;opacity:.5}
+.ark-unsup-wrap{position:relative;display:block;width:48px;height:48px;margin-bottom:6px;flex:none}
+.ark-unsup-wrap .ark-icon{margin:0!important;display:block}
+.ark-unsup-wrap::after{content:'';position:absolute;left:50%;top:50%;width:30px;height:30px;margin:-15px 0 0 -15px;box-sizing:border-box;border:2px solid rgba(248,113,113,.9);border-radius:50%;background:linear-gradient(135deg,transparent 45%,rgba(248,113,113,.9) 46%,rgba(248,113,113,.9) 54%,transparent 55%);pointer-events:none}
+.ark-node.ark-unsup.ark-shake{animation:aks .25s}
+.ark-unsup-msg{margin-top:6px;min-height:18px;font-size:12px;color:#f87171;text-align:center;opacity:0;transform:translateY(-3px);transition:opacity .2s,transform .2s;pointer-events:none}
+.ark-unsup-msg.show{opacity:1;transform:none}
+@keyframes aks{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+
+.tabcard{margin-top:14px;padding:0!important;overflow:hidden}
+.tabbar{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;padding:0;margin:0;border-bottom:1px solid var(--line);background:rgba(10,16,24,.5);overflow:visible}
+.tabbar button{position:relative;flex:none;display:flex;align-items:center;gap:10px;margin:0;border:0;border-right:1px solid rgba(255,255,255,.04);border-radius:0;background:transparent;color:#8b99ab;font:inherit;font-size:14px;font-weight:700;letter-spacing:-.02em;padding:14px 20px;cursor:pointer;white-space:nowrap;transition:color .15s,background .15s}
+.tabbar button:hover{color:#d6e0ee;background:rgba(80,160,240,.08)}
+.tabbar button.on{color:#eef6ff;font-weight:800;background:linear-gradient(90deg,rgba(66,140,214,.3),rgba(66,140,214,.08) 70%,rgba(66,140,214,.02))}
+.tabbar button.on::before{content:'';flex:none;width:5px;height:18px;border-radius:3px;background:linear-gradient(180deg,#7fd0ff,#3a78d8);box-shadow:0 0 10px rgba(80,160,240,.45)}
+.tabpanes{padding:12px}
+.tabpane{display:none;flex-direction:column;gap:12px}
+.tabpane.on{display:flex}
+.tabcard .tabpane>.panel{margin:0}
+.tabcard .panel.collapsed .panel-content{display:block}
+.tabcard .panel-toggle{pointer-events:none;cursor:default}
+.tabcard .panel-toggle .collapse-mark{display:none}
+.cp-btn.lay{background:#7c3aed;border-color:#a78bfa}
+.ss-hidrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:8px 12px;margin:-2px 0 10px;background:rgba(224,184,106,.06);border:1px dashed rgba(224,184,106,.35);border-radius:9px;font-size:12px}
+.ss-hidlab{color:#e0b86a;font-weight:700;margin-right:2px}
+.ss-chip{border:1px solid #3a4a5d;background:#1b2838;color:#dcecff;border-radius:999px;padding:3px 10px;font:inherit;font-size:12px;cursor:pointer}
+.ss-chip i{font-style:normal;color:#7fd0ff;margin-left:2px}
+.ss-chip:hover{background:#26384b;border-color:#4c7aa8}
+.ss-hidrow .ss-link{margin-left:auto}
+.ss-hide{padding:4px 9px;font-size:12px}
 </style><style>
 .equip-bulk{display:grid;grid-template-columns:auto 1fr 1fr;gap:6px;align-items:center;margin:8px 0 12px;padding:8px;background:var(--panel2,#151e2b);border-radius:9px;font-size:11px}
 .equip-detail{padding:10px 0;border-bottom:1px solid var(--line,#263244)}.equip-detail-head{display:flex;justify-content:space-between;align-items:center}.equip-detail .editgrid{margin-top:7px}.batch-check{display:flex;gap:5px;align-items:center;font-size:11px;color:var(--muted)}
@@ -629,7 +661,7 @@ button,input,select,textarea{font-family:inherit}
 </div>
 <section class="panel" id="engravings"><div class="sectiontitle"><h3>각인</h3><span class="count" id="engcount"></span></div><div class="engraves" id="engrlist"></div></section>
 <section class="panel" id="arkpoints-panel"><div class="sectiontitle"><h3>아크 패시브 포인트</h3></div><div id="points-bar"></div><div class="arkpoints" id="points"></div></section>
-<section class="panel" id="arkgrid"><div class="sectiontitle"><h3>아크 그리드</h3><span class="count" id="corecount"></span></div><div class="arktoolbar"><span class="muted">일괄 변경</span><div class="arkbulk"><select class="field" id="ark-bulk-grade"><option value="">코어 등급</option><option>영웅</option><option>전설</option><option>유물</option><option>고대</option></select><select class="field" id="ark-bulk-level"><option value="">젬 옵션 레벨</option><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div></div><div id="arkgrid-editor"></div></section>
+<section class="panel" id="arkgrid"><div class="sectiontitle"><h3>아크 그리드</h3><span class="count" id="corecount"></span></div><div class="arktoolbar"><span class="muted">일괄 변경</span><div class="arkbulk"><select class="field" id="ark-bulk-grade"><option value="">코어 등급</option><option>유물</option><option>고대</option></select><select class="field" id="ark-bulk-level"><option value="">젬 옵션 레벨</option><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div></div><div id="arkgrid-editor"></div></section>
 
 <section class="panel hidden" id="arkpassive-section"><div class="sectiontitle"><h3>아크 패시브</h3><span class="count" id="arktitle"></span></div><div id="arkeffects" class="statgrid"></div></section>
 </main></div><div class="footer">Lostark Character Simulator UI · API 데이터 + 외부 JSON 데이터로 계산합니다. 키와 업로드한 데이터는 이 브라우저에만 저장됩니다.</div></div>
@@ -2648,6 +2680,8 @@ if (window.isArkPassiveOpen === undefined) window.isArkPassiveOpen = true;
             row.forEach((node) => {
                 const nodeDiv = document.createElement('div');
                 nodeDiv.className = 'ark-node';
+                const unsup = (EVO_UNSUPPORTED[rowIndex + 1] || []).includes(node.name);
+                if (unsup) nodeDiv.classList.add('ark-unsup');
 
                 const currentRowTotal = row.reduce((sum, n) => sum + n.current, 0);
                 nodeDiv.title = `${node.name} (현재: ${node.current}/${node.max} | 라인 합계: ${currentRowTotal}/${maxRowLimit})`;
@@ -2685,9 +2719,11 @@ if (window.isArkPassiveOpen === undefined) window.isArkPassiveOpen = true;
                 const decBtn = nodeDiv.querySelector('.btn-dec');
                 const incBtn = nodeDiv.querySelector('.btn-inc');
                 const iconImg = nodeDiv.querySelector('.ark-icon');
+                if (unsup) { const w = document.createElement('span'); w.className = 'ark-unsup-wrap'; iconImg.parentNode.insertBefore(w, iconImg); w.appendChild(iconImg); }
 
                 const handleNodeChange = (delta, e) => {
                     e.stopPropagation();
+                    if (unsup) { showEvoMsg(node.name); nodeDiv.classList.remove('ark-shake'); void nodeDiv.offsetWidth; nodeDiv.classList.add('ark-shake'); return; }
                     changeValue(delta);
                     CTX.onEvoChange(rowIndex, node);
                 };
@@ -2695,6 +2731,7 @@ if (window.isArkPassiveOpen === undefined) window.isArkPassiveOpen = true;
                 decBtn.onclick = (e) => handleNodeChange(e.shiftKey ? -10 : -1, e);
                 incBtn.onclick = (e) => handleNodeChange(e.shiftKey ? 10 : 1, e);
                 iconImg.onclick = (e) => handleNodeChange(e.shiftKey ? 10 : 1, e);
+                if (unsup) { decBtn.disabled = true; incBtn.disabled = true; decBtn.onclick = incBtn.onclick = (e) => { e.stopPropagation(); showEvoMsg(node.name); }; nodeDiv.title = node.name + ' - 지원되지 않는 노드입니다'; }
                 iconImg.oncontextmenu = (e) => {
                     e.preventDefault();
                     handleNodeChange(e.shiftKey ? -10 : -1, e);
@@ -2708,6 +2745,19 @@ if (window.isArkPassiveOpen === undefined) window.isArkPassiveOpen = true;
 
         details.appendChild(contentDiv);
         container.appendChild(details);
+        const msg = document.createElement('div');
+        msg.className = 'ark-unsup-msg'; msg.setAttribute('role', 'status');
+        container.appendChild(msg);
+        evoMsgEl = msg;
+    }
+    const EVO_UNSUPPORTED = { 1: ['제압', '인내', '숙련'], 2: ['축복의 여신'], 3: ['정열의 춤사위'], 4: ['선각자', '진군', '기원'], 5: ['안정된 관리자'] };
+    let evoMsgEl = null, evoMsgTimer = null;
+    function showEvoMsg(name) {
+        if (!evoMsgEl) return;
+        evoMsgEl.textContent = '\u26D4 ' + name + ' : 지원되지 않는 노드입니다';
+        evoMsgEl.classList.remove('show'); void evoMsgEl.offsetWidth; evoMsgEl.classList.add('show');
+        clearTimeout(evoMsgTimer);
+        evoMsgTimer = setTimeout(() => { if (evoMsgEl) evoMsgEl.classList.remove('show'); }, 2600);
     }
 
 window.renderArkPassiveUI = renderArkPassiveUIInner;
@@ -2918,7 +2968,7 @@ function renderEngravings(){
  $('engcount').textContent=list.length+'개';
  $('engrlist').innerHTML=list.map((e,i)=>{
   const names=[...new Set([...ENG_NAMES,e.name])];
-  return `<div class="lx-eng"><div class="lx-engicon">${(()=>{const u=window.laIcon&&laIcon.engraving(e.name);return u?`<img src="${esc(u)}" alt="" loading="lazy" onerror="this.remove()">`:'✧'})()}</div><div class="lx-engbody"><div class="lx-line">${sel(`engravings.${i}.grade`,e.grade||'유물',['전설','유물'],null,false)}${sel(`engravings.${i}.level`,e.level??0,[0,1,2,3,4],[0,1,2,3,4].map(n=>'X'+n),true)}</div>${sel(`engravings.${i}.name`,e.name,names)}</div></div>`;
+  return `<div class="lx-eng"><div class="lx-engicon">${(()=>{const u=window.laIcon&&laIcon.engraving(e.name);return u?`<img src="${esc(u)}" alt="" loading="lazy" onerror="this.remove()">`:'✧'})()}</div><div class="lx-engbody"><div class="lx-line">${sel(`engravings.${i}.grade`,e.grade||'유물',['유물'],null,false)}${sel(`engravings.${i}.level`,e.level??0,[0,1,2,3,4],[0,1,2,3,4].map(n=>'X'+n),true)}</div>${sel(`engravings.${i}.name`,e.name,names)}</div></div>`;
  }).join('')||'<div class="muted">각인 데이터 없음</div>';
 }
 
@@ -3018,12 +3068,12 @@ renderAvatars();
 renderStone();renderBracelet();
 renderEngravings();
 
-const CORE_NAMES = [["없음", "비연참", "기류 조절", "바람의 칼날"], ["없음", "우산의 춤", "상승기류", "쾌속"], ["없음", "휘몰아치기", "일점돌파", "강풍일섬"], ["없음", "현란한 공격", "안정적인 공격", "재빠른 공격", "신념의 강화", "흐르는 마나", "불굴의 강화"], ["없음", "불타는 일격", "흡수의 일격", "부수는 일격", "낙인의 흔적", "강철의 흔적", "치명적인 흔적"], ["없음", "공격", "무기", "구원", "생명", "속도", "방어"]];
+const CORE_NAMES = [["없음", "비연참", "기류 조절", "바람의 칼날"], ["없음", "우산의 춤", "상승기류", "쾌속"], ["없음", "휘몰아치기", "일점돌파", "강풍일섬"], ["없음", "현란한 공격", "안정적인 공격", "재빠른 공격"], ["없음", "불타는 일격", "흡수의 일격", "부수는 일격"], ["없음", "공격", "무기"]];
 const CORE_LABELS = ['질서의 해','질서의 달','질서의 별','혼돈의 해','혼돈의 달','혼돈의 별'];
 const GEM_TYPES = ['안정','견고','불변','왜곡'];
 const GEM_EFFECTS = ['공격력','추가 피해','보스 피해','낙인력','아군 공격 강화','아군 피해 강화'];
 const CORE_POINTS = [20,19,18,17,14,10];
-const GRADE_OPTIONS = ['영웅','전설','유물','고대'];
+const GRADE_OPTIONS = ['유물','고대'];
 function coreNameValue(c,i){
  const prefix=(i<3?'질서':'혼돈')+'의 '+['해','달','별'][i%3]+' 코어 : ';
  const raw=String(c.name||''); return raw.includes(' : ')?raw.split(' : ').slice(1).join(' : '):raw;
@@ -3238,8 +3288,10 @@ render();
     }
     const env = E.makeEnv({ addStatBase: statList, specializationDatabase: d.spec, orderDataSets: LAEngine.parseOrderDataSets(d.cores), selectedTripods: sel,
       partyCritCount: FLAGS.party, multiCrit: FLAGS.multi, estherBonding1: FLAGS.est1, estherBonding2: FLAGS.est2 });
-    const res = E.calculate(inputs, env, d.skills);
-    return { res, unmatchedSkills, ignoredTripods, ex, inputs, calc: () => E.calculate(inputs, env, d.skills) };
+    const vis = r => !(r && [...ssHid].some(h => norm(h) === norm(r.skillName)));
+    const calcVis = () => E.calculate(inputs, env, d.skills).filter(vis);
+    const res = calcVis();
+    return { res, unmatchedSkills, ignoredTripods, ex, inputs, calc: calcVis };
   }
 
   let lastRun = null, calcTimer = null;
@@ -3463,10 +3515,10 @@ render();
     state = S; ensureEvo(true); ensureTripodSel(true);
     render(); renderEvo(); renderSkillSim(); scheduleCalc(); histReset();
   }
-  function warnModal(slots) {
+  function warnModal(groups) {
     const old = document.getElementById('la-warn'); if (old) old.remove();
     const ov = document.createElement('div'); ov.id = 'la-warn'; ov.className = 'la-warn';
-    ov.innerHTML = '<div class="la-warn-box" role="alertdialog" aria-modal="true"><div class="la-warn-ico">!</div><div class="la-warn-t">T4 전율 장비가 아닌 부위가 있어요</div><div class="la-warn-s">' + slots.map(x => '<span>' + x + '</span>').join('') + '</div><div class="la-warn-d">이 시뮬레이터는 T4 전율 장비 기준으로만 정상 작동합니다.<br>해당 부위가 포함되면 계산 결과가 올바르지 않을 수 있어요.</div><button type="button" class="la-warn-b">확인</button></div>';
+    ov.innerHTML = '<div class="la-warn-box" role="alertdialog" aria-modal="true"><div class="la-warn-ico">!</div>' + groups.map(g => '<div class="la-warn-t">' + g.title + '</div><div class="la-warn-s">' + g.chips.map(x => '<span>' + x + '</span>').join('') + '</div><div class="la-warn-d">' + g.desc + '</div>').join('') + '<button type="button" class="la-warn-b">확인</button></div>';
     const close = () => { ov.remove(); document.removeEventListener('keydown', key, true); };
     const key = e => { if (e.key === 'Escape' || e.key === 'Enter') { e.preventDefault(); close(); } };
     ov.addEventListener('mousedown', e => { if (e.target === ov) close(); });
@@ -3478,11 +3530,32 @@ render();
     try { const pr = raw && raw.profiles; ; } catch (e) {}
     const S = LAParser.parseCharacter(raw);
     if (cache) saveChar(JSON.parse(JSON.stringify(S)));
-    applyState(S);
+    const groups = [];
     try {
       const bad = (S.equipment || []).filter(e => ['투구', '어깨', '상의', '하의', '장갑', '무기'].includes(e.slot) && !/에스더/.test(e.grade || '') && !/전율/.test(e.name || ''));
-      if (bad.length) warnModal(bad.map(e => e.slot));
+      if (bad.length) groups.push({ title: 'T4 전율 장비가 아닌 부위가 있어요', chips: bad.map(e => e.slot), desc: '이 시뮬레이터는 T4 전율 장비 기준으로만 정상 작동합니다.<br>해당 부위가 포함되면 계산 결과가 올바르지 않을 수 있어요.' });
+      const cs = (S.arkGrid && S.arkGrid.cores) || [], labs = ['질서의 해', '질서의 달', '질서의 별', '혼돈의 해', '혼돈의 달', '혼돈의 별'];
+      const unsup = ['신념의 강화', '흐르는 마나', '불굴의 강화', '낙인의 흔적', '강철의 흔적', '치명적인 흔적', '구원', '생명', '속도', '방어'];
+      const cg = [], cn = [];
+      cs.forEach((c, k) => {
+        if (['영웅', '전설'].includes(String(c.grade || '').replace(/\s*코어/, '').trim())) cg.push(labs[k] + ' ' + String(c.grade).replace(/\s*코어/, '') + ' 코어');
+        const nm = String(c.name || '').split(':').pop().trim();
+        if (k >= 3 && unsup.includes(nm)) cn.push(labs[k] + ' : ' + nm);
+      });
+      if (cg.length) groups.push({ title: '지원하지 않는 코어 등급이 있어요', chips: cg, desc: '유물·고대 등급만 지원합니다.<br>해당 코어의 효과는 계산에 반영되지 않을 수 있어요.' });
+      if (cn.length) groups.push({ title: '지원하지 않는 혼돈 코어 종류예요', chips: cn, desc: '서포터 계열 코어는 계산을 지원하지 않아요.' });
+      const eg = (S.engravings || []).filter(e => String(e.grade || '') !== '유물').map(e => e.name + ' (' + (e.grade || '등급 없음') + ')');
+      if (eg.length) groups.push({ title: '지원하지 않는 각인 등급이 있어요', chips: eg, desc: '유물 등급 각인만 지원합니다.<br>해당 각인은 올바르게 계산되지 않을 수 있어요.' });
+      cs.forEach((c, k) => {
+        const gr = String(c.grade || '').replace(/\s*코어/, '').trim();
+        if (gr === '영웅' || gr === '전설') c.grade = '유물';
+        const nm = String(c.name || '').split(':').pop().trim();
+        if (k >= 3 && unsup.includes(nm)) c.name = labs[k] + ' 코어 : 없음';
+      });
+      (S.engravings || []).forEach(e => { if (String(e.grade || '') !== '유물') e.grade = '유물'; });
     } catch (e) { }
+    applyState(S);
+    if (groups.length) warnModal(groups);
   }
   async function loadFromApi() {
     const name = $q('#imp-name').value.trim(), key = $q('#imp-key').value.trim().replace(/^bearer\s+/i, '');
@@ -3523,6 +3596,8 @@ render();
   function tripodEffText(t) {
     return (t.effects || []).map(e => { const v = e.value ?? e.val ?? 0; return `${esc(e.category || e.type || '효과')} ${v > 0 ? '+' : ''}${esc(v)}${esc(e.unit || '')}`; }).join(', ');
   }
+  const ssHid = new Set(jget('la_ss_hidden', []));
+  const ssSave = () => store.set('la_ss_hidden', JSON.stringify([...ssHid]));
   function renderSkillSim() {
     const box = $q('#skill-body'); if (!box) return;
     const dbAll = D().skills, db = dbAll.filter(s => (s.tripods || []).length);
@@ -3530,24 +3605,27 @@ render();
     const sel = ensureTripodSel();
     const apiBy = {}; (state.skills || []).forEach(s => apiBy[norm(s.name)] = s);
     const diffCount = (() => { const a = deriveTripodSel(); let n = 0; db.forEach(s => { const x = a[s.name] || {}, y = sel[s.name] || {}; const ks = new Set([...Object.keys(x), ...Object.keys(y)]); ks.forEach(k => { if (x[k] !== y[k]) n++; }); }); return n; })();
-    const cards = db.map(s => {
+    const cards = db.filter(s => !ssHid.has(s.name)).map(s => {
       const api = apiBy[norm(s.name)], mine = sel[s.name] || {};
       const tiers = {}; (s.tripods || []).forEach(t => { (tiers[t.tier || 1] = tiers[t.tier || 1] || []).push(t); });
       const tags = (Array.isArray(s.tags) ? s.tags : String(s.tags || '').split(',').map(x => x.trim()).filter(Boolean)).map(t => `<span class="ss-tag">#${esc(t)}</span>`).join('');
       const tierHtml = Object.keys(tiers).sort((a, b) => a - b).map(tier => `<div class="ss-tier"><div class="ss-th"><b>${tier}티어</b><button type="button" class="ss-link" data-clr="${esc(s.name)}|${tier}">선택 해제</button></div>
         ${tiers[tier].map(t => { const on = mine[tier] === t.name; return `<label class="ss-opt ${on ? 'on' : ''}"><input type="radio" name="ss-${esc(s.name)}-${tier}" data-sk="${esc(s.name)}" data-tier="${tier}" data-tp="${esc(t.name)}" ${on ? 'checked' : ''}><span class="ss-n">${esc(t.name)}</span><span class="ss-e">${tripodEffText(t) || '<i>효과 없음</i>'}</span></label>`; }).join('')}</div>`).join('') || '<div class="muted">등록된 트라이포드가 없습니다.</div>';
       return `<div class="ss-card ${api ? '' : 'noapi'}"><div class="ss-head">${api && api.icon ? `<img class="ss-ico" src="${esc(api.icon)}" alt="" loading="lazy" onerror="this.remove()">` : ''}<div class="ss-title"><b>${esc(s.name)}</b>${api ? `<small>Lv.${esc(api.level)}</small>` : '<small>캐릭터에 없음</small>'}</div>
-        <button type="button" class="btn ss-rst" data-rst="${esc(s.name)}">초기화</button></div>
+        <button type="button" class="btn ss-rst" data-rst="${esc(s.name)}">초기화</button><button type="button" class="btn ss-hide" data-hide="${esc(s.name)}" title="이 스킬을 목록에서 숨기고 계산·비교에서 제외합니다">숨김</button></div>
         <div class="ss-stats"><span>상수 <b>${s.constant ?? '-'}</b></span><span>계수 <b>${s.coefficient ?? '-'}</b></span><span>쿨타임 <b>${s.baseCooldown ?? '-'}</b></span><span>마나 <b>${s.mana ?? s.baseMana ?? '-'}</b></span></div>
         <div class="ss-tags">${tags}</div>${tierHtml}</div>`;
     }).join('');
     const keepTop = box.scrollTop;
     box.innerHTML = `<div class="ss-bar"><span>🔱 트라이포드 선택 <small>${state.skills && state.skills.length ? 'API 값으로 시작합니다' : '캐릭터를 불러오면 API 값으로 시작합니다'}${diffCount ? ` · API와 다른 항목 ${diffCount}개` : ''}</small>${dbAll.length > db.length ? `<small class="ss-hid">트라이포드 없는 스킬 ${dbAll.length - db.length}개(${dbAll.filter(s => !(s.tripods || []).length).map(s => esc(s.name)).join(', ')})는 표시하지 않음</small>` : ''}</span>
-      <span class="ss-btns"><button class="btn" type="button" id="ss-api">API 값으로 되돌리기</button><button class="btn" type="button" id="ss-all">전체 해제</button></span></div><div class="ss-grid">${cards}</div>`;
+      <span class="ss-btns"><button class="btn" type="button" id="ss-api">API 값으로 되돌리기</button><button class="btn" type="button" id="ss-all">전체 해제</button></span></div>${(() => { const hl = db.filter(s => ssHid.has(s.name)); return hl.length ? `<div class="ss-hidrow"><span class="ss-hidlab">숨긴 스킬 ${hl.length}개</span>${hl.map(s => `<button type="button" class="ss-chip" data-unhide="${esc(s.name)}" title="숨김 취소">${esc(s.name)} <i>↩</i></button>`).join('')}<button type="button" class="ss-link" id="ss-unhide-all">모두 숨김 취소</button></div>` : ''; })()}<div class="ss-grid">${cards}</div>`;
     box.scrollTop = keepTop;
     const apply = () => { renderSkillSim(); scheduleCalc(); };
     box.querySelector('#ss-api').onclick = () => { ensureTripodSel(true); apply(); };
     box.querySelector('#ss-all').onclick = () => { if (confirm('모든 스킬의 트라이포드 선택을 해제할까요?')) { state.tripodSel = {}; apply(); } };
+    box.querySelectorAll('[data-hide]').forEach(b => b.onclick = () => { ssHid.add(b.dataset.hide); ssSave(); renderSkillSim(); scheduleCalc(); });
+    box.querySelectorAll('[data-unhide]').forEach(b => b.onclick = () => { ssHid.delete(b.dataset.unhide); ssSave(); renderSkillSim(); scheduleCalc(); });
+    const uh = box.querySelector('#ss-unhide-all'); if (uh) uh.onclick = () => { ssHid.clear(); ssSave(); renderSkillSim(); scheduleCalc(); };
     box.querySelectorAll('[data-rst]').forEach(b => b.onclick = () => { const a = deriveTripodSel(); const k = b.dataset.rst; if (a[k]) state.tripodSel[k] = a[k]; else delete state.tripodSel[k]; apply(); });
     box.querySelectorAll('[data-clr]').forEach(b => b.onclick = () => { const [k, t] = b.dataset.clr.split('|'); const o = state.tripodSel[k]; if (o) { Object.keys(o).forEach(x => { if (x === t || x.startsWith(t + '#')) delete o[x]; }); } apply(); });
     box.querySelectorAll('input[data-sk]').forEach(r => r.onchange = () => {
@@ -3844,6 +3922,7 @@ render();
         <button class="cp-btn notice" type="button" data-cp="notice">📢 Notice</button>
         <button class="cp-btn data" type="button" data-cp="data">📂 데이터 불러오기<em id="cp-dwarn" hidden>!</em></button>
         <button class="cp-btn dbp" type="button" data-cp="dbp">📦 DB 프리셋 관리</button>
+        <button class="cp-btn lay" type="button" data-cp="layout"></button>
         <div class="cp-sec"><span class="cp-lab party">파티 치적 시너지(본인 제외)</span>
           <select id="cp-party" class="cp-sel">${[0, 1, 2].map(v => `<option value="${v}" ${FLAGS.party === v ? 'selected' : ''}>${v}명 (${v * 10}%)</option>`).join('')}</select></div>
         <div class="cp-sec" id="cp-esther"><span class="cp-lab esther">에스더 결속 효과</span>
@@ -3867,7 +3946,7 @@ render();
       if (t) { const k = t.dataset.tg; if (t.disabled) return; FLAGS[k] = !FLAGS[k]; saveFlags(); syncCp(); scheduleCalc(); return; }
       if (!b) return;
       ({
-        notice: openNotice, data: openDataModal, dbp: openDbPresetModal,
+        notice: openNotice, data: openDataModal, dbp: openDbPresetModal, layout: toggleLayout,
         pause: () => { paused = !paused; syncCp(); if (!paused) runCalc(); }
       })[b.dataset.cp]();
     });
@@ -3885,6 +3964,7 @@ render();
     e1.disabled = e2.disabled = !isEsther; cp.querySelector('#cp-esther').classList.toggle('off', !isEsther);
     const mt = cp.querySelector('[data-tg="multi"]'); mt.textContent = (FLAGS.multi ? '💥 ' : '💤 ') + '다중 치명타 : ' + (FLAGS.multi ? 'ON' : 'OFF'); mt.classList.toggle('on', FLAGS.multi);
     const pb = cp.querySelector('[data-cp="pause"]'); pb.textContent = paused ? '⏸️ 실시간 계산 : OFF' : '▶️ 실시간 계산 : ON'; pb.classList.toggle('off', paused);
+    const lb = cp.querySelector('[data-cp="layout"]'); if (lb) lb.textContent = layoutMode === 'tabs' ? '🗂 화면 방식 : 탭' : '📜 화면 방식 : 기본';
     cp.querySelector('#cp-dwarn').hidden = ready();
   }
   function openNotice() {
@@ -3930,6 +4010,37 @@ render();
     else if ((k === 'z' && e.shiftKey) || k === 'y') { e.preventDefault(); redo(); }
   });
 
+  const TAB_DEF = [['장비 · 보석 · 장신구', ['gems', 'equipment']], ['각인', ['engravings']], ['아크 패시브 포인트', ['arkpoints-panel']], ['아크 그리드', ['arkgrid']], ['스킬 · 트라이포드', ['skill-panel']], ['진화 노드', ['evo-panel']]];
+  let layoutMode = store.get('la_layout') === 'tabs' ? 'tabs' : 'classic';
+  function applyLayout() {
+    const lay = $q('.layout'), main = $q('main.main'); if (!lay || !main) return;
+    const card0 = $q('#tabcard');
+    const el = id => document.getElementById(id);
+    const ps = el('arkpassive-section');
+    if (layoutMode === 'tabs') {
+      if (card0) return;
+      const card = document.createElement('section'); card.className = 'panel tabcard'; card.id = 'tabcard';
+      const bar = document.createElement('div'); bar.className = 'tabbar'; bar.setAttribute('role', 'tablist');
+      const panes = document.createElement('div'); panes.className = 'tabpanes';
+      let cur = Number(store.get('la_tab')); if (!(cur >= 0 && cur < TAB_DEF.length)) cur = 0;
+      const show = k => { bar.querySelectorAll('button').forEach((b, j) => { b.classList.toggle('on', j === k); b.setAttribute('aria-selected', String(j === k)); }); panes.querySelectorAll('.tabpane').forEach((q, j) => q.classList.toggle('on', j === k)); store.set('la_tab', String(k)); };
+      TAB_DEF.forEach(([label, ids], k) => {
+        const b = document.createElement('button'); b.type = 'button'; b.textContent = label; b.setAttribute('role', 'tab'); b.onclick = () => show(k); bar.appendChild(b);
+        const pane = document.createElement('div'); pane.className = 'tabpane'; pane.setAttribute('role', 'tabpanel');
+        ids.forEach(id => { const n = el(id); if (n) pane.appendChild(n); });
+        panes.appendChild(pane);
+      });
+      card.append(bar, panes); lay.parentNode.insertBefore(card, lay); lay.style.display = 'none';
+      show(cur);
+    } else {
+      if (!card0) return;
+      ['gems', 'equipment', 'engravings', 'arkpoints-panel', 'arkgrid'].forEach(id => { const n = el(id); if (n) main.insertBefore(n, ps || null); });
+      let anchor = lay; ['skill-panel', 'evo-panel'].forEach(id => { const n = el(id); if (n) { anchor.parentNode.insertBefore(n, anchor.nextSibling); anchor = n; } });
+      card0.remove(); lay.style.display = '';
+    }
+  }
+  function toggleLayout() { layoutMode = layoutMode === 'tabs' ? 'classic' : 'tabs'; store.set('la_layout', layoutMode); applyLayout(); syncCp(); }
+
   function mount() {
     const main = $q('main.main');
     const mk = (id, title, sub, body) => { const e = document.createElement('section'); e.className = 'panel sim-zone'; e.id = id;
@@ -3947,6 +4058,7 @@ render();
     $q('#skill-body').className = 'ss-wrap';
     document.addEventListener('click', e => { if (e.target.closest('[data-act="open-data"]')) openDataModal(); });
     mountControlPanel();
+    applyLayout();
   }
 
   mount();

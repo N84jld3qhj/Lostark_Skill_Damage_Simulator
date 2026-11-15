@@ -84,13 +84,8 @@
 .ss-chip:hover{background:#26384b;border-color:#4c7aa8}
 .ss-hidrow .ss-link{margin-left:auto}
 .ss-hide{padding:4px 9px;font-size:12px}
-.cp-grp{display:flex;flex-direction:column;gap:6px}
-.cp-gh{display:flex;align-items:center;justify-content:space-between;width:100%;padding:5px 7px;border:0;border-radius:6px;background:rgba(66,140,214,.14);color:#9fc4ea;font:inherit;font-size:11px;font-weight:700;letter-spacing:.02em;cursor:pointer}
-.cp-gh:hover{background:rgba(66,140,214,.24)}
-.cp-gh i{font-style:normal;transition:transform .15s}
-.cp-grp.shut .cp-gh i{transform:rotate(-90deg)}
-.cp-gb{display:flex;flex-direction:column;gap:7px}
-.cp-grp.shut .cp-gb{display:none}
+.cp-login,.cp-menu{display:flex;flex-direction:column;gap:7px}
+.cp-div{height:1px;background:rgba(255,255,255,.1);margin:2px 0}
 .cp-lab.syn{color:#7dd3fc}.cp-lab.pet{color:#f9a8d4}
 .cp-tabsec{gap:6px}
 .cp-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px}
@@ -567,11 +562,15 @@ button,input,select,textarea{font-family:inherit}
 .la-note b{font-size:12.5px;margin-left:6px}.la-note p{margin:5px 0 0;font-size:12px;line-height:1.55;color:#b7c6d6}
 .la-note .tg{font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;color:#fff}.tg.a{background:#0284c7}.tg.b{background:#d97706}.tg.c{background:#dc2626}
 
-#la-cp{position:fixed;left:18px;bottom:18px;z-index:60;width:176px;background:#161d24;border:1px solid rgba(255,255,255,.1);border-radius:11px;box-shadow:0 10px 26px rgba(0,0,0,.55);overflow:hidden}
+#la-cp{position:fixed;left:18px;top:18px;z-index:60;width:176px;background:#161d24;border:1px solid rgba(255,255,255,.1);border-radius:11px;box-shadow:0 10px 26px rgba(0,0,0,.55);overflow:hidden}
 .cp-head{width:100%;display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:#1d2833;color:#dbe8f6;border:0;font-size:12px;font-weight:700;cursor:pointer}
 .cp-head i{font-style:normal;transition:.15s}#la-cp.closed .cp-head i{transform:rotate(180deg)}
 .cp-body{display:flex;flex-direction:column;gap:7px;padding:10px;max-height:calc(100vh - 90px);overflow:auto}
-#la-cp.closed .cp-body{display:none}
+#la-cp.closed .cp-body,#la-cp2.closed .cp-body{display:none}
+#la-cp2{position:fixed;right:18px;top:18px;z-index:60;width:204px;background:#161d24;border:1px solid rgba(255,255,255,.1);border-radius:11px;box-shadow:0 10px 26px rgba(0,0,0,.55);overflow:hidden}
+#la-cp2 .cp-body{max-height:calc(100vh - 150px)}
+.cp-head.cp-drag{cursor:grab;user-select:none}#la-cp.dragging .cp-head,#la-cp2.dragging .cp-head{cursor:grabbing}#la-cp.dragging,#la-cp2.dragging{opacity:.92;box-shadow:0 14px 34px rgba(0,0,0,.65)}
+#la-cp2 .cp-head i{font-style:normal;transition:.15s}#la-cp2.closed .cp-head i{transform:rotate(180deg)}
 .cp-btn,.cp-tg{position:relative;width:100%;padding:8px 0;font-size:12px;font-weight:600;border-radius:6px;border:1px solid;color:#f1f5f9;cursor:pointer;transition:filter .15s;display:flex;align-items:center;justify-content:center;gap:4px}
 .cp-btn:hover,.cp-tg:hover:not(:disabled){filter:brightness(1.18)}
 .cp-btn.notice{background:#db2777;border-color:#f472b6}.cp-btn.data{background:#0d9488;border-color:#14b8a6}.cp-btn.dbp{background:#4f46e5;border-color:#6366f1}
@@ -644,13 +643,19 @@ button,input,select,textarea{font-family:inherit}
 #sim-mini-modal.show{opacity:1;transform:none;pointer-events:auto}
 #sim-mini-modal .mini-title{font-size:11px;font-weight:700;color:#c084fc;margin-bottom:8px}
 #sim-mini-modal{max-width:calc(100vw - 44px);padding:9px 12px}
-#sim-mini-modal .mini-title{margin-bottom:6px}
+#sim-mini-modal .mini-title{margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+#sim-mini-modal .mini-tg{border:1px solid #3b4252;background:#1e2430;color:#cbd5e1;border-radius:6px;font-size:10.5px;padding:2px 8px;cursor:pointer}#sim-mini-modal .mini-tg:hover{background:#2a3242}
+#sim-mini-modal.min .mini-metrics-wrapper,#sim-mini-modal.min .mini-skill{display:none}
+#sim-mini-modal .mini-skill{display:flex;align-items:center;gap:6px;margin-top:7px;padding-top:7px;border-top:1px solid #2e323d}
+#sim-mini-modal .mini-sksel{background:#181920;color:#e2e8f0;border:1px solid #3b4252;border-radius:6px;font-size:11px;padding:4px 6px;max-width:150px}
+#sim-mini-modal .mini-skv{display:flex;flex-direction:column;padding:3px 9px;background:#181920;border:1px solid #2e323d;border-radius:6px;white-space:nowrap}
+#sim-mini-modal .mini-skv em{font-style:normal;font-size:.6rem;color:#94a3b8}#sim-mini-modal .mini-skv b{font-size:.74rem;color:#facc15}#sim-mini-modal.min .mini-title{margin-bottom:0}
 #sim-mini-modal .mini-metrics-wrapper{overflow-x:auto}
 #sim-mini-modal .mini-metrics-wrapper>div{display:flex!important;flex-wrap:nowrap!important;gap:5px!important;margin-bottom:0!important;width:max-content}
 #sim-mini-modal .mini-metrics-wrapper>div>div{padding:4px 8px!important;background:#181920!important;border:1px solid #2e323d!important;border-radius:6px!important;white-space:nowrap!important;min-width:0!important;flex:none!important}
 #sim-mini-modal .mini-metrics-wrapper div{font-size:.68rem!important;line-height:1.3!important}
 #sim-mini-modal .mini-metrics-wrapper div>div:first-child{font-size:.62rem!important}
-@media(max-width:1000px){#la-cp{left:10px;bottom:10px}#sim-mini-modal{right:10px;bottom:10px}.cc-right{margin-left:0}}
+@media(max-width:1000px){#la-cp{left:10px;top:10px}#la-cp2{right:10px;top:10px;width:176px}#sim-mini-modal{right:10px;bottom:10px}.cc-right{margin-left:0}}
 
 .panel-toggle,.panel>.sectiontitle{position:relative}
 .panel-toggle{padding:14px 18px;background:linear-gradient(90deg,rgba(66,140,214,.22),rgba(66,140,214,.04) 55%,transparent);border-bottom:1px solid var(--line);transition:background .15s}
@@ -964,20 +969,21 @@ const coreLevels = [10, 14, 17, 18, 19, 20];
     function getBraceletOptionData(rawOpt, grade) {
         if (!rawOpt || rawOpt === '없음' || rawOpt === 'none') return [];
 
-        const cleanTarget = rawOpt
+        let cleanTarget = rawOpt
             .replace(/[\d\.\+%]+/g, '')
             .replace(/\s+/g, '');
+        cleanTarget = ({ '무공|조건부무공': '조건부무공', '무공|스택당무공': '스택당무공', '공격적중시무공,공이속': '공격적중시무공' })[cleanTarget] || cleanTarget;
 
         for (const [key, effects] of Object.entries(braceletTable)) {
             const cleanKey = key.replace(/\s+/g, '');
 
-            if (cleanTarget.includes(cleanKey) || cleanKey.includes(cleanTarget)) {
+            if (cleanTarget === cleanKey) {
                 return effects.map(eff => {
                     const val = eff.values[grade] ?? eff.values['중'] ?? 0;
                     return {
                         category: eff.category,
                         val: val,
-                        unit: eff.unit || "%",
+                        unit: eff.unit ?? "%",
                         requireTags: eff.requireTags || []
                     };
                 }).filter(eff => eff.val !== 0);
@@ -1627,7 +1633,7 @@ function makeEnv(o) {
             const source = `팔찌 옵션 ${i + 1} (${opt.opt} - ${opt.grade})`;
             optionEffects.forEach(eff => {
                 if (!eff.requireTags || eff.requireTags.length === 0) {
-                    addStat(commonStats, eff.category, source, eff.val);
+                    addStat(commonStats, eff.category, source, eff.val, eff.unit);
                 } else {
                     braceletSkillEffects.push({ source, category: eff.category, val: eff.val, unit: eff.unit, requireTags: eff.requireTags });
                 }
@@ -1691,7 +1697,7 @@ function makeEnv(o) {
     function applyBraceletSkillEffects(stats, braceletSkillEffects, ctx) {
         braceletSkillEffects.forEach(effect => {
             if (matchTags(ctx, { require: effect.requireTags }, { all: true, reqName: false })) {
-                addStat(stats, effect.category, effect.source, effect.val);
+                addStat(stats, effect.category, effect.source, effect.val, effect.unit);
             }
         });
     }
@@ -2819,7 +2825,7 @@ function field(value,attrs=''){return `<input class="field" value="${esc(value??
 function select(value,opts,attrs=''){return `<select class="field" ${attrs}>${opts.map(x=>`<option ${String(x)===String(value)?'selected':''}>${esc(x)}</option>`).join('')}</select>`;}
 function bindInputs(root,handler){root.querySelectorAll('[data-path]').forEach(el=>{el.addEventListener('change',()=>{const raw=el.dataset.path;if(raw.endsWith('.__coreName')){const path=raw.split('.');const i=Number(path[2]);const c=state.arkGrid.cores[i];c.name=(i<3?'질서':'혼돈')+'의 '+['해','달','별'][i%3]+' 코어 : '+el.value;}else{const path=raw.split('.');let obj=state;for(let i=0;i<path.length-1;i++)obj=obj[path[i]];obj[path.at(-1)]=(el.type==='number'||el.dataset.num)?Number(el.value):el.type==='checkbox'?el.checked:el.value;if(path.includes('bracelet')&&path[path.length-3]==='stats'){const st=state.equipment[Number(path[1])].bracelet.stats;const cap=['치명','신속','특화'];if(path.at(-1)==='val'&&cap.includes(obj.name)&&obj.val>120)obj.val=120;if(path.at(-1)==='val'&&obj.val<0)obj.val=0;if(path.at(-1)==='name'&&cap.includes(obj.name)&&obj.val>120)obj.val=120;}if(path.at(-1)==='tier'&&el.value==='에스더'&&path[0]==='equipment'&&state.equipment[Number(path[1])].slot==='무기'){obj.ella=3;obj.normalLevel=ellaMax(3);}}render();});});}
 
-const BANGLE_CATALOG=[{"row": "타대 스킬 피해", "g": {"하": {"v": "방향성공격이아닌스킬이적에게주는피해가2.5%증가한다.각성기는적용되지않는다.", "t": "타대 스킬 피해 +2.5%"}, "중": {"v": "방향성공격이아닌스킬이적에게주는피해가3%증가한다.각성기는적용되지않는다.", "t": "타대 스킬 피해 +3.0%"}, "상": {"v": "방향성공격이아닌스킬이적에게주는피해가3.5%증가한다.각성기는적용되지않는다.", "t": "타대 스킬 피해 +3.5%"}}}, {"row": "공이속", "g": {"하": {"v": "공격및이동속도가4%증가한다.", "t": "공이속 +4%"}, "중": {"v": "공격및이동속도가5%증가한다.", "t": "공이속 +5%"}, "상": {"v": "공격및이동속도가6%증가한다.", "t": "공이속 +6%"}}}, {"row": "치적 | 치명타 주는 피해", "g": {"하": {"v": "치명타적중률이3.4%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치적 +3.4% | 치명타 주는 피해 +1.5%"}, "중": {"v": "치명타적중률이4.2%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치적 +4.2% | 치명타 주는 피해 +1.5%"}, "상": {"v": "치명타적중률이5%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치적 +5.0% | 치명타 주는 피해 +1.5%"}}}, {"row": "치피 | 치명타 주는 피해", "g": {"하": {"v": "치명타피해가6.8%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치피 +6.8% | 치명타 주는 피해 +1.5%"}, "중": {"v": "치명타피해가8.4%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치피 +8.4% | 치명타 주는 피해 +1.5%"}, "상": {"v": "치명타피해가10%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치피 +10.0% | 치명타 주는 피해 +1.5%"}}}, {"row": "적에게 주는 피해", "g": {"하": {"v": "적에게주는피해가2%증가한다.", "t": "적에게 주는 피해 +2%"}, "중": {"v": "적에게주는피해가2.5%증가한다.", "t": "적에게 주는 피해 +2.5%"}, "상": {"v": "적에게주는피해가3%증가한다.", "t": "적에게 주는 피해 +3%"}}}, {"row": "적주피 | 무력화 적 피해량", "g": {"하": {"v": "적에게주는피해가2%증가하며,무력화상태의적에게주는피해가4%증가한다.", "t": "적주피 +2% | 무력화 적 피해량 +4%"}, "중": {"v": "적에게주는피해가2.5%증가하며,무력화상태의적에게주는피해가4.5%증가한다.", "t": "적주피 +2.5% | 무력화 적 피해량 +4.5%"}, "상": {"v": "적에게주는피해가3%증가하며,무력화상태의적에게주는피해가5%증가한다.", "t": "적주피 +3% | 무력화 적 피해량 +5%"}}}, {"row": "쿨 | 적에게 주는 피해", "g": {"하": {"v": "스킬의재사용대기시간이2%증가하지만,적에게주는피해가4.5%증가한다.", "t": "쿨 +2% | 적에게 주는 피해 +4.5%"}, "중": {"v": "스킬의재사용대기시간이2%증가하지만,적에게주는피해가5%증가한다.", "t": "쿨 +2% | 적에게 주는 피해 +5.0%"}, "상": {"v": "스킬의재사용대기시간이2%증가하지만,적에게주는피해가5.5%증가한다.", "t": "쿨 +2% | 적에게 주는 피해 +5.5%"}}}, {"row": "추피 | 악마&대악마 피해량", "g": {"하": {"v": "추가피해가2.5%증가한다.악마및대악마계열피해량이2.5%증가한다.", "t": "추피 +2.5% | 악마&대악마 피해량 +2.5%"}, "중": {"v": "추가피해가3%증가한다.악마및대악마계열피해량이2.5%증가한다.", "t": "추피 +3.0% | 악마&대악마 피해량 +2.5%"}, "상": {"v": "추가피해가3.5%증가한다.악마및대악마계열피해량이2.5%증가한다.", "t": "추피 +3.5% | 악마&대악마 피해량 +2.5%"}}}, {"row": "공격 적중 시 무공, 공이속", "g": {"하": {"v": "공격적중시매초마다10초동안무기공격력이1160,공격및이동속도가1%증가한다.(최대6중첩)", "t": "공격 적중 시 무공 1160, 공이속 1%"}, "중": {"v": "공격적중시매초마다10초동안무기공격력이1320,공격및이동속도가1%증가한다.(최대6중첩)", "t": "공격 적중 시 무공 1320, 공이속 1%"}, "상": {"v": "공격적중시매초마다10초동안무기공격력이1480,공격및이동속도가1%증가한다.(최대6중첩)", "t": "공격 적중 시 무공 1480, 공이속 1%"}}}, {"row": "무공 | 조건부 무공", "g": {"하": {"v": "무기공격력이7200증가한다.자신의생명력이50%이상일경우적에게공격적중시5초동안무기공격력이2000증가한다.", "t": "무공 7200 | 조건부 무공 2000"}, "중": {"v": "무기공격력이8100증가한다.자신의생명력이50%이상일경우적에게공격적중시5초동안무기공격력이2200증가한다.", "t": "무공 8100 | 조건부 무공 2200"}, "상": {"v": "무기공격력이9000증가한다.자신의생명력이50%이상일경우적에게공격적중시5초동안무기공격력이2400증가한다.", "t": "무공 9000 | 조건부 무공 2400"}}}, {"row": "무공 | 스택당 무공", "g": {"하": {"v": "무기공격력이6900증가한다.공격적중시30초마다120초동안무기공격력이130증가한다.(최대30중첩)", "t": "무공 6900 | 스택당 무공 130"}, "중": {"v": "무기공격력이7800증가한다.공격적중시30초마다120초동안무기공격력이140증가한다.(최대30중첩)", "t": "무공 7800 | 스택당 무공 140"}, "상": {"v": "무기공격력이8700증가한다.공격적중시30초마다120초동안무기공격력이150증가한다.(최대30중첩)", "t": "무공 8700 | 스택당 무공 150"}}}, {"row": "백어택 스킬 피해", "g": {"하": {"v": "백어택스킬이적에게주는피해가2.5%증가한다.", "t": "백어택 스킬 피해 +2.5%"}, "중": {"v": "백어택스킬이적에게주는피해가3%증가한다.", "t": "백어택 스킬 피해 +3.0%"}, "상": {"v": "백어택스킬이적에게주는피해가3.5%증가한다.", "t": "백어택 스킬 피해 +3.5%"}}}, {"row": "헤드어택 스킬 피해", "g": {"하": {"v": "헤드어택스킬이적에게주는피해가2.5%증가한다.", "t": "헤드어택 스킬 피해 +2.5%"}, "중": {"v": "헤드어택스킬이적에게주는피해가3%증가한다.", "t": "헤드어택 스킬 피해 +3.0%"}, "상": {"v": "헤드어택스킬이적에게주는피해가3.5%증가한다.", "t": "헤드어택 스킬 피해 +3.5%"}}}, {"row": "추가 피해", "g": {"하": {"v": "추가피해+3.00%", "t": "추가 피해 +3.0%"}, "중": {"v": "추가피해+3.50%", "t": "추가 피해 +3.5%"}, "상": {"v": "추가피해+4.00%", "t": "추가 피해 +4.0%"}}}, {"row": "아군 공격력 강화", "g": {"하": {"v": "아군공격력강화효과+4.00%", "t": "아군 공격력 강화 +4.0%"}, "중": {"v": "아군공격력강화효과+5.00%", "t": "아군 공격력 강화 +5.0%"}, "상": {"v": "아군공격력강화효과+6.00%", "t": "아군 공격력 강화 +6.0%"}}}, {"row": "아군 피해량 강화", "g": {"하": {"v": "아군피해량강화효과+6.00%", "t": "아군 피해량 강화 +6.0%"}, "중": {"v": "아군피해량강화효과+7.50%", "t": "아군 피해량 강화 +7.5%"}, "상": {"v": "아군피해량강화효과+9.00%", "t": "아군 피해량 강화 +9.0%"}}}, {"row": "치명타 적중률", "g": {"하": {"v": "치명타적중률+3.40%", "t": "치명타 적중률 +3.40%"}, "중": {"v": "치명타적중률+4.20%", "t": "치명타 적중률 +4.20%"}, "상": {"v": "치명타적중률+5.00%", "t": "치명타 적중률 +5.00%"}}}, {"row": "치명타 피해", "g": {"하": {"v": "치명타피해+6.80%", "t": "치명타 피해 +6.8%"}, "중": {"v": "치명타피해+8.40%", "t": "치명타 피해 +8.4%"}, "상": {"v": "치명타피해+10.00%", "t": "치명타 피해 +10.0%"}}}, {"row": "무기 공격력", "g": {"하": {"v": "무기공격력+7200", "t": "무기 공격력 +7200"}, "중": {"v": "무기공격력+8100", "t": "무기 공격력 +8100"}, "상": {"v": "무기공격력+9000", "t": "무기 공격력 +9000"}}}, {"row": "방깎 | 아공강", "g": {"하": {"v": "몬스터에게공격적중시8초동안대상의방어력을1.8%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가2%증가한다.", "t": "방깎 1.8% | 아공강 +2.0%"}, "중": {"v": "몬스터에게공격적중시8초동안대상의방어력을2.1%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가2.5%증가한다.", "t": "방깎 2.1% | 아공강 +2.5%"}, "상": {"v": "몬스터에게공격적중시8초동안대상의방어력을2.5%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가3%증가한다.", "t": "방깎 2.5% | 아공강 +3.0%"}}}, {"row": "치명타 저항 | 아공강", "g": {"하": {"v": "몬스터에게공격적중시8초동안대상의치명타저항을1.8%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가2%증가한다.", "t": "치명타 저항 -1.8% | 아공강 +2.0%"}, "중": {"v": "몬스터에게공격적중시8초동안대상의치명타저항을2.1%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가2.5%증가한다.", "t": "치명타 저항 -2.1% | 아공강 +2.5%"}, "상": {"v": "몬스터에게공격적중시8초동안대상의치명타저항을2.5%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가3%증가한다.", "t": "치명타 저항 -2.5% | 아공강 +3.0%"}}}, {"row": "보호 대상 피해량 | 아공강", "g": {"하": {"v": "파티효과로보호효과(보호막,생명력회복,받는피해감소)가적용된대상이5초동안적에게주는피해가0.9%증가한다.해당효과는한파티당하나만적용되며,지속시간이없는보호효과에는적용되지않는다.아군공격력강화효과가2%증가한다.", "t": "보호 대상 피해량 +0.9% | 아공강 +2.0%"}, "중": {"v": "파티효과로보호효과(보호막,생명력회복,받는피해감소)가적용된대상이5초동안적에게주는피해가1.1%증가한다.해당효과는한파티당하나만적용되며,지속시간이없는보호효과에는적용되지않는다.아군공격력강화효과가2.5%증가한다.", "t": "보호 대상 피해량 +1.1% | 아공강 +2.5%"}, "상": {"v": "파티효과로보호효과(보호막,생명력회복,받는피해감소)가적용된대상이5초동안적에게주는피해가1.3%증가한다.해당효과는한파티당하나만적용되며,지속시간이없는보호효과에는적용되지않는다.아군공격력강화효과가3%증가한다.", "t": "보호 대상 피해량 +1.3% | 아공강 +3.0%"}}}, {"row": "치명타 피해 저항 | 아공강", "g": {"하": {"v": "몬스터에게공격적중시8초동안대상의치명타피해저항을3.6%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가2%증가한다.", "t": "치명타 피해 저항 -3.6% | 아공강 +2.0%"}, "중": {"v": "몬스터에게공격적중시8초동안대상의치명타피해저항을4.2%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가2.5%증가한다.", "t": "치명타 피해 저항 -4.2% | 아공강 +2.5%"}, "상": {"v": "몬스터에게공격적중시8초동안대상의치명타피해저항을4.8%감소시킨다.해당효과는한파티당하나만적용된다.아군공격력강화효과가3%증가한다.", "t": "치명타 피해 저항 -4.8% | 아공강 +3.0%"}}}, {"row": "시드 이하 몬스터에게 주는 피해량", "g": {"하": {"v": "시드등급이하몬스터에게주는피해량이4%증가한다.", "t": "시드 이하 몬스터에게 주는 피해량 +4%"}, "중": {"v": "시드등급이하몬스터에게주는피해량이5%증가한다.", "t": "시드 이하 몬스터에게 주는 피해량 +5%"}, "상": {"v": "시드등급이하몬스터에게주는피해량이6%증가한다.", "t": "시드 이하 몬스터에게 주는 피해량 +6%"}}}, {"row": "시드 이하 몬스터에게 받는 피해량", "g": {"하": {"v": "시드등급이하몬스터에게받는피해량이6%감소한다.", "t": "시드 이하 몬스터에게 받는 피해량 +6%"}, "중": {"v": "시드등급이하몬스터에게받는피해량이8%감소한다.", "t": "시드 이하 몬스터에게 받는 피해량 +8%"}, "상": {"v": "시드등급이하몬스터에게받는피해량이10%감소한다.", "t": "시드 이하 몬스터에게 받는 피해량 +10%"}}}, {"row": "물리 방어력", "g": {"하": {"v": "물리방어력+5000", "t": "물리 방어력 +5000"}, "중": {"v": "물리방어력+6000", "t": "물리 방어력 +6000"}, "상": {"v": "물리방어력+7000", "t": "물리 방어력 +7000"}}}, {"row": "마법 방어력", "g": {"하": {"v": "마법방어력+5000", "t": "마법 방어력 +5000"}, "중": {"v": "마법방어력+6000", "t": "마법 방어력 +6000"}, "상": {"v": "마법방어력+7000", "t": "마법 방어력 +7000"}}}, {"row": "최대 생명력", "g": {"하": {"v": "최대생명력+11200", "t": "최대 생명력 +11200"}, "중": {"v": "최대생명력+14000", "t": "최대 생명력 +14000"}, "상": {"v": "최대생명력+16800", "t": "최대 생명력 +16800"}}}, {"row": "전투 중 생명력 회복량", "g": {"하": {"v": "전투중생명력회복량+100", "t": "전투 중 생명력 회복량 +100"}, "중": {"v": "전투중생명력회복량+130", "t": "전투 중 생명력 회복량 +130"}, "상": {"v": "전투중생명력회복량+160", "t": "전투 중 생명력 회복량 +160"}}}, {"row": "전투자원 자연 회복량", "g": {"하": {"v": "전투자원자연회복량+8.00%", "t": "전투자원 자연 회복량 +8%"}, "중": {"v": "전투자원자연회복량+10.00%", "t": "전투자원 자연 회복량 +10%"}, "상": {"v": "전투자원자연회복량+12.00%", "t": "전투자원 자연 회복량 +12%"}}}, {"row": "이동기 및 기상기 쿨감", "g": {"하": {"v": "이동기및기상기재사용대기시간이8%감소한다.", "t": "이동기 및 기상기 쿨감 +8%"}, "중": {"v": "이동기및기상기재사용대기시간이10%감소한다.", "t": "이동기 및 기상기 쿨감 +10%"}, "상": {"v": "이동기및기상기재사용대기시간이12%감소한다.", "t": "이동기 및 기상기 쿨감 +12%"}}}, {"row": "공격 적중 시 경피면", "g": {"하": {"v": "공격적중시80초동안경직및피격이상에면역이된다.(재사용대기시간80초)해당효과는1회피격시사라진다.", "t": "공격 적중 시 80초간 경피면"}, "중": {"v": "공격적중시70초동안경직및피격이상에면역이된다.(재사용대기시간70초)해당효과는1회피격시사라진다.", "t": "공격 적중 시 70초간 경피면"}, "상": {"v": "공격적중시60초동안경직및피격이상에면역이된다.(재사용대기시간60초)해당효과는1회피격시사라진다.", "t": "공격 적중 시 60초간 경피면"}}}, {"row": "보호 및 회복 효과", "g": {"하": {"v": "파티원보호및회복효과가2.5%증가한다.", "t": "보호 및 회복 효과 +2.5%"}, "중": {"v": "파티원보호및회복효과가3%증가한다.", "t": "보호 및 회복 효과 +3.0%"}, "상": {"v": "파티원보호및회복효과가3.5%증가한다.", "t": "보호 및 회복 효과 +3.5%"}}}];
+const BANGLE_CATALOG=[{"row": "타대 스킬 피해", "g": {"하": {"v": "방향성공격이아닌스킬이적에게주는피해가2.5%증가한다.각성기는적용되지않는다.", "t": "타대 스킬 피해 +2.5%"}, "중": {"v": "방향성공격이아닌스킬이적에게주는피해가3%증가한다.각성기는적용되지않는다.", "t": "타대 스킬 피해 +3.0%"}, "상": {"v": "방향성공격이아닌스킬이적에게주는피해가3.5%증가한다.각성기는적용되지않는다.", "t": "타대 스킬 피해 +3.5%"}}}, {"row": "공이속", "g": {"하": {"v": "공격및이동속도가4%증가한다.", "t": "공이속 +4%"}, "중": {"v": "공격및이동속도가5%증가한다.", "t": "공이속 +5%"}, "상": {"v": "공격및이동속도가6%증가한다.", "t": "공이속 +6%"}}}, {"row": "치적 | 치명타 주는 피해", "g": {"하": {"v": "치명타적중률이3.4%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치적 +3.4% | 치명타 주는 피해 +1.5%"}, "중": {"v": "치명타적중률이4.2%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치적 +4.2% | 치명타 주는 피해 +1.5%"}, "상": {"v": "치명타적중률이5%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치적 +5.0% | 치명타 주는 피해 +1.5%"}}}, {"row": "치피 | 치명타 주는 피해", "g": {"하": {"v": "치명타피해가6.8%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치피 +6.8% | 치명타 주는 피해 +1.5%"}, "중": {"v": "치명타피해가8.4%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치피 +8.4% | 치명타 주는 피해 +1.5%"}, "상": {"v": "치명타피해가10%증가한다.공격이치명타로적중시적에게주는피해가1.5%증가한다.", "t": "치피 +10.0% | 치명타 주는 피해 +1.5%"}}}, {"row": "적에게 주는 피해", "g": {"하": {"v": "적에게주는피해가2%증가한다.", "t": "적에게 주는 피해 +2%"}, "중": {"v": "적에게주는피해가2.5%증가한다.", "t": "적에게 주는 피해 +2.5%"}, "상": {"v": "적에게주는피해가3%증가한다.", "t": "적에게 주는 피해 +3%"}}}, {"row": "적주피 | 무력화 적 피해량", "g": {"하": {"v": "적에게주는피해가2%증가하며,무력화상태의적에게주는피해가4%증가한다.", "t": "적주피 +2% | 무력화 적 피해량 +4%"}, "중": {"v": "적에게주는피해가2.5%증가하며,무력화상태의적에게주는피해가4.5%증가한다.", "t": "적주피 +2.5% | 무력화 적 피해량 +4.5%"}, "상": {"v": "적에게주는피해가3%증가하며,무력화상태의적에게주는피해가5%증가한다.", "t": "적주피 +3% | 무력화 적 피해량 +5%"}}}, {"row": "쿨 | 적에게 주는 피해", "g": {"하": {"v": "스킬의재사용대기시간이2%증가하지만,적에게주는피해가4.5%증가한다.", "t": "쿨 +2% | 적에게 주는 피해 +4.5%"}, "중": {"v": "스킬의재사용대기시간이2%증가하지만,적에게주는피해가5%증가한다.", "t": "쿨 +2% | 적에게 주는 피해 +5.0%"}, "상": {"v": "스킬의재사용대기시간이2%증가하지만,적에게주는피해가5.5%증가한다.", "t": "쿨 +2% | 적에게 주는 피해 +5.5%"}}}, {"row": "추피 | 악마&대악마 피해량", "g": {"하": {"v": "추가피해가2.5%증가한다.악마및대악마계열피해량이2.5%증가한다.", "t": "추피 +2.5% | 악마&대악마 피해량 +2.5%"}, "중": {"v": "추가피해가3%증가한다.악마및대악마계열피해량이2.5%증가한다.", "t": "추피 +3.0% | 악마&대악마 피해량 +2.5%"}, "상": {"v": "추가피해가3.5%증가한다.악마및대악마계열피해량이2.5%증가한다.", "t": "추피 +3.5% | 악마&대악마 피해량 +2.5%"}}}, {"row": "공격 적중 시 무공, 공이속", "g": {"하": {"v": "공격적중시매초마다10초동안무기공격력이1160,공격및이동속도가1%증가한다.(최대6중첩)", "t": "공격 적중 시 무공 1160, 공이속 1%"}, "중": {"v": "공격적중시매초마다10초동안무기공격력이1320,공격및이동속도가1%증가한다.(최대6중첩)", "t": "공격 적중 시 무공 1320, 공이속 1%"}, "상": {"v": "공격적중시매초마다10초동안무기공격력이1480,공격및이동속도가1%증가한다.(최대6중첩)", "t": "공격 적중 시 무공 1480, 공이속 1%"}}}, {"row": "무공 | 조건부 무공", "g": {"하": {"v": "무기공격력이7200증가한다.자신의생명력이50%이상일경우적에게공격적중시5초동안무기공격력이2000증가한다.", "t": "무공 7200 | 조건부 무공 2000"}, "중": {"v": "무기공격력이8100증가한다.자신의생명력이50%이상일경우적에게공격적중시5초동안무기공격력이2200증가한다.", "t": "무공 8100 | 조건부 무공 2200"}, "상": {"v": "무기공격력이9000증가한다.자신의생명력이50%이상일경우적에게공격적중시5초동안무기공격력이2400증가한다.", "t": "무공 9000 | 조건부 무공 2400"}}}, {"row": "무공 | 스택당 무공", "g": {"하": {"v": "무기공격력이6900증가한다.공격적중시30초마다120초동안무기공격력이130증가한다.(최대30중첩)", "t": "무공 6900 | 스택당 무공 130"}, "중": {"v": "무기공격력이7800증가한다.공격적중시30초마다120초동안무기공격력이140증가한다.(최대30중첩)", "t": "무공 7800 | 스택당 무공 140"}, "상": {"v": "무기공격력이8700증가한다.공격적중시30초마다120초동안무기공격력이150증가한다.(최대30중첩)", "t": "무공 8700 | 스택당 무공 150"}}}, {"row": "백어택 스킬 피해", "g": {"하": {"v": "백어택스킬이적에게주는피해가2.5%증가한다.", "t": "백어택 스킬 피해 +2.5%"}, "중": {"v": "백어택스킬이적에게주는피해가3%증가한다.", "t": "백어택 스킬 피해 +3.0%"}, "상": {"v": "백어택스킬이적에게주는피해가3.5%증가한다.", "t": "백어택 스킬 피해 +3.5%"}}}, {"row": "헤드어택 스킬 피해", "g": {"하": {"v": "헤드어택스킬이적에게주는피해가2.5%증가한다.", "t": "헤드어택 스킬 피해 +2.5%"}, "중": {"v": "헤드어택스킬이적에게주는피해가3%증가한다.", "t": "헤드어택 스킬 피해 +3.0%"}, "상": {"v": "헤드어택스킬이적에게주는피해가3.5%증가한다.", "t": "헤드어택 스킬 피해 +3.5%"}}}, {"row": "추가 피해", "g": {"하": {"v": "추가피해+3.00%", "t": "추가 피해 +3.0%"}, "중": {"v": "추가피해+3.50%", "t": "추가 피해 +3.5%"}, "상": {"v": "추가피해+4.00%", "t": "추가 피해 +4.0%"}}}, {"row": "치명타 적중률", "g": {"하": {"v": "치명타적중률+3.40%", "t": "치명타 적중률 +3.40%"}, "중": {"v": "치명타적중률+4.20%", "t": "치명타 적중률 +4.20%"}, "상": {"v": "치명타적중률+5.00%", "t": "치명타 적중률 +5.00%"}}}, {"row": "치명타 피해", "g": {"하": {"v": "치명타피해+6.80%", "t": "치명타 피해 +6.8%"}, "중": {"v": "치명타피해+8.40%", "t": "치명타 피해 +8.4%"}, "상": {"v": "치명타피해+10.00%", "t": "치명타 피해 +10.0%"}}}, {"row": "무기 공격력", "g": {"하": {"v": "무기공격력+7200", "t": "무기 공격력 +7200"}, "중": {"v": "무기공격력+8100", "t": "무기 공격력 +8100"}, "상": {"v": "무기공격력+9000", "t": "무기 공격력 +9000"}}}];
 const ENG_NAMES=['원한','돌격대장','예리한 둔기','아드레날린','질량 증가','저주받은 인형','타격의 대가','기습의 대가','결투의 대가','달인의 저력','마나 효율 증가','바리케이드','속전속결','슈퍼 차지','안정된 상태','정밀 단도'];
 const GR=['하','중','상'];
 const flatOpts=[{g:'무기 공격력',n:'무기 공격력',u:'',v:{하:195,중:480,상:960}},{g:'공격력',n:'공격력',u:'',v:{하:80,중:195,상:390}}];
@@ -3278,7 +3284,6 @@ render();
   if (!['', '치명', '신속', '특화'].includes(FLAGS.pet)) FLAGS.pet = '';
   const SYN_DEF = [['crit', '치명타 적중률 +10%', '치명타 적중률', 10], ['dmg', '적에게 주는 피해 +6%', '적에게 주는 피해', 6], ['def', '방어력 감소 12%', '방어력 무시', 12]];
   const PET_STATS = ['치명', '신속', '특화'], PET_VAL = 160;
-  const cpGrp = jget('la_cp_grp', {});
   let cpTab = store.get('la_cp_tab') === 'pet' ? 'pet' : 'syn';
   const saveFlags = () => store.set('la_flags', JSON.stringify(FLAGS));
   let paused = false;
@@ -4073,12 +4078,26 @@ render();
   }
 
   let miniObs = null;
+  function drawMiniSkill(mini) {
+    const box = mini.querySelector('.mini-skill'); if (!box || !lastRun) return;
+    const res = lastRun.res || []; if (!res.length) { box.innerHTML = ''; return; }
+    let cur = store.get('la_mini_skill');
+    if (!res.some(r => r.skillName === cur)) cur = res[0].skillName;
+    const r = res.find(x => x.skillName === cur);
+    const cd = r.finalCooldown || 0.001, n = v => Math.floor(v || 0).toLocaleString();
+    box.innerHTML = `<select class="mini-sksel" title="스킬 선택">${res.map(x => `<option value="${esc(x.skillName)}" ${x.skillName === cur ? 'selected' : ''}>${esc(x.skillName)}</option>`).join('')}</select>
+      <span class="mini-skv"><em>데미지(기대값)</em><b>${n(r.expDmg)}</b></span><span class="mini-skv"><em>쿨타임</em><b>${cd.toFixed(2)}s</b></span><span class="mini-skv"><em>DPS</em><b>${n((r.expDmg || 0) / cd)}</b></span><span class="mini-skv"><em>치명타 적중률</em><b>${(r.totalCritRatePercent || 0).toFixed(1)}%</b></span>`;
+  }
   function updateMini() {
     let mini = $q('#sim-mini-modal');
     const grid = $q('#result-body details div[style*="grid"]');
     if (!grid || !lastRun) { if (mini) { mini.classList.remove('show'); mini.innerHTML = ''; } return; }
     if (!mini) { mini = document.createElement('div'); mini.id = 'sim-mini-modal'; document.body.appendChild(mini); }
-    mini.innerHTML = `<div class="mini-title">⚡ 캐릭터 공통 세팅 지표 (실시간)</div><div class="mini-metrics-wrapper">${grid.outerHTML}</div>`;
+    mini.innerHTML = `<div class="mini-title"><span>⚡ 캐릭터 공통 세팅 지표 (실시간)</span><button type="button" class="mini-tg" title="숨김/펼침"></button></div><div class="mini-metrics-wrapper">${grid.outerHTML}</div><div class="mini-skill"></div>`;
+    drawMiniSkill(mini);
+    mini.classList.toggle('min', store.get('la_mini_hidden') === '1');
+    const mt = mini.querySelector('.mini-tg'); if (mt) mt.textContent = mini.classList.contains('min') ? '펼치기 ▴' : '숨기기 ▾';
+    if (!mini.dataset.bound) { mini.dataset.bound = '1'; mini.addEventListener('change', e => { if (e.target.classList.contains('mini-sksel')) { store.set('la_mini_skill', e.target.value); drawMiniSkill(mini); } }); mini.addEventListener('click', e => { if (!e.target.closest('.mini-tg')) return; mini.classList.toggle('min'); store.set('la_mini_hidden', mini.classList.contains('min') ? '1' : '0'); e.target.closest('.mini-tg').textContent = mini.classList.contains('min') ? '펼치기 ▴' : '숨기기 ▾'; }); }
     if (!miniObs && 'IntersectionObserver' in window) {
       const target = $q('#result-panel');
       if (target) {
@@ -4088,13 +4107,41 @@ render();
     }
   }
 
+  function makeDraggable(el, handle, key) {
+    const clamp = () => {
+      const r = el.getBoundingClientRect();
+      const x = Math.min(Math.max(0, r.left), Math.max(0, window.innerWidth - r.width)), y = Math.min(Math.max(0, r.top), Math.max(0, window.innerHeight - r.height));
+      el.style.left = x + 'px'; el.style.top = y + 'px'; el.style.right = 'auto'; el.style.bottom = 'auto';
+    };
+    try { const sp = JSON.parse(store.get(key) || 'null'); if (sp && isFinite(sp.x) && isFinite(sp.y)) { el.style.left = sp.x + 'px'; el.style.top = sp.y + 'px'; el.style.right = 'auto'; el.style.bottom = 'auto'; clamp(); } } catch (e) { /* 저장 위치 없음 */ }
+    let st = null;
+    handle.style.touchAction = 'none'; handle.classList.add('cp-drag');
+    handle.addEventListener('pointerdown', e => { if (e.button !== 0) return; const r = el.getBoundingClientRect(); st = { px: e.clientX, py: e.clientY, x: r.left, y: r.top, moved: false }; });
+    window.addEventListener('pointermove', e => {
+      if (!st) return;
+      const dx = e.clientX - st.px, dy = e.clientY - st.py;
+      if (!st.moved && Math.hypot(dx, dy) < 5) return;
+      st.moved = true; el.classList.add('dragging');
+      const r = el.getBoundingClientRect();
+      el.style.left = Math.min(Math.max(0, st.x + dx), Math.max(0, window.innerWidth - r.width)) + 'px';
+      el.style.top = Math.min(Math.max(0, st.y + dy), Math.max(0, window.innerHeight - r.height)) + 'px';
+      el.style.right = 'auto'; el.style.bottom = 'auto';
+    });
+    window.addEventListener('pointerup', () => {
+      if (!st) return;
+      if (st.moved) { el.dataset.dragged = '1'; setTimeout(() => { delete el.dataset.dragged; }, 0); el.classList.remove('dragging'); const r = el.getBoundingClientRect(); store.set(key, JSON.stringify({ x: Math.round(r.left), y: Math.round(r.top) })); }
+      st = null;
+    });
+    window.addEventListener('resize', () => { if (el.style.left) clamp(); });
+    new MutationObserver(() => { if (el.style.left) clamp(); }).observe(el, { attributes: true, attributeFilter: ['class'] });
+  }
+
   function mountControlPanel() {
     const cp = document.createElement('div'); cp.id = 'la-cp';
     const collapsed = (!ready() || !store.get('la_name')) ? false : (store.get('la_cp_closed') != null ? store.get('la_cp_closed') === '1' : window.innerWidth < 1500);
     cp.className = collapsed ? 'closed' : '';
     cp.innerHTML = `<button type="button" class="cp-head" id="cp-toggle"><span>⚙ 컨트롤 패널</span><i>▾</i></button>
       <div class="cp-body">
-        <div class="cp-grp" data-grp="login"><button type="button" class="cp-gh" data-gh="login"><span>캐릭터 불러오기</span><i>▾</i></button><div class="cp-gb">
         <div class="cp-login">
           <input id="imp-name" class="cp-in" placeholder="캐릭터 닉네임" value="${esc(store.get('la_name') || '')}" autocomplete="off">
           <input id="imp-key" class="cp-in" type="password" placeholder="API 키 (이 브라우저에만 저장)" value="${esc(store.get('la_key') || '')}" autocomplete="off">
@@ -4103,54 +4150,61 @@ render();
           <div class="cp-two"><button class="cp-mini" id="imp-load-saved" type="button">불러오기</button><button class="cp-mini" id="imp-del-saved" type="button">삭제</button></div>
           <button class="cp-link" id="imp-forget" type="button">API 키 지우기</button>
           <div id="imp-msg" class="cp-msg"></div>
-        </div></div></div>
-        <div class="cp-grp" data-grp="menu"><button type="button" class="cp-gh" data-gh="menu"><span>메뉴</span><i>▾</i></button><div class="cp-gb">
+        </div>
+        <div class="cp-div"></div>
+        <div class="cp-menu">
         <button class="cp-btn notice" type="button" data-cp="notice">📢 Notice</button>
         <button class="cp-btn data" type="button" data-cp="data">📂 데이터 불러오기<em id="cp-dwarn" hidden>!</em></button>
         <button class="cp-btn dbp" type="button" data-cp="dbp">📦 DB 프리셋 관리</button>
-        <button class="cp-btn lay" type="button" data-cp="layout"></button></div></div>
-        <div class="cp-grp" data-grp="set"><button type="button" class="cp-gh" data-gh="set"><span>계산 설정</span><i>▾</i></button><div class="cp-gb">
+        <button class="cp-btn lay" type="button" data-cp="layout"></button></div>
+      </div>`;
+    document.body.appendChild(cp);
+    const cp2 = document.createElement('div'); cp2.id = 'la-cp2';
+    cp2.className = store.get('la_cp2_closed') === '1' ? 'closed' : '';
+    cp2.innerHTML = `<button type="button" class="cp-head" id="cp2-toggle"><span>🧮 계산 설정</span><i>▾</i></button>
+      <div class="cp-body">
         <div class="cp-sec cp-tabsec"><div class="cp-tabs"><button type="button" class="cp-tab" data-cptab="syn">시너지</button><button type="button" class="cp-tab" data-cptab="pet">펫 효과</button></div>
           <select id="cp-syn" class="cp-sel"><option value="">선택 안 함</option>${SYN_DEF.map(([k, l]) => `<option value="${k}">${l}</option>`).join('')}</select>
           <select id="cp-pet" class="cp-sel"><option value="">선택 안 함</option>${PET_STATS.map(k => `<option value="${k}">${k} +${PET_VAL}</option>`).join('')}</select></div>
         <div class="cp-sec"><span class="cp-lab party">파티 치적 시너지(본인 제외)</span>
           <select id="cp-party" class="cp-sel">${[0, 1, 2].map(v => `<option value="${v}" ${FLAGS.party === v ? 'selected' : ''}>${v}명 (${v * 10}%)</option>`).join('')}</select></div>
         <div class="cp-sec" id="cp-esther"><span class="cp-lab esther">에스더 결속 효과</span>
-          <button class="cp-tg" type="button" data-tg="est1"></button><button class="cp-tg" type="button" data-tg="est2"></button></div></div></div>
+          <button class="cp-tg" type="button" data-tg="est1"></button><button class="cp-tg" type="button" data-tg="est2"></button></div>
         <div class="cp-two cp-hist"><button class="cp-btn undo" id="cp-undo" type="button" disabled>↶ 실행 취소</button><button class="cp-btn redo" id="cp-redo" type="button" disabled>↷ 다시</button></div>
         <button class="cp-btn pause" type="button" data-cp="pause"></button>
       </div>`;
-    document.body.appendChild(cp);
+    document.body.appendChild(cp2);
     cp.querySelector('#imp-go').onclick = loadFromApi;
     cp.querySelector('#imp-key').addEventListener('keydown', e => { if (e.key === 'Enter') loadFromApi(); });
     cp.querySelector('#imp-name').addEventListener('keydown', e => { if (e.key === 'Enter') loadFromApi(); });
     cp.querySelector('#imp-forget').onclick = () => { store.del('la_key'); cp.querySelector('#imp-key').value = ''; setMsg('저장된 키를 지웠습니다.'); };
     cp.querySelector('#imp-load-saved').onclick = () => { const n = cp.querySelector('#imp-saved').value || cp.querySelector('#imp-name').value.trim(); if (!n) { setMsg('저장된 캐릭터를 선택하세요.', true); return; } loadSavedChar(n); };
     cp.querySelector('#imp-del-saved').onclick = () => { const n = cp.querySelector('#imp-saved').value; if (!n) { setMsg('삭제할 저장 캐릭터를 선택하세요.', true); return; } if (!confirm(`'${n}' 저장 데이터를 삭제할까요?`)) return; const idx = charIndex(); delete idx[n]; store.set('la_chars', JSON.stringify(idx)); store.del('la_char_' + n); drawSaved(); setMsg(`'${n}' 저장 데이터를 삭제했습니다.`); };
-    cp.querySelector('#cp-undo').onclick = undo; cp.querySelector('#cp-redo').onclick = redo;
+    cp2.querySelector('#cp-undo').onclick = undo; cp2.querySelector('#cp-redo').onclick = redo;
     drawSaved(); histBtns();
-    cp.querySelector('#cp-toggle').onclick = () => { cp.classList.toggle('closed'); store.set('la_cp_closed', cp.classList.contains('closed') ? '1' : '0'); };
-    cp.querySelector('#cp-syn').onchange = e => { FLAGS.syn = e.target.value; saveFlags(); syncCp(); scheduleCalc(); };
-    cp.querySelector('#cp-pet').onchange = e => { FLAGS.pet = e.target.value; saveFlags(); syncCp(); scheduleCalc(); };
-    cp.querySelector('#cp-party').onchange = e => { FLAGS.party = Number(e.target.value); saveFlags(); scheduleCalc(); };
-    cp.addEventListener('click', e => {
+    cp.querySelector('#cp-toggle').onclick = () => { if (cp.dataset.dragged) return; cp.classList.toggle('closed'); store.set('la_cp_closed', cp.classList.contains('closed') ? '1' : '0'); };
+    cp2.querySelector('#cp2-toggle').onclick = () => { if (cp2.dataset.dragged) return; cp2.classList.toggle('closed'); store.set('la_cp2_closed', cp2.classList.contains('closed') ? '1' : '0'); };
+    cp2.querySelector('#cp-syn').onchange = e => { FLAGS.syn = e.target.value; saveFlags(); syncCp(); scheduleCalc(); };
+    cp2.querySelector('#cp-pet').onchange = e => { FLAGS.pet = e.target.value; saveFlags(); syncCp(); scheduleCalc(); };
+    cp2.querySelector('#cp-party').onchange = e => { FLAGS.party = Number(e.target.value); saveFlags(); scheduleCalc(); };
+    const onCpClick = e => {
       const b = e.target.closest('[data-cp]'), t = e.target.closest('[data-tg]');
       const tabB = e.target.closest('[data-cptab]');
       if (tabB) { cpTab = tabB.dataset.cptab; store.set('la_cp_tab', cpTab); syncCp(); return; }
-      const gh = e.target.closest('[data-gh]');
-      if (gh) { const g = gh.dataset.gh; cpGrp[g] = !cpGrp[g]; store.set('la_cp_grp', JSON.stringify(cpGrp)); syncCp(); return; }
       if (t) { const k = t.dataset.tg; if (t.disabled) return; FLAGS[k] = !FLAGS[k]; saveFlags(); syncCp(); scheduleCalc(); return; }
       if (!b) return;
       ({
         notice: openNotice, data: openDataModal, dbp: openDbPresetModal, layout: toggleLayout,
         pause: () => { paused = !paused; syncCp(); if (!paused) runCalc(); }
       })[b.dataset.cp]();
-    });
+    };
+    cp.addEventListener('click', onCpClick); cp2.addEventListener('click', onCpClick);
+    makeDraggable(cp, cp.querySelector('#cp-toggle'), 'la_cp_pos'); makeDraggable(cp2, cp2.querySelector('#cp2-toggle'), 'la_cp2_pos');
     document.addEventListener('click', e => { if (e.target.closest('[data-evp-open]')) openEvoPresetModal(); });
     syncCp();
   }
   function syncCp() {
-    const cp = $q('#la-cp'); if (!cp) return;
+    const cp = document; if (!$q('#la-cp2')) return;
     const eq = (lastRun && lastRun.ex && lastRun.ex.equipment) || {};
     const isEsther = !!(eq.isEsther || (typeof eq.weaponTier === 'string' && eq.weaponTier.includes('에스더')));
     const setTg = (btn, on, label) => { btn.textContent = (on ? '⚡ ' : '💤 ') + label + ' : ' + (on ? 'ON' : 'OFF'); btn.classList.toggle('on', !!on); };
@@ -4161,7 +4215,6 @@ render();
     cp.querySelector('#cp-syn').value = FLAGS.syn; cp.querySelector('#cp-pet').value = FLAGS.pet;
     cp.querySelector('#cp-syn').hidden = cpTab !== 'syn'; cp.querySelector('#cp-pet').hidden = cpTab !== 'pet';
     cp.querySelectorAll('[data-cptab]').forEach(b => { b.classList.toggle('on', b.dataset.cptab === cpTab); b.classList.toggle('set', !!FLAGS[b.dataset.cptab]); });
-    cp.querySelectorAll('.cp-grp').forEach(g => g.classList.toggle('shut', !!cpGrp[g.dataset.grp]));
     const pb = cp.querySelector('[data-cp="pause"]'); pb.textContent = paused ? '⏸️ 실시간 계산 : OFF' : '▶️ 실시간 계산 : ON'; pb.classList.toggle('off', paused);
     const lb = cp.querySelector('[data-cp="layout"]'); if (lb) lb.textContent = layoutMode === 'tabs' ? '🗂 화면 방식 : 탭' : '📜 화면 방식 : 기본';
     cp.querySelector('#cp-dwarn').hidden = ready();
@@ -4267,6 +4320,6 @@ render();
   const _render = render;
   render = function () { _render(); scheduleCalc(); };
   ensureEvo(); ensureTripodSel(); renderEvo(); renderOptBody(); renderSkillSim(); runCalc(); histReset();
-  window.LAApp = { undo, redo, histInfo: () => ({ u: HIST.undo.length, r: HIST.redo.length }), saveChar, loadSavedChar, runOpt, runCalc, lastRun: () => lastRun, loadDataFiles, loadFromFiles, applyRaw, openDataModal, DATA: () => DATA, FLAGS };
+  window.LAApp = { getState: () => state, undo, redo, histInfo: () => ({ u: HIST.undo.length, r: HIST.redo.length }), saveChar, loadSavedChar, runOpt, runCalc, lastRun: () => lastRun, loadDataFiles, loadFromFiles, applyRaw, openDataModal, DATA: () => DATA, FLAGS };
 })();
 </script></body></html>

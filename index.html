@@ -4,6 +4,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<script>try{if(localStorage.getItem('la_theme')==='light')document.documentElement.classList.add('light')}catch(e){}</script>
 <style>
 :root{--bg:#0e131a;--top:#151c25;--panel:#1b232e;--panel2:#202b38;--line:#2d3948;--muted:#91a1b4;--text:#e5edf7;--blue:#69b7ff;--blue2:#2d5d8b;--gold:#ffc85c;--purple:#b89aff;--green:#70d6bd}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:13px/1.5 Pretendard,"Malgun Gothic",system-ui,sans-serif}
@@ -52,6 +53,7 @@
 .la-warn-d{font-size:12.5px;line-height:1.6;color:var(--muted);margin-bottom:18px}
 .la-warn-b{width:100%;padding:10px;border-radius:8px;border:1px solid #4c7aa8;background:linear-gradient(180deg,#34608a,#2a4d6f);color:#fff;font-size:13px;font-weight:600;cursor:pointer}
 .la-warn-b:hover{filter:brightness(1.15)}
+.la-warn-btns{display:flex;gap:8px}.la-warn-btns .la-warn-no{background:#232c38;border-color:#3b4656;color:#cbd5e1;flex:0 0 32%}
 @keyframes lawf{from{opacity:0}to{opacity:1}}@keyframes law{from{transform:translateY(8px) scale(.97);opacity:0}to{transform:none;opacity:1}}
 .ark-node.ark-unsup{opacity:.45;cursor:not-allowed;position:relative}
 .ark-node.ark-unsup .ark-icon{filter:grayscale(1) brightness(.7);cursor:not-allowed}
@@ -77,6 +79,12 @@
 .tabcard .panel-toggle{pointer-events:none;cursor:default}
 .tabcard .panel-toggle .collapse-mark{display:none}
 .cp-btn.lay{background:#7c3aed;border-color:#a78bfa}
+.cp-btn.thm{background:#475569;border-color:#94a3b8}
+#la-theme{box-sizing:border-box;margin:0;padding:0;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:2px;color:var(--text);cursor:pointer;font-size:.95rem;line-height:1;transition:border-color .15s ease,transform .1s ease;position:fixed;top:20px;right:20px;z-index:100;background:var(--panel);border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+#la-theme:hover{border-color:var(--blue)}#la-theme:active{transform:scale(.94)}#la-theme:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+#la-theme .theme-ico{display:none}#la-theme .theme-ico--sun{display:inline}html.light #la-theme .theme-ico--sun{display:none}html.light #la-theme .theme-ico--moon{display:inline}
+html.light{filter:invert(1) hue-rotate(180deg)}
+html.light img,html.light video{filter:invert(1) hue-rotate(180deg)}
 .ss-hidrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:8px 12px;margin:-2px 0 10px;background:rgba(224,184,106,.06);border:1px dashed rgba(224,184,106,.35);border-radius:9px;font-size:12px}
 .ss-hidlab{color:#e0b86a;font-weight:700;margin-right:2px}
 .ss-chip{border:1px solid #3a4a5d;background:#1b2838;color:#dcecff;border-radius:999px;padding:3px 10px;font:inherit;font-size:12px;cursor:pointer}
@@ -567,7 +575,7 @@ button,input,select,textarea{font-family:inherit}
 .cp-head i{font-style:normal;transition:.15s}#la-cp.closed .cp-head i{transform:rotate(180deg)}
 .cp-body{display:flex;flex-direction:column;gap:7px;padding:10px;max-height:calc(100vh - 90px);overflow:auto}
 #la-cp.closed .cp-body,#la-cp2.closed .cp-body{display:none}
-#la-cp2{position:fixed;right:18px;top:18px;z-index:60;width:204px;background:#161d24;border:1px solid rgba(255,255,255,.1);border-radius:11px;box-shadow:0 10px 26px rgba(0,0,0,.55);overflow:hidden}
+#la-cp2{position:fixed;right:18px;top:64px;z-index:60;width:204px;background:#161d24;border:1px solid rgba(255,255,255,.1);border-radius:11px;box-shadow:0 10px 26px rgba(0,0,0,.55);overflow:hidden}
 #la-cp2 .cp-body{max-height:calc(100vh - 150px)}
 .cp-head.cp-drag{cursor:grab;user-select:none}#la-cp.dragging .cp-head,#la-cp2.dragging .cp-head{cursor:grabbing}#la-cp.dragging,#la-cp2.dragging{opacity:.92;box-shadow:0 14px 34px rgba(0,0,0,.65)}
 #la-cp2 .cp-head i{font-style:normal;transition:.15s}#la-cp2.closed .cp-head i{transform:rotate(180deg)}
@@ -655,7 +663,7 @@ button,input,select,textarea{font-family:inherit}
 #sim-mini-modal .mini-metrics-wrapper>div>div{padding:4px 8px!important;background:#181920!important;border:1px solid #2e323d!important;border-radius:6px!important;white-space:nowrap!important;min-width:0!important;flex:none!important}
 #sim-mini-modal .mini-metrics-wrapper div{font-size:.68rem!important;line-height:1.3!important}
 #sim-mini-modal .mini-metrics-wrapper div>div:first-child{font-size:.62rem!important}
-@media(max-width:1000px){#la-cp{left:10px;top:10px}#la-cp2{right:10px;top:10px;width:176px}#sim-mini-modal{right:10px;bottom:10px}.cc-right{margin-left:0}}
+@media(max-width:1000px){#la-cp{left:10px;top:10px}#la-cp2{right:10px;top:64px;width:176px}#sim-mini-modal{right:10px;bottom:10px}.cc-right{margin-left:0}}
 
 .panel-toggle,.panel>.sectiontitle{position:relative}
 .panel-toggle{padding:14px 18px;background:linear-gradient(90deg,rgba(66,140,214,.22),rgba(66,140,214,.04) 55%,transparent);border-bottom:1px solid var(--line);transition:background .15s}
@@ -3223,11 +3231,11 @@ render();
   }
 
   const DATA_KEYS = ['game', 'skills', 'addStat', 'spec', 'cores'];
-  const DATA_LABEL = { game: '게임 데이터', skills: '스킬', addStat: '고정 효과', spec: '특화', cores: '질서 코어' };
+  const DATA_LABEL = { game: '공용 데이터', skills: '스킬', addStat: '도약·깨달음', spec: '특화', cores: '질서 코어' };
   const DATA_REQ = { game: true, skills: true, spec: true, addStat: false, cores: false };
   const DATA_HINT = {
-    game: '장비/보석/각인/진화 노드 등 표 (gemDataTable, evolutionNodes …)', skills: '스킬 DB 배열 (constant, coefficient, tripods …)',
-    addStat: '깨달음/도약 등 고정 효과 배열 (effects …)', spec: '특화 계수 ({coefficient, targetTags})', cores: '질서 코어 파일 (여러 개 가능)'
+    game: '장비/보석/각인/진화 노드 등 (gemDataTable, evolutionNodes …)', skills: '스킬 DB 배열 (constant, coefficient, tripods …)',
+    addStat: '깨달음·도약 (effects …)', spec: '특화 계수 ({coefficient, targetTags})', cores: '질서 코어 파일 (여러 개 가능)'
   };
   let DATA = {};
   DATA_KEYS.forEach(k => { const v = jget('la_d_' + k, null); if (v != null) DATA[k] = v; });
@@ -3557,7 +3565,7 @@ render();
     const draw = (msgs) => {
       m.body.innerHTML = `<p class="la-mdesc">계산에 쓰는 게임 데이터 JSON을 올립니다. 종류는 내용으로 자동 인식하며, 올린 데이터는 이 브라우저에 저장되어 다음에도 유지됩니다. 코어 파일은 여러 개를 한 번에 올려도 됩니다.</p>
       <div class="la-drow-list">${DATA_KEYS.map(k => { const c = dataCount(k); return `<div class="la-drow ${c ? 'ok' : (DATA_REQ[k] ? 'need' : '')}">
-        <div class="la-dname"><b>${DATA_LABEL[k]}</b> <small>${DATA_REQ[k] ? '필수' : '선택'}</small><div class="la-dhint">${esc(DATA_HINT[k])}</div></div>
+        <div class="la-dname"><b>${DATA_LABEL[k]}</b> <small>${DATA_REQ[k] ? '' : ''}</small><div class="la-dhint">${esc(DATA_HINT[k])}</div></div>
         <span class="la-dstat">${c || (DATA_REQ[k] ? '미등록' : '없음')}</span>
         <button class="btn" type="button" data-view="${k}" ${c ? '' : 'disabled'}>보기</button><button class="btn" type="button" data-clear="${k}" ${c ? '' : 'disabled'}>삭제</button></div>`; }).join('')}</div>
       <div class="la-drop" id="la-drop"><label class="btn primary">JSON 파일 올리기<input id="la-dfiles" type="file" accept=".json,application/json" multiple hidden></label><span>또는 파일을 여기로 끌어다 놓기</span></div>
@@ -3704,21 +3712,37 @@ render();
     state = S; ensureEvo(true); ensureTripodSel(true);
     render(); renderEvo(); renderSkillSim(); scheduleCalc(); histReset();
   }
-  function warnModal(groups) {
+  function warnModal(groups, after) {
     const old = document.getElementById('la-warn'); if (old) old.remove();
     const ov = document.createElement('div'); ov.id = 'la-warn'; ov.className = 'la-warn';
     ov.innerHTML = '<div class="la-warn-box" role="alertdialog" aria-modal="true"><div class="la-warn-ico">!</div>' + groups.map(g => '<div class="la-warn-t">' + g.title + '</div><div class="la-warn-s">' + g.chips.map(x => '<span>' + x + '</span>').join('') + '</div><div class="la-warn-d">' + g.desc + '</div>').join('') + '<button type="button" class="la-warn-b">확인</button></div>';
-    const close = () => { ov.remove(); document.removeEventListener('keydown', key, true); };
+    const close = () => { ov.remove(); document.removeEventListener('keydown', key, true); if (after) { const f = after; after = null; f(); } };
     const key = e => { if (e.key === 'Escape' || e.key === 'Enter') { e.preventDefault(); close(); } };
     ov.addEventListener('mousedown', e => { if (e.target === ov) close(); });
     ov.querySelector('.la-warn-b').onclick = close;
     document.addEventListener('keydown', key, true);
     document.body.appendChild(ov); ov.querySelector('.la-warn-b').focus();
   }
+  function confirmModal(o, onOk) {
+    const old = document.getElementById('la-warn'); if (old) old.remove();
+    const ov = document.createElement('div'); ov.id = 'la-warn'; ov.className = 'la-warn';
+    ov.innerHTML = '<div class="la-warn-box" role="alertdialog" aria-modal="true"><div class="la-warn-ico">!</div><div class="la-warn-t">' + o.title + '</div><div class="la-warn-s">' + o.chips.map(x => '<span>' + x + '</span>').join('') + '</div><div class="la-warn-d">' + o.desc + '</div><div class="la-warn-btns"><button type="button" class="la-warn-b la-warn-no">' + o.no + '</button><button type="button" class="la-warn-b la-warn-ok">' + o.ok + '</button></div></div>';
+    const close = () => { ov.remove(); document.removeEventListener('keydown', key, true); };
+    const key = e => { if (e.key === 'Escape') { e.preventDefault(); close(); } };
+    ov.querySelector('.la-warn-no').onclick = close;
+    ov.querySelector('.la-warn-ok').onclick = () => { close(); onOk(); };
+    document.addEventListener('keydown', key, true);
+    document.body.appendChild(ov); ov.querySelector('.la-warn-ok').focus();
+  }
   function applyRaw(raw, cache) {
     try { const pr = raw && raw.profiles; ; } catch (e) {}
     const S = LAParser.parseCharacter(raw);
-    if (cache) saveChar(JSON.parse(JSON.stringify(S)));
+    let better = null;
+    if (cache) {
+      const sv = getSavedChar(S.meta && S.meta.name), cpNew = Number(S.meta && S.meta.combatPower) || 0, cpOld = sv ? Number(sv.state.meta && sv.state.meta.combatPower) || 0 : 0;
+      if (sv && cpOld > cpNew) better = { name: S.meta.name, cpOld, cpNew, at: sv.savedAt };
+      else saveChar(JSON.parse(JSON.stringify(S)));
+    }
     const groups = [];
     try {
       const bad = (S.equipment || []).filter(e => ['투구', '어깨', '상의', '하의', '장갑', '무기'].includes(e.slot) && !/에스더/.test(e.grade || '') && !/전율/.test(e.name || ''));
@@ -3745,7 +3769,9 @@ render();
     } catch (e) { }
     applyState(S);
     const sg = selNoticeGroup(); if (sg) groups.push(sg);
-    if (groups.length) warnModal(groups);
+    const ask = better ? () => confirmModal({ title: '저장된 데이터의 전투력이 더 높아요', chips: ['저장 ' + better.cpOld.toLocaleString() + ' (' + new Date(better.at).toLocaleDateString('ko-KR') + ')', '불러온 값 ' + better.cpNew.toLocaleString()], desc: '불러온 데이터는 저장하지 않았어요.<br>전투력이 더 높은 저장된 세팅을 불러올까요?', no: '아니요', ok: '저장된 세팅 불러오기' }, () => { loadSavedChar(better.name, '전투력이 더 높은'); }) : null;
+    if (groups.length) warnModal(groups, ask); else if (ask) ask();
+    return { skipped: !!better };
   }
   async function loadFromApi() {
     const name = $q('#imp-name').value.trim(), key = $q('#imp-key').value.trim().replace(/^bearer\s+/i, '');
@@ -3769,7 +3795,7 @@ render();
       setMsg(`불러오기 실패 (${errs.join(', ')}). 이 닉네임으로 저장된 데이터도 없습니다. 서버 상태나 키/네트워크를 확인하세요.`, true); return;
     }
     if (errs.length) setMsg('일부 항목을 불러오지 못했습니다 (' + errs.join(', ') + ')', true);
-    try { applyRaw(raw, !errs.length); if (!errs.length) setMsg(name + ' 불러옴 · 이 브라우저에 저장됨'); } catch (e) { setMsg('변환 오류: ' + e.message, true); }
+    try { const rs = applyRaw(raw, !errs.length); if (!errs.length) setMsg(rs && rs.skipped ? name + ' 불러옴 · 저장된 데이터의 전투력이 더 높아 저장하지 않음' : name + ' 불러옴 · 이 브라우저에 저장됨'); } catch (e) { setMsg('변환 오류: ' + e.message, true); }
   }
   async function loadFromFiles(files) {
     const raw = {};
@@ -4174,6 +4200,7 @@ render();
         <button class="cp-btn pause" type="button" data-cp="pause"></button>
       </div>`;
     document.body.appendChild(cp2);
+    const th = document.createElement('button'); th.id = 'la-theme'; th.type = 'button'; th.className = 'theme-toggle'; th.innerHTML = '<span class="theme-ico theme-ico--sun" aria-hidden="true">☀</span><span class="theme-ico theme-ico--moon" aria-hidden="true">☾</span>'; th.onclick = toggleTheme; document.body.appendChild(th);
     cp.querySelector('#imp-go').onclick = loadFromApi;
     cp.querySelector('#imp-key').addEventListener('keydown', e => { if (e.key === 'Enter') loadFromApi(); });
     cp.querySelector('#imp-name').addEventListener('keydown', e => { if (e.key === 'Enter') loadFromApi(); });
@@ -4216,6 +4243,7 @@ render();
     cp.querySelector('#cp-syn').hidden = cpTab !== 'syn'; cp.querySelector('#cp-pet').hidden = cpTab !== 'pet';
     cp.querySelectorAll('[data-cptab]').forEach(b => { b.classList.toggle('on', b.dataset.cptab === cpTab); b.classList.toggle('set', !!FLAGS[b.dataset.cptab]); });
     const pb = cp.querySelector('[data-cp="pause"]'); pb.textContent = paused ? '⏸️ 실시간 계산 : OFF' : '▶️ 실시간 계산 : ON'; pb.classList.toggle('off', paused);
+    const tb2 = $q('#la-theme'); if (tb2) { const lt = document.documentElement.classList.contains('light'); tb2.title = lt ? '다크 모드로 전환' : '라이트 모드로 전환'; tb2.setAttribute('aria-label', '라이트/다크 테마 전환'); }
     const lb = cp.querySelector('[data-cp="layout"]'); if (lb) lb.textContent = layoutMode === 'tabs' ? '🗂 화면 방식 : 탭' : '📜 화면 방식 : 기본';
     cp.querySelector('#cp-dwarn').hidden = ready();
   }
@@ -4291,6 +4319,7 @@ render();
       card0.remove(); lay.style.display = '';
     }
   }
+  function toggleTheme() { const on = !document.documentElement.classList.contains('light'); document.documentElement.classList.toggle('light', on); store.set('la_theme', on ? 'light' : 'dark'); syncCp(); }
   function toggleLayout() { layoutMode = layoutMode === 'tabs' ? 'classic' : 'tabs'; store.set('la_layout', layoutMode); applyLayout(); syncCp(); }
 
   function mount() {

@@ -69,7 +69,6 @@
 .tabbar button{position:relative;flex:none;display:flex;align-items:center;gap:10px;margin:0;border:0;border-right:1px solid rgba(255,255,255,.04);border-radius:0;background:transparent;color:#8b99ab;font:inherit;font-size:14px;font-weight:700;letter-spacing:-.02em;padding:14px 20px;cursor:pointer;white-space:nowrap;transition:color .15s,background .15s}
 .tabbar button:hover{color:#d6e0ee;background:rgba(80,160,240,.08)}
 .tabbar button.on{color:#eef6ff;font-weight:800;background:linear-gradient(90deg,rgba(66,140,214,.3),rgba(66,140,214,.08) 70%,rgba(66,140,214,.02))}
-.tabbar button.on::before{content:'';flex:none;width:5px;height:18px;border-radius:3px;background:linear-gradient(180deg,#7fd0ff,#3a78d8);box-shadow:0 0 10px rgba(80,160,240,.45)}
 .tabpanes{padding:12px}
 .tabpane{display:none;flex-direction:column;gap:12px}
 .tabpane.on{display:flex}
@@ -85,6 +84,51 @@
 .ss-chip:hover{background:#26384b;border-color:#4c7aa8}
 .ss-hidrow .ss-link{margin-left:auto}
 .ss-hide{padding:4px 9px;font-size:12px}
+.cp-grp{display:flex;flex-direction:column;gap:6px}
+.cp-gh{display:flex;align-items:center;justify-content:space-between;width:100%;padding:5px 7px;border:0;border-radius:6px;background:rgba(66,140,214,.14);color:#9fc4ea;font:inherit;font-size:11px;font-weight:700;letter-spacing:.02em;cursor:pointer}
+.cp-gh:hover{background:rgba(66,140,214,.24)}
+.cp-gh i{font-style:normal;transition:transform .15s}
+.cp-grp.shut .cp-gh i{transform:rotate(-90deg)}
+.cp-gb{display:flex;flex-direction:column;gap:7px}
+.cp-grp.shut .cp-gb{display:none}
+.cp-lab.syn{color:#7dd3fc}.cp-lab.pet{color:#f9a8d4}
+.cp-tabsec{gap:6px}
+.cp-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.cp-tab{position:relative;padding:7px 0;font-size:12px;font-weight:700;border-radius:6px;border:1px solid rgba(255,255,255,.12);background:#0f172a;color:#94a3b8;cursor:pointer;transition:filter .15s}
+.cp-tab:hover{filter:brightness(1.2)}
+.cp-tab.on{background:linear-gradient(90deg,rgba(66,140,214,.35),rgba(66,140,214,.12));border-color:#4c7aa8;color:#eef6ff}
+.cp-tab.set::after{content:'';position:absolute;top:5px;right:6px;width:6px;height:6px;border-radius:50%;background:#4ade80}
+.cp-tabsec .cp-sel[hidden]{display:none}
+@supports not selector(::-webkit-scrollbar){.cp-body{scrollbar-width:thin;scrollbar-color:#3b6ea5 transparent}}
+.cp-body{scrollbar-gutter:stable}
+.cp-body::-webkit-scrollbar{width:8px}
+.cp-body::-webkit-scrollbar-track{background:rgba(255,255,255,.03);border-radius:8px;margin:4px 0}
+.cp-body::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#4f8fd6,#2f5f9a);border-radius:8px;border:2px solid #161d24}
+.cp-body::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#7fd0ff,#3a78d8)}
+.as-wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:1100px){.as-wrap{grid-template-columns:1fr}}
+.as-empty{padding:16px;text-align:center;color:#8b99ab;font-size:13px}
+.as-col{display:flex;flex-direction:column;gap:12px;min-width:0}
+.as-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.08)}
+.as-t{font-size:15px}.as-t.real{color:#83e9ff}.as-t.leap{color:#c2ea55}
+.as-pts{font-size:12px;color:#9fb0c6;font-weight:600}.as-pts.over{color:#f87171}
+.as-tools{margin-left:auto;display:flex;gap:6px}
+.as-tools .btn{padding:4px 9px;font-size:12px}
+.as-tier{display:flex;gap:10px;align-items:flex-start}
+.as-tl{flex:none;width:44px;padding-top:14px;font-size:11px;font-weight:700;color:#7f8ea3;text-align:right}
+.as-row{display:flex;flex-wrap:wrap;gap:10px;flex:1}
+.as-node{position:relative;width:104px;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px 6px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);transition:opacity .15s,border-color .15s}
+.as-node.on{border-color:rgba(88,166,255,.55);background:rgba(88,166,255,.07)}
+.as-node.lock{opacity:.45}
+.as-node:not(.on) .as-ic{filter:grayscale(1) opacity(.55)}
+.as-badge{position:absolute;top:4px;left:4px;font-style:normal;font-size:9.5px;font-weight:800;color:#0b1220;background:#e0b86a;border-radius:4px;padding:1px 4px}
+.as-ic{width:44px;height:44px;border-radius:50%;object-fit:cover;display:block;cursor:pointer;user-select:none}
+.as-ic.ph{display:flex;align-items:center;justify-content:center;background:#2a3444;color:#9fb0c6;font-weight:800}
+.as-nm{font-size:11.5px;color:#c9d1d9;text-align:center;line-height:1.25;min-height:28px;display:flex;align-items:center}
+.as-ctl{display:flex;align-items:center;justify-content:space-between;width:88px;background:#1e1b2e;border-radius:6px;padding:2px 4px}
+.as-ctl span{font-size:12px;color:#58a6ff;font-family:monospace}
+.as-ctl button{background:transparent;border:0;color:#8b5cf6;font-size:15px;font-weight:700;cursor:pointer;padding:0 6px}
+.as-ctl button:disabled{color:#4b5563;cursor:not-allowed}
 </style><style>
 .equip-bulk{display:grid;grid-template-columns:auto 1fr 1fr;gap:6px;align-items:center;margin:8px 0 12px;padding:8px;background:var(--panel2,#151e2b);border-radius:9px;font-size:11px}
 .equip-detail{padding:10px 0;border-bottom:1px solid var(--line,#263244)}.equip-detail-head{display:flex;justify-content:space-between;align-items:center}.equip-detail .editgrid{margin-top:7px}.batch-check{display:flex;gap:5px;align-items:center;font-size:11px;color:var(--muted)}
@@ -660,7 +704,10 @@ button,input,select,textarea{font-family:inherit}
 </section>
 </div>
 <section class="panel" id="engravings"><div class="sectiontitle"><h3>각인</h3><span class="count" id="engcount"></span></div><div class="engraves" id="engrlist"></div></section>
+<!-- 아크 패시브 포인트 섹션 (깨달음/도약 시뮬레이션 추가로 사용 안 함 - 필요 시 아래 주석을 해제하고 그 밑의 숨김 요소를 지우세요)
 <section class="panel" id="arkpoints-panel"><div class="sectiontitle"><h3>아크 패시브 포인트</h3></div><div id="points-bar"></div><div class="arkpoints" id="points"></div></section>
+-->
+<div hidden><div id="points-bar"></div><div id="points"></div></div>
 <section class="panel" id="arkgrid"><div class="sectiontitle"><h3>아크 그리드</h3><span class="count" id="corecount"></span></div><div class="arktoolbar"><span class="muted">일괄 변경</span><div class="arkbulk"><select class="field" id="ark-bulk-grade"><option value="">코어 등급</option><option>유물</option><option>고대</option></select><select class="field" id="ark-bulk-level"><option value="">젬 옵션 레벨</option><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div></div><div id="arkgrid-editor"></div></section>
 
 <section class="panel hidden" id="arkpassive-section"><div class="sectiontitle"><h3>아크 패시브</h3><span class="count" id="arktitle"></span></div><div id="arkeffects" class="statgrid"></div></section>
@@ -3226,7 +3273,13 @@ render();
     engraving(name) { const g = D().game; const e = g && (g.engravingTable || {})[name]; return (e && e.icon) || null; }
   };
 
-  const FLAGS = Object.assign({ party: 0, est1: false, est2: false, multi: false }, jget('la_flags', {}));
+  const FLAGS = Object.assign({ party: 0, est1: false, est2: false }, jget('la_flags', {}));
+  if (!['', 'crit', 'dmg', 'def'].includes(FLAGS.syn)) FLAGS.syn = '';
+  if (!['', '치명', '신속', '특화'].includes(FLAGS.pet)) FLAGS.pet = '';
+  const SYN_DEF = [['crit', '치명타 적중률 +10%', '치명타 적중률', 10], ['dmg', '적에게 주는 피해 +6%', '적에게 주는 피해', 6], ['def', '방어력 감소 12%', '방어력 무시', 12]];
+  const PET_STATS = ['치명', '신속', '특화'], PET_VAL = 160;
+  const cpGrp = jget('la_cp_grp', {});
+  let cpTab = store.get('la_cp_tab') === 'pet' ? 'pet' : 'syn';
   const saveFlags = () => store.set('la_flags', JSON.stringify(FLAGS));
   let paused = false;
 
@@ -3277,7 +3330,10 @@ render();
     inputs.selectedTripods = sel;
     const noAv = i => !/아바타/.test(i && i.name || '');
     const baseNames = new Set((G.DEFAULT_ADD_STAT_BASE || []).map(i => i.name));
-    const statList = [...(G.DEFAULT_ADD_STAT_BASE || []).filter(noAv), ...(d.addStat || []).filter(i => i && i.name && !baseNames.has(i.name) && noAv(i))];
+    const statList = [...(G.DEFAULT_ADD_STAT_BASE || []).filter(noAv), ...(d.addStat || []).filter(i => i && i.name && !baseNames.has(i.name) && noAv(i) && !i.type && !/^시너지/.test(i.name) && !/^펫\s*(치명|신속|특화)/.test(i.name))];
+    arkSimStats().forEach(x => statList.push(x));
+    SYN_DEF.forEach(([k, , cat, v]) => { if (FLAGS.syn === k) statList.push({ name: '시너지 - ' + cat.replace('방어력 무시', '방어력 감소'), effects: [{ category: cat, val: v, unit: '%' }] }); });
+    if (FLAGS.pet) statList.push({ name: '펫 ' + FLAGS.pet, effects: [{ category: FLAGS.pet, val: PET_VAL, unit: '' }] });
 
     const AV = { hero: 1, legend: 2 }, avs = state.avatars || { weapon: 'legend', head: 'legend', top: 'legend', bottom: 'legend' };
     const avKeys = ['weapon', 'head', 'top', 'bottom'];
@@ -3287,7 +3343,7 @@ render();
       statList.push({ name: '아바타 (' + [nL ? '전설 ' + nL : '', nH ? '영웅 ' + nH : ''].filter(Boolean).join(' · ') + ')', effects: [{ category: '주스탯 %', val: avPct, unit: '%' }] });
     }
     const env = E.makeEnv({ addStatBase: statList, specializationDatabase: d.spec, orderDataSets: LAEngine.parseOrderDataSets(d.cores), selectedTripods: sel,
-      partyCritCount: FLAGS.party, multiCrit: FLAGS.multi, estherBonding1: FLAGS.est1, estherBonding2: FLAGS.est2 });
+      partyCritCount: FLAGS.party, multiCrit: true, estherBonding1: FLAGS.est1, estherBonding2: FLAGS.est2 });
     const vis = r => !(r && [...ssHid].some(h => norm(h) === norm(r.skillName)));
     const calcVis = () => E.calculate(inputs, env, d.skills).filter(vis);
     const res = calcVis();
@@ -3324,6 +3380,7 @@ render();
 
   function renderEvo() {
     if (!$q('#evo-body')) return;
+    renderArkSim();
     if (!hasGame()) { $q('#evo-body').innerHTML = noDataHtml(); if (window.renderArkPoints) renderArkPoints(); return; }
     const G = D().game, evo = ensureEvo();
     G.evolutionNodes.forEach((row, ri) => row.forEach(n => { n.current = Number(evo[evoKey(ri + 1, n.name)]) || 0; }));
@@ -3332,6 +3389,124 @@ render();
     C.onEvoChange = (ri, node) => { state.evo[evoKey(ri + 1, node.name)] = node.current; if (window.renderArkPoints) renderArkPoints(); scheduleCalc(); };
     window.renderArkPassiveUI();
     if (window.renderArkPoints) renderArkPoints();
+  }
+
+  const AS_TYPES = ['깨달음', '도약'];
+  const asKey = (t, n) => t + '|' + n;
+  function asNodes(type) {
+    return ((DATA.addStat || [])).filter(x => x && x.type === type && x.name).map(x => ({ key: asKey(type, x.name), name: x.name, tier: Number(x.tier) || 1, main: String(x.isMain || '').toUpperCase() === 'Y', max: Math.max(1, Number(x.MaxLevel) || 1), req: (x.reqPoint !== undefined && x.reqPoint !== '' && Number.isFinite(Number(x.reqPoint))) ? Number(x.reqPoint) : null, icon: x.icon || '', raw: x }));
+  }
+  const asHas = () => AS_TYPES.some(t => asNodes(t).length);
+  const asCost = (type, n) => n.req !== null && n.req !== undefined ? n.req : (type === '깨달음' ? (n.main ? 8 : 2) : (n.tier >= 2 ? 10 : 4));
+  function asCap(type) { const v = Number((((state.arkPassive || {}).points || {})[type] || {}).value); return v > 0 ? v : (type === '깨달음' ? 100 : Infinity); }
+  function ensureArkSim(force) {
+    if (!state.arkSim || force) {
+      state.arkSim = {};
+      ((state.arkPassive && state.arkPassive.effects) || []).filter(e => e.tree === '깨달음' || e.tree === '도약').forEach(e => { if (e.name) state.arkSim[asKey(e.tree, e.name)] = Number(e.level) || 0; });
+    }
+    return state.arkSim;
+  }
+  function asUsed(type, lv) { return asNodes(type).reduce((a, n) => a + asCost(type, n) * (lv[n.key] || 0), 0); }
+  function asViol(type, lv) {
+    const nodes = asNodes(type), v = [], L = n => lv[n.key] || 0;
+    const used = asUsed(type, lv), cap = asCap(type);
+    if (used > cap) v.push({ k: 'cap', msg: '포인트가 부족합니다 (' + used + ' / ' + cap + ')' });
+    if (type === '깨달음') {
+      const mains = nodes.filter(n => n.main);
+      nodes.forEach(n => { if (L(n) > 0) mains.forEach(m => { if (m.tier < n.tier && L(m) < m.max) v.push({ k: 'p|' + n.key + '|' + m.key, a: n.key, msg: m.tier + '티어 메인 노드(' + m.name + ')를 모두 찍어야 ' + n.tier + '티어를 찍을 수 있습니다' }); }); });
+    } else {
+      const t1 = nodes.filter(n => n.tier < 2).reduce((a, n) => a + asCost(type, n) * L(n), 0), t2 = nodes.filter(n => n.tier >= 2 && L(n) > 0);
+      t2.forEach(n => { if (t1 < 40) v.push({ k: 't1|' + n.key, a: n.key, msg: '1티어를 40포인트 이상 사용해야 2티어를 찍을 수 있습니다 (현재 ' + t1 + ')' }); });
+      if (t2.length > 1) t2.forEach(n => v.push({ k: 'x|' + n.key, a: n.key, x: true, msg: '2티어는 한 종류의 노드만 찍을 수 있습니다' }));
+    }
+    return v;
+  }
+  function asTry(type, key, delta) {
+    const n = asNodes(type).find(x => x.key === key); if (!n) return '';
+    const old = Object.assign({}, ensureArkSim()), cur = old[key] || 0, nx = Math.max(0, Math.min(n.max, cur + delta));
+    if (nx === cur) return delta > 0 ? '최대 레벨입니다' : '';
+    if (delta < 0) return '';
+    const lv = Object.assign({}, old); lv[key] = nx;
+    const before = new Set(asViol(type, old).map(x => x.k)), hit = asViol(type, lv).filter(x => x.k === 'cap' ? (delta > 0) : !before.has(x.k));
+    return hit.length ? hit[0].msg : '';
+  }
+  function asDecPlan(type, key) {
+    const old = Object.assign({}, ensureArkSim()), cur = old[key] || 0;
+    if (cur <= 0) return null;
+    const lv = Object.assign({}, old); lv[key] = cur - 1;
+    const before = new Set(asViol(type, old).map(x => x.k)), removed = [], names = {};
+    asNodes(type).forEach(n => { names[n.key] = n.name; });
+    for (let i = 0; i < 60; i++) {
+      const hit = asViol(type, lv).filter(x => x.k !== 'cap' && !x.x && !before.has(x.k));
+      if (!hit.length) break;
+      hit.forEach(x => { const k = x.a; if ((lv[k] || 0) > 0) { lv[k] = 0; removed.push(names[k] || k); } });
+    }
+    return { lv, removed };
+  }
+  function asDesc(n, type) {
+    return n.name + '\n' + (n.raw.effects || []).map(e => {
+      const u = e.unit || '';
+      if (Array.isArray(e.val)) return '· ' + e.category + ' 레벨별 ' + e.val.join(' / ') + u;
+      if (e.formula) return '· ' + e.category + ' (' + e.formula + ') × 레벨';
+      return '· ' + e.category + ' ' + (e.val !== undefined ? (typeof e.val === 'number' ? '+' + e.val + u + ' / 레벨' : e.val) : '');
+    }).join('\n') + '\n필요 포인트 레벨당 ' + asCost(type, n);
+  }
+  function arkSimStats() {
+    const lv = ensureArkSim(), out = [];
+    AS_TYPES.forEach(type => asNodes(type).forEach(n => {
+      const l = Math.min(n.max, lv[n.key] || 0); if (l <= 0) return;
+      const effects = (n.raw.effects || []).map(e => {
+        const o = Object.assign({}, e);
+        if (Array.isArray(e.val)) o.val = Number(e.val[Math.min(l, e.val.length) - 1]) || 0;
+        else if (typeof e.val === 'number') o.val = e.val * l;
+        else if (e.formula) o.formula = '(' + e.formula + ')*' + l;
+        return o;
+      });
+      out.push({ name: type + ' - ' + n.name, effects });
+    }));
+    return out;
+  }
+  function renderArkSim() {
+    const box = $q('#real-body'); if (!box) return;
+    if (!asHas()) { box.innerHTML = '<div class="as-empty">깨달음·도약 데이터가 없습니다. <button type="button" class="btn" data-act="open-data">데이터 불러오기</button></div>'; return; }
+    const lv = ensureArkSim(), apiIcon = {};
+    ((state.arkPassive && state.arkPassive.effects) || []).forEach(e => { if (e.icon) apiIcon[asKey(e.tree, e.name)] = e.icon; });
+    const col = type => {
+      const nodes = asNodes(type), tiers = [...new Set(nodes.map(n => n.tier))].sort((a, b) => a - b), cap = asCap(type), used = asUsed(type, lv);
+      return `<div class="as-col"><div class="as-head"><b class="as-t ${type === '깨달음' ? 'real' : 'leap'}">${type}</b><span class="as-pts ${used > cap ? 'over' : ''}">사용 ${used} / ${cap === Infinity ? '∞' : cap}</span><span class="as-tools"><button type="button" class="btn" data-asapi="${type}">API 값으로</button><button type="button" class="btn" data-asclr="${type}">전체 해제</button></span></div>
+      ${tiers.map(t => `<div class="as-tier"><div class="as-tl">${t}티어</div><div class="as-row">${nodes.filter(n => n.tier === t).map(n => {
+        const cur = Math.min(n.max, lv[n.key] || 0), up = asTry(type, n.key, 1), plan = asDecPlan(type, n.key), dn = '', icon = n.icon || apiIcon[n.key] || '';
+        const locked = cur === 0 && !!up;
+        return `<div class="as-node ${cur ? 'on' : ''} ${locked ? 'lock' : ''} ${n.main ? 'main' : ''}" title="${esc(asDesc(n, type))}${locked ? '\n\n🔒 ' + esc(up) : ''}">
+          ${n.main ? '<em class="as-badge">메인</em>' : ''}
+          ${icon ? `<img class="as-ic" src="${esc(icon)}" alt="" width="44" height="44" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'as-ic ph',textContent:'${esc(n.name.slice(0, 1))}'}))">` : `<div class="as-ic ph">${esc(n.name.slice(0, 1))}</div>`}
+          <span class="as-nm">${esc(n.name)}</span>
+          <div class="as-ctl"><button type="button" data-asdec="${esc(n.key)}" data-astype="${type}" ${cur === 0 || dn ? 'disabled' : ''} ${plan && plan.removed.length ? 'title="' + esc('함께 해제되는 노드: ' + [...new Set(plan.removed)].join(', ')) + '"' : ''}>-</button><span>${cur}/${n.max}</span><button type="button" data-asinc="${esc(n.key)}" data-astype="${type}" ${cur >= n.max || up ? 'disabled' : ''} ${cur < n.max && up ? 'title="' + esc(up) + '"' : ''}>+</button></div>
+        </div>`;
+      }).join('')}</div></div>`).join('')}</div>`;
+    };
+    box.innerHTML = `<div class="as-wrap">${AS_TYPES.filter(t => asNodes(t).length).map(col).join('')}</div>`;
+    const bump = (type, key, d) => {
+      if (d < 0) { const plan = asDecPlan(type, key); if (!plan) return; Object.assign(ensureArkSim(), plan.lv); renderArkSim(); scheduleCalc(); if (plan.removed.length) toast('조건이 맞지 않는 노드가 함께 해제되었습니다: ' + [...new Set(plan.removed)].join(', ')); return; }
+      const err = asTry(type, key, d); if (err) { toast(err); return; } ensureArkSim()[key] = Math.max(0, (ensureArkSim()[key] || 0) + d); renderArkSim(); scheduleCalc();
+    };
+    const bumpN = (type, key, d, n) => {
+      if (d < 0) { const removed = []; let any = false; for (let i = 0; i < n; i++) { const plan = asDecPlan(type, key); if (!plan) break; Object.assign(ensureArkSim(), plan.lv); removed.push(...plan.removed); any = true; } if (any) { renderArkSim(); scheduleCalc(); if (removed.length) toast('조건이 맞지 않는 노드가 함께 해제되었습니다: ' + [...new Set(removed)].join(', ')); } return; }
+      let moved = false, err = '';
+      for (let i = 0; i < n; i++) { err = asTry(type, key, 1); if (err) break; ensureArkSim()[key] = (ensureArkSim()[key] || 0) + 1; moved = true; }
+      if (moved) { renderArkSim(); scheduleCalc(); } else if (err) toast(err);
+    };
+    box.oncontextmenu = e => { const ic = e.target.closest('.as-ic'); if (ic) e.preventDefault(); };
+    box.querySelectorAll('.as-node').forEach(nd => {
+      const inc = nd.querySelector('[data-asinc]'); if (!inc) return;
+      const type = inc.dataset.astype, key = inc.dataset.asinc;
+      nd.addEventListener('click', e => { if (!e.target.closest('.as-ic')) return; bumpN(type, key, 1, e.shiftKey ? 10 : 1); });
+      nd.addEventListener('contextmenu', e => { if (!e.target.closest('.as-ic')) return; e.preventDefault(); bumpN(type, key, -1, e.shiftKey ? 10 : 1); });
+    });
+    box.querySelectorAll('[data-asinc]').forEach(b => b.onclick = () => bump(b.dataset.astype, b.dataset.asinc, 1));
+    box.querySelectorAll('[data-asdec]').forEach(b => b.onclick = () => bump(b.dataset.astype, b.dataset.asdec, -1));
+    box.querySelectorAll('[data-asclr]').forEach(b => b.onclick = () => { const lv2 = ensureArkSim(); asNodes(b.dataset.asclr).forEach(n => { lv2[n.key] = 0; }); renderArkSim(); scheduleCalc(); });
+    box.querySelectorAll('[data-asapi]').forEach(b => b.onclick = () => { const t = b.dataset.asapi, lv2 = ensureArkSim(); asNodes(t).forEach(n => { lv2[n.key] = 0; }); ((state.arkPassive && state.arkPassive.effects) || []).filter(e => e.tree === t).forEach(e => { lv2[asKey(t, e.name)] = Number(e.level) || 0; }); renderArkSim(); scheduleCalc(); });
   }
 
   function classify(json) {
@@ -3499,9 +3674,18 @@ render();
     const idx = charIndex(), names = Object.keys(idx).sort((a, b) => idx[b] - idx[a]);
     sel.innerHTML = `<option value="">💾 저장된 캐릭터 (${names.length})</option>` + names.map(n => `<option value="${esc(n)}">${esc(n)} · ${new Date(idx[n]).toLocaleDateString('ko-KR')}</option>`).join('');
   }
+  let selNoticed = false;
+  function selNoticeGroup() {
+    if (selNoticed) return null;
+    const miss = []; if (!FLAGS.syn) miss.push('시너지'); if (!FLAGS.pet) miss.push('펫 효과');
+    if (!miss.length) return null;
+    selNoticed = true;
+    return { title: '시너지와 펫 효과를 선택해 주세요', chips: miss, desc: '컨트롤 패널의 시너지 / 펫 효과 탭에서 선택할 수 있어요.<br>선택하지 않으면 계산에 반영되지 않습니다.' };
+  }
   function loadSavedChar(name, why) {
     const o = getSavedChar(name); if (!o) { setMsg(`'${name}' 저장 데이터가 없습니다.`, true); return false; }
     applyState(o.state);
+    { const sg = selNoticeGroup(); if (sg) warnModal([sg]); }
     $q('#imp-name').value = name;
     setMsg((why ? why + ' ' : '') + `저장된 데이터(${new Date(o.savedAt).toLocaleString('ko-KR')})로 불러왔습니다.`);
     return true;
@@ -3555,6 +3739,7 @@ render();
       (S.engravings || []).forEach(e => { if (String(e.grade || '') !== '유물') e.grade = '유물'; });
     } catch (e) { }
     applyState(S);
+    const sg = selNoticeGroup(); if (sg) groups.push(sg);
     if (groups.length) warnModal(groups);
   }
   async function loadFromApi() {
@@ -3909,6 +4094,7 @@ render();
     cp.className = collapsed ? 'closed' : '';
     cp.innerHTML = `<button type="button" class="cp-head" id="cp-toggle"><span>⚙ 컨트롤 패널</span><i>▾</i></button>
       <div class="cp-body">
+        <div class="cp-grp" data-grp="login"><button type="button" class="cp-gh" data-gh="login"><span>캐릭터 불러오기</span><i>▾</i></button><div class="cp-gb">
         <div class="cp-login">
           <input id="imp-name" class="cp-in" placeholder="캐릭터 닉네임" value="${esc(store.get('la_name') || '')}" autocomplete="off">
           <input id="imp-key" class="cp-in" type="password" placeholder="API 키 (이 브라우저에만 저장)" value="${esc(store.get('la_key') || '')}" autocomplete="off">
@@ -3917,17 +4103,21 @@ render();
           <div class="cp-two"><button class="cp-mini" id="imp-load-saved" type="button">불러오기</button><button class="cp-mini" id="imp-del-saved" type="button">삭제</button></div>
           <button class="cp-link" id="imp-forget" type="button">API 키 지우기</button>
           <div id="imp-msg" class="cp-msg"></div>
-        </div>
-        <div class="cp-two cp-hist"><button class="cp-btn undo" id="cp-undo" type="button" disabled>↶ 실행 취소</button><button class="cp-btn redo" id="cp-redo" type="button" disabled>↷ 다시</button></div>
+        </div></div></div>
+        <div class="cp-grp" data-grp="menu"><button type="button" class="cp-gh" data-gh="menu"><span>메뉴</span><i>▾</i></button><div class="cp-gb">
         <button class="cp-btn notice" type="button" data-cp="notice">📢 Notice</button>
         <button class="cp-btn data" type="button" data-cp="data">📂 데이터 불러오기<em id="cp-dwarn" hidden>!</em></button>
         <button class="cp-btn dbp" type="button" data-cp="dbp">📦 DB 프리셋 관리</button>
-        <button class="cp-btn lay" type="button" data-cp="layout"></button>
+        <button class="cp-btn lay" type="button" data-cp="layout"></button></div></div>
+        <div class="cp-grp" data-grp="set"><button type="button" class="cp-gh" data-gh="set"><span>계산 설정</span><i>▾</i></button><div class="cp-gb">
+        <div class="cp-sec cp-tabsec"><div class="cp-tabs"><button type="button" class="cp-tab" data-cptab="syn">시너지</button><button type="button" class="cp-tab" data-cptab="pet">펫 효과</button></div>
+          <select id="cp-syn" class="cp-sel"><option value="">선택 안 함</option>${SYN_DEF.map(([k, l]) => `<option value="${k}">${l}</option>`).join('')}</select>
+          <select id="cp-pet" class="cp-sel"><option value="">선택 안 함</option>${PET_STATS.map(k => `<option value="${k}">${k} +${PET_VAL}</option>`).join('')}</select></div>
         <div class="cp-sec"><span class="cp-lab party">파티 치적 시너지(본인 제외)</span>
           <select id="cp-party" class="cp-sel">${[0, 1, 2].map(v => `<option value="${v}" ${FLAGS.party === v ? 'selected' : ''}>${v}명 (${v * 10}%)</option>`).join('')}</select></div>
         <div class="cp-sec" id="cp-esther"><span class="cp-lab esther">에스더 결속 효과</span>
-          <button class="cp-tg" type="button" data-tg="est1"></button><button class="cp-tg" type="button" data-tg="est2"></button></div>
-        <button class="cp-tg multi" type="button" data-tg="multi" title="치명타 적중률이 100%를 넘으면 초과분만큼 추가 치명타가 발생합니다"></button>
+          <button class="cp-tg" type="button" data-tg="est1"></button><button class="cp-tg" type="button" data-tg="est2"></button></div></div></div>
+        <div class="cp-two cp-hist"><button class="cp-btn undo" id="cp-undo" type="button" disabled>↶ 실행 취소</button><button class="cp-btn redo" id="cp-redo" type="button" disabled>↷ 다시</button></div>
         <button class="cp-btn pause" type="button" data-cp="pause"></button>
       </div>`;
     document.body.appendChild(cp);
@@ -3940,9 +4130,15 @@ render();
     cp.querySelector('#cp-undo').onclick = undo; cp.querySelector('#cp-redo').onclick = redo;
     drawSaved(); histBtns();
     cp.querySelector('#cp-toggle').onclick = () => { cp.classList.toggle('closed'); store.set('la_cp_closed', cp.classList.contains('closed') ? '1' : '0'); };
+    cp.querySelector('#cp-syn').onchange = e => { FLAGS.syn = e.target.value; saveFlags(); syncCp(); scheduleCalc(); };
+    cp.querySelector('#cp-pet').onchange = e => { FLAGS.pet = e.target.value; saveFlags(); syncCp(); scheduleCalc(); };
     cp.querySelector('#cp-party').onchange = e => { FLAGS.party = Number(e.target.value); saveFlags(); scheduleCalc(); };
     cp.addEventListener('click', e => {
       const b = e.target.closest('[data-cp]'), t = e.target.closest('[data-tg]');
+      const tabB = e.target.closest('[data-cptab]');
+      if (tabB) { cpTab = tabB.dataset.cptab; store.set('la_cp_tab', cpTab); syncCp(); return; }
+      const gh = e.target.closest('[data-gh]');
+      if (gh) { const g = gh.dataset.gh; cpGrp[g] = !cpGrp[g]; store.set('la_cp_grp', JSON.stringify(cpGrp)); syncCp(); return; }
       if (t) { const k = t.dataset.tg; if (t.disabled) return; FLAGS[k] = !FLAGS[k]; saveFlags(); syncCp(); scheduleCalc(); return; }
       if (!b) return;
       ({
@@ -3962,7 +4158,10 @@ render();
     if (!isEsther && (FLAGS.est1 || FLAGS.est2) && lastRun) { FLAGS.est1 = FLAGS.est2 = false; saveFlags(); }
     setTg(e1, FLAGS.est1, '결속 1단계'); setTg(e2, FLAGS.est2, '결속 2단계');
     e1.disabled = e2.disabled = !isEsther; cp.querySelector('#cp-esther').classList.toggle('off', !isEsther);
-    const mt = cp.querySelector('[data-tg="multi"]'); mt.textContent = (FLAGS.multi ? '💥 ' : '💤 ') + '다중 치명타 : ' + (FLAGS.multi ? 'ON' : 'OFF'); mt.classList.toggle('on', FLAGS.multi);
+    cp.querySelector('#cp-syn').value = FLAGS.syn; cp.querySelector('#cp-pet').value = FLAGS.pet;
+    cp.querySelector('#cp-syn').hidden = cpTab !== 'syn'; cp.querySelector('#cp-pet').hidden = cpTab !== 'pet';
+    cp.querySelectorAll('[data-cptab]').forEach(b => { b.classList.toggle('on', b.dataset.cptab === cpTab); b.classList.toggle('set', !!FLAGS[b.dataset.cptab]); });
+    cp.querySelectorAll('.cp-grp').forEach(g => g.classList.toggle('shut', !!cpGrp[g.dataset.grp]));
     const pb = cp.querySelector('[data-cp="pause"]'); pb.textContent = paused ? '⏸️ 실시간 계산 : OFF' : '▶️ 실시간 계산 : ON'; pb.classList.toggle('off', paused);
     const lb = cp.querySelector('[data-cp="layout"]'); if (lb) lb.textContent = layoutMode === 'tabs' ? '🗂 화면 방식 : 탭' : '📜 화면 방식 : 기본';
     cp.querySelector('#cp-dwarn').hidden = ready();
@@ -3972,7 +4171,7 @@ render();
       <div><span class="tg b">지원 장비</span><b>장비 범위</b><p>장비는 <b>T4 전율</b> 및 <b>에스더 장비</b>만 지원합니다.</p></div>
       <div><span class="tg b">지원 범위</span><b>보석</b><p><b>6레벨 이상</b> 보석만 계산합니다.</p></div>
       <div><span class="tg c">미지원</span><b>혼돈 코어 옵션</b><p>혼돈 코어 중 <b>서포터 옵션</b>의 코어는 지원하지 않습니다.</p></div>
-      <div><span class="tg c">시뮬레이션</span><b>조작 가능한 부분</b><p>아크 패시브는 <b>진화 노드</b>만 조작하며, 깨달음·도약은 고정 데이터를 씁니다. 스킬 트라이포드는 아래 스킬 시뮬레이션에서 바꿔 볼 수 있습니다.</p></div></div>`, 460);
+      <div><span class="tg c">시뮬레이션</span><b>조작 가능한 부분</b><p>아크 패시브는 <b>진화 · 깨달음 · 도약</b> 노드를 조작할 수 있습니다 (깨달음·도약은 데이터 JSON의 노드 정의 기준). 스킬 트라이포드는 아래 스킬 시뮬레이션에서 바꿔 볼 수 있습니다.</p></div></div>`, 460);
   }
 
   function makeCollapsible(panel) {
@@ -4010,7 +4209,7 @@ render();
     else if ((k === 'z' && e.shiftKey) || k === 'y') { e.preventDefault(); redo(); }
   });
 
-  const TAB_DEF = [['장비 · 보석 · 장신구', ['gems', 'equipment']], ['각인', ['engravings']], ['아크 패시브 포인트', ['arkpoints-panel']], ['아크 그리드', ['arkgrid']], ['스킬 · 트라이포드', ['skill-panel']], ['진화 노드', ['evo-panel']]];
+  const TAB_DEF = [['장비 · 보석 · 장신구', ['gems', 'equipment']], ['각인', ['engravings']], /* ['아크 패시브 포인트', ['arkpoints-panel']], */ ['아크 그리드', ['arkgrid']], ['스킬 · 트라이포드', ['skill-panel']], ['진화', ['evo-panel']], ['깨달음 · 도약', ['real-panel']]];
   let layoutMode = store.get('la_layout') === 'tabs' ? 'tabs' : 'classic';
   function applyLayout() {
     const lay = $q('.layout'), main = $q('main.main'); if (!lay || !main) return;
@@ -4034,8 +4233,8 @@ render();
       show(cur);
     } else {
       if (!card0) return;
-      ['gems', 'equipment', 'engravings', 'arkpoints-panel', 'arkgrid'].forEach(id => { const n = el(id); if (n) main.insertBefore(n, ps || null); });
-      let anchor = lay; ['skill-panel', 'evo-panel'].forEach(id => { const n = el(id); if (n) { anchor.parentNode.insertBefore(n, anchor.nextSibling); anchor = n; } });
+      ['gems', 'equipment', 'engravings', /* 'arkpoints-panel', */ 'arkgrid'].forEach(id => { const n = el(id); if (n) main.insertBefore(n, ps || null); });
+      let anchor = lay; ['skill-panel', 'evo-panel', 'real-panel'].forEach(id => { const n = el(id); if (n) { anchor.parentNode.insertBefore(n, anchor.nextSibling); anchor = n; } });
       card0.remove(); lay.style.display = '';
     }
   }
@@ -4048,7 +4247,8 @@ render();
 
     const zone = [
       mk('skill-panel', '스킬 시뮬레이션 · 트라이포드', 'API 값으로 시작, 원하는 트라이포드로 바꿔서 계산', 'skill-body'),
-      mk('evo-panel', '아크 패시브 · 진화 노드', '깨달음/도약은 고정값, 진화만 시뮬레이션', 'evo-body'),
+      mk('evo-panel', '아크 패시브 · 진화 노드', '노드를 바꿔서 시뮬레이션', 'evo-body'),
+      mk('real-panel', '아크 패시브 · 깨달음 / 도약', '규칙에 맞게 노드를 바꿔서 시뮬레이션', 'real-body'),
       mk('cmp-panel', '비교군 대비 변화', '저장한 세팅과 지금 세팅의 차이', 'cmp-body'),
       mk('result-panel', '시뮬레이션 결과', '스킬별 기대 데미지 (1회 사용 기준)', 'result-body'),
       mk('opt-panel', '진화 노드 최적화', '현재 세팅 기준으로 최적 조합 탐색', 'opt-body')

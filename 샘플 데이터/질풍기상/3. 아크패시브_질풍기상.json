@@ -1,0 +1,200 @@
+[
+    {
+        "type": "깨달음",
+        "tier": "1",
+        "isMain": "Y",
+        "MaxLevel": "1",
+        "reqPoint": "24",
+        "name": "질풍노도",
+        "effects": [
+            {
+                "category": "이동 속도",
+                "val": 12,
+                "unit": "%"
+            },
+            {
+                "category": "공격 속도",
+                "val": 12,
+                "unit": "%"
+            },
+            {
+                "category": "적에게 주는 피해",
+                "val": 3,
+                "unit": "%"
+            }
+        ]
+    },
+    {
+        "type": "깨달음",
+        "tier": "2",
+        "isMain": "Y",
+        "MaxLevel": "3",
+        "reqPoint": "8",
+        "name": "환기",
+        "effects": []
+    },
+    {
+        "type": "깨달음",
+        "tier": "3",
+        "isMain": "Y",
+        "MaxLevel": "3",
+        "reqPoint": "8",
+        "name": "기민함",
+        "effects": [
+            {
+                "category": "치명타 적중률",
+                "formula": "Math.min(finalMoveSpeed,40)*0.1",
+                "unit": "%"
+            },
+            {
+                "category": "치명타 피해",
+                "formula": "Math.min(finalAtkSpeed,40)*0.4",
+                "unit": "%"
+            }
+        ]
+    },
+    {
+        "type": "깨달음",
+        "tier": "4",
+        "isMain": "Y",
+        "MaxLevel": "3",
+        "reqPoint": "8",
+        "name": "공간 가르기",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": [
+                    0,
+                    100,
+                    200
+                ],
+                "unit": "%",
+                "requireTags": [
+                    "공간 가르기"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "깨달음",
+        "tier": "3",
+        "MaxLevel": "5",
+        "reqPoint": "2",
+        "name": "자연의 흐름",
+        "icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ark_passive_01/ark_passive_01_17.png",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 1.2,
+                "unit": "%"
+            }
+        ]
+    },
+    {
+        "type": "깨달음",
+        "tier": "4",
+        "MaxLevel": "5",
+        "reqPoint": "2",
+        "name": "바람의 길",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 1.2,
+                "unit": "%"
+            }
+        ]
+    },
+    {
+        "type": "도약",
+        "tier": "1",
+        "MaxLevel": "5",
+        "reqPoint": "4",
+        "name": "풀려난 힘",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 3,
+                "unit": "%",
+                "requireTags": [
+                    "우레바람"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "도약",
+        "tier": "1",
+        "MaxLevel": "5",
+        "reqPoint": "4",
+        "name": "잠재력 해방",
+        "effects": [
+            {
+                "category": "쿨타임 감소",
+                "val": 2,
+                "unit": "%",
+                "requireTags": [
+                    "우레바람"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "도약",
+        "tier": "1",
+        "MaxLevel": "5",
+        "reqPoint": "2",
+        "name": "즉각적인 주문",
+        "effects": []
+    },
+    {
+        "type": "도약",
+        "tier": "2",
+        "MaxLevel": "3",
+        "reqPoint": "10",
+        "name": "완벽한 가르기",
+        "icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ark_passive_wa/ark_passive_wa_7.png",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 10,
+                "unit": "%",
+                "requireTags": [
+                    "우레바람"
+                ]
+            },
+            {
+                "category": "치명타 피해",
+                "val": 40,
+                "unit": "%",
+                "requireTags": [
+                    "우레바람"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "도약",
+        "tier": "2",
+        "MaxLevel": "3",
+        "reqPoint": "10",
+        "name": "단련된 가르기",
+        "effects": [
+            {
+                "category": "적에게 주는 피해",
+                "val": 25,
+                "unit": "%",
+                "requireTags": [
+                    "우레바람"
+                ]
+            },
+            {
+                "category": "태그 제거",
+                "val": "홀딩",
+                "unit": "",
+                "requireTags": [
+                    "우레바람"
+                ]
+            }
+        ]
+    }
+]

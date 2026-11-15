@@ -84,7 +84,7 @@
 <div class="tab-menu">
     <button class="tab-btn active" onclick="switchTab('skillTab', this)">⚡ 스킬 데이터 생성기</button>
     <button class="tab-btn order-tab" onclick="switchTab('orderTab', this)">☀️🌙⭐ 질서 코어 생성기</button>
-    <button class="tab-btn buff-tab" onclick="switchTab('buffTab', this)">🛡️ 기본 스탯 생성기</button>
+    <button class="tab-btn buff-tab" onclick="switchTab('buffTab', this)">🛡️ 기본 스탯 · 깨달음/도약 생성기</button>
     <button class="tab-btn spec-tab" onclick="switchTab('specTab', this)">🎨 직업 특화 설정</button>
 </div>
 
@@ -237,10 +237,34 @@
 <div id="buffTab" class="tab-content">
     <div class="container">
         <div class="form-section">
-            <h3>🛡️ 기본 스탯 입력</h3>
+            <h3>🛡️ 기본 스탯 · 깨달음/도약 입력</h3>
             <form id="buffForm">
                 <div class="form-group">
-                    <label>버프 / 스탯명</label>
+                    <label>분류</label>
+                    <select id="buffKind" onchange="toggleBuffKindUI()">
+                        <option value="">일반 스탯 / 버프 (고정 효과)</option>
+                        <option value="깨달음">깨달음 노드 (시뮬레이션에서 레벨 조작)</option>
+                        <option value="도약">도약 노드 (시뮬레이션에서 레벨 조작)</option>
+                    </select>
+                </div>
+                <div id="buffNodeBox" class="card-box" style="display:none; border-left:5px solid #6f42c1;">
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <div style="flex:1; min-width:110px;"><label>티어</label><input type="number" id="buffTier" min="1" value="1" oninput="autoReqPoint()"></div>
+                        <div style="flex:1; min-width:110px;"><label>최대 레벨</label><input type="number" id="buffMaxLevel" min="1" value="1"></div>
+                        <div id="buffMainWrap" style="flex:1; min-width:110px;"><label>노드 종류</label>
+                            <select id="buffIsMain" onchange="autoReqPoint()"><option value="N">사이드 노드</option><option value="Y">메인 노드</option></select></div>
+                        <div style="flex:1; min-width:130px;"><label>레벨당 필요 포인트</label><input type="number" id="buffReqPoint" min="0" value="" oninput="this.dataset.manual='1'" placeholder="자동"></div>
+                    </div>
+                    <div style="margin-top:8px;"><label>아이콘 주소 (선택)</label>
+                        <input type="text" id="buffIcon" placeholder="https://cdn-lostark.game.onstove.com/... (비워두면 API 아이콘 사용)"></div>
+                    <div style="font-size:11px; color:#6b21a8; margin-top:8px; line-height:1.5;">
+                        ℹ️ 노드 효과의 <b>고정 수치는 '레벨당 값'</b>으로 입력하세요 (시뮬레이션이 레벨을 곱해 적용).<br>
+                        레벨마다 값이 다르면 <b>레벨별 수치 배열</b>(예: 0, 100, 200 = 1레벨 0 / 2레벨 100 / 3레벨 200)을 쓰고, 수식은 결과에 레벨이 곱해집니다.<br>
+                        <b>레벨당 필요 포인트(reqPoint)</b>는 기본값(깨달음 메인 8 / 사이드 2, 도약 1티어 4 / 2티어 10)이 자동으로 채워지며, 노드마다 다르면 직접 바꾸세요.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="buffNameLabel">버프 / 스탯명</label>
                     <input type="text" id="buffName" placeholder="예: 여우비, 4스택 트라이포드, 자치적">
                 </div>
 
@@ -1085,15 +1109,42 @@
     function toggleBuffInputType(selectEl) {
         const rowBox = selectEl.closest('.buff-card');
         const fixedContainer = rowBox.querySelector('.val-fixed-container');
+        const arrayContainer = rowBox.querySelector('.val-array-container');
         const formulaContainer = rowBox.querySelector('.val-formula-container');
+        const mode = selectEl.value;
+        fixedContainer.style.display = mode === 'fixed' ? 'block' : 'none';
+        arrayContainer.style.display = mode === 'array' ? 'block' : 'none';
+        formulaContainer.style.display = mode === 'formula' ? 'block' : 'none';
+    }
 
-        if (selectEl.value === 'formula') {
-            fixedContainer.style.display = 'none';
-            formulaContainer.style.display = 'block';
-        } else {
-            fixedContainer.style.display = 'block';
-            formulaContainer.style.display = 'none';
-        }
+    function isNodeKind() {
+        const k = document.getElementById("buffKind");
+        return !!(k && k.value);
+    }
+
+    function defaultReqPoint() {
+        const kind = document.getElementById("buffKind").value;
+        const tier = parseInt(document.getElementById("buffTier").value, 10) || 1;
+        if (kind === "깨달음") return document.getElementById("buffIsMain").value === "Y" ? 8 : 2;
+        if (kind === "도약") return tier >= 2 ? 10 : 4;
+        return "";
+    }
+
+    function autoReqPoint() {
+        const el = document.getElementById("buffReqPoint");
+        if (!el || el.dataset.manual === "1") return;
+        el.value = defaultReqPoint();
+    }
+
+    function toggleBuffKindUI() {
+        const kind = document.getElementById("buffKind").value;
+        document.getElementById("buffNodeBox").style.display = kind ? "block" : "none";
+        document.getElementById("buffMainWrap").style.display = kind === "깨달음" ? "block" : "none";
+        document.getElementById("buffNameLabel").innerText = kind ? `${kind} 노드 이름` : "버프 / 스탯명";
+        autoReqPoint();
+        document.querySelectorAll("#buffEffectsContainer .buff-val-type").forEach(sel => {
+            sel.options[0].text = kind ? "레벨당 수치/태그" : "고정 수치/태그";
+        });
     }
 
     function insertVariable(btn, varName) {
@@ -1111,20 +1162,28 @@
         rowDiv.className = "card-box buff-card";
 
         const isFormulaMode = Boolean(formula);
+        const isArrayMode = Array.isArray(val);
+        const arrText = isArrayMode ? val.join(", ") : "";
+        if (isArrayMode) val = "";
         const rowId = "buff_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
 
         rowDiv.innerHTML = `
             <div style="display: flex; gap: 8px; margin-bottom: 6px; flex-wrap: wrap;">
                 <select class="buff-cat" style="flex: 2;" onchange="updateCategoryGuide(this)">${getCategoryOptionsHtml(category)}</select>
-                <select class="buff-val-type" style="width: 110px; font-weight: bold; background: #eef2ff;" onchange="toggleBuffInputType(this)">
-                    <option value="fixed" ${!isFormulaMode ? 'selected' : ''}>고정 수치/태그</option>
+                <select class="buff-val-type" style="width: 150px; font-weight: bold; background: #eef2ff;" onchange="toggleBuffInputType(this)">
+                    <option value="fixed" ${(!isFormulaMode && !isArrayMode) ? 'selected' : ''}>${isNodeKind() ? '레벨당 수치/태그' : '고정 수치/태그'}</option>
+                    <option value="array" ${isArrayMode ? 'selected' : ''}>📈 레벨별 수치 배열</option>
                     <option value="formula" ${isFormulaMode ? 'selected' : ''}>🧮 수식 입력</option>
                 </select>
                 <button type="button" class="btn-del" onclick="this.parentElement.parentElement.remove()">삭제</button>
             </div>
 
-            <div class="val-fixed-container" style="display: ${isFormulaMode ? 'none' : 'block'}; margin-bottom: 6px;">
+            <div class="val-fixed-container" style="display: ${(isFormulaMode || isArrayMode) ? 'none' : 'block'}; margin-bottom: 6px;">
                 <input type="text" class="buff-val" value="${val}" placeholder="수치 또는 태그명 (예: 10 또는 HEAD_ATTACK)">
+            </div>
+
+            <div class="val-array-container" style="display: ${isArrayMode ? 'block' : 'none'}; margin-bottom: 6px;">
+                <input type="text" class="buff-array" value="${arrText}" placeholder="레벨별 최종 수치를 쉼표로 (예: 0, 100, 200 → 1레벨 0 / 2레벨 100 / 3레벨 200)" style="font-family: monospace;">
             </div>
 
             <div class="val-formula-container" style="display: ${isFormulaMode ? 'block' : 'none'}; margin-bottom: 6px; background: #f8fafc; padding: 10px; border-radius: 6px; border: 1px dashed #6366f1;">
@@ -1175,6 +1234,7 @@
 
         const cards = document.querySelectorAll("#buffEffectsContainer .buff-card");
         const effects = [];
+        let arrayError = false;
 
         cards.forEach(card => {
             const category = card.querySelector(".buff-cat").value;
@@ -1189,6 +1249,10 @@
             
             if (type === 'formula') {
                 effObj.formula = formula;
+            } else if (type === 'array') {
+                const arr = (card.querySelector(".buff-array")?.value || "").split(",").map(x => x.trim()).filter(x => x.length > 0).map(Number);
+                if (arr.length === 0 || arr.some(n => !Number.isFinite(n))) { arrayError = true; }
+                effObj.val = arr;
             } else {
                 effObj.val = TAG_CATEGORIES.includes(category) ? rawVal : (parseFloat(rawVal) || 0);
             }
@@ -1202,8 +1266,29 @@
         });
 
         if (effects.length === 0) { alert("최소 1개 이상의 효과를 추가해 주세요!"); return; }
+        if (arrayError) { alert("레벨별 수치 배열은 쉼표로 구분한 숫자여야 합니다. (예: 0, 100, 200)"); return; }
 
-        const buffData = { name, effects };
+        const kind = document.getElementById("buffKind").value;
+        let buffData = { name, effects };
+        if (kind) {
+            const tier = parseInt(document.getElementById("buffTier").value, 10);
+            const maxLv = parseInt(document.getElementById("buffMaxLevel").value, 10);
+            if (!(tier >= 1)) { alert("티어는 1 이상이어야 합니다."); return; }
+            if (!(maxLv >= 1)) { alert("최대 레벨은 1 이상이어야 합니다."); return; }
+            const short = effects.filter(e => Array.isArray(e.val) && e.val.length !== maxLv);
+            if (short.length && !confirm(`레벨별 수치 배열의 개수가 최대 레벨(${maxLv})과 다른 효과가 있습니다. 그대로 저장할까요?`)) return;
+            buffData = { type: kind, tier: String(tier) };
+            if (kind === "깨달음" && document.getElementById("buffIsMain").value === "Y") buffData.isMain = "Y";
+            buffData.MaxLevel = String(maxLv);
+            const reqRaw = document.getElementById("buffReqPoint").value.trim();
+            const req = reqRaw === "" ? defaultReqPoint() : parseInt(reqRaw, 10);
+            if (!(req >= 0)) { alert("레벨당 필요 포인트는 0 이상의 숫자여야 합니다."); return; }
+            buffData.reqPoint = String(req);
+            buffData.name = name;
+            const icon = document.getElementById("buffIcon").value.trim();
+            if (icon) buffData.icon = icon;
+            buffData.effects = effects;
+        }
 
         if (editingBuffIndex !== null) {
             buffDatabase[editingBuffIndex] = buffData;
@@ -1229,7 +1314,7 @@
         buffDatabase.forEach((bf, idx) => {
             listContainer.innerHTML += `
                 <div class="list-item">
-                    <span><strong>${bf.name}</strong> (${bf.effects ? bf.effects.length : 0}개 효과)</span>
+                    <span>${bf.type ? `<em style="font-style:normal;font-size:11px;font-weight:bold;color:#fff;background:${bf.type === '깨달음' ? '#0ea5e9' : '#65a30d'};border-radius:4px;padding:1px 6px;margin-right:6px;">${bf.type} ${bf.tier || '?'}티어${bf.isMain === 'Y' ? ' 메인' : ''} Lv${bf.MaxLevel || '?'}${bf.reqPoint !== undefined ? ' · ' + bf.reqPoint + 'P' : ''}</em>` : ''}<strong>${bf.name}</strong> (${bf.effects ? bf.effects.length : 0}개 효과)</span>
                     <div>
                         <button class="btn-edit" onclick="editBuff(${idx})">수정</button>
                         <button class="btn-del" onclick="deleteBuff(${idx})">삭제</button>
@@ -1246,6 +1331,15 @@
 
         editingBuffIndex = index;
         document.getElementById("buffName").value = bf.name || "";
+        document.getElementById("buffKind").value = bf.type || "";
+        document.getElementById("buffTier").value = bf.tier || 1;
+        document.getElementById("buffMaxLevel").value = bf.MaxLevel || 1;
+        document.getElementById("buffIsMain").value = String(bf.isMain || "").toUpperCase() === "Y" ? "Y" : "N";
+        document.getElementById("buffIcon").value = bf.icon || "";
+        const rq = document.getElementById("buffReqPoint");
+        rq.dataset.manual = (bf.reqPoint !== undefined && bf.reqPoint !== "") ? "1" : "";
+        toggleBuffKindUI();
+        if (bf.reqPoint !== undefined && bf.reqPoint !== "") rq.value = bf.reqPoint;
 
         const container = document.getElementById("buffEffectsContainer");
         container.innerHTML = "";
@@ -1283,6 +1377,13 @@
 
     function resetBuffForm() {
         document.getElementById("buffName").value = "";
+        document.getElementById("buffKind").value = "";
+        document.getElementById("buffTier").value = 1;
+        document.getElementById("buffMaxLevel").value = 1;
+        document.getElementById("buffIsMain").value = "N";
+        document.getElementById("buffIcon").value = "";
+        const rq0 = document.getElementById("buffReqPoint"); rq0.dataset.manual = ""; rq0.value = "";
+        toggleBuffKindUI();
         document.getElementById("buffEffectsContainer").innerHTML = "";
         addBuffEffectRow();
     }

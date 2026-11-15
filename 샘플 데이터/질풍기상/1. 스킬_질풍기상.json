@@ -446,5 +446,165 @@
                 ]
             }
         ]
+    },
+    {
+        "name": "내려찍기",
+        "constant": 2096,
+        "coefficient": 9.2457,
+        "baseCooldown": 7,
+        "mana": 256,
+        "tags": [
+            "내려찍기",
+            "백어택",
+            "마나",
+            "우산"
+        ],
+        "tripods": [
+            {
+                "tier": 2,
+                "name": "튼튼한 우산",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 60,
+                        "unit": "%"
+                    },
+                    {
+                        "category": "태그 추가",
+                        "val": "콤보",
+                        "unit": ""
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "낙뢰",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 45,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 2,
+                "name": "햇살 방출",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 70,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 3,
+                "name": "꿰뚫는 일격",
+                "effects": [
+                    {
+                        "category": "방어력 무시",
+                        "val": 80,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 3,
+                "name": "강인함",
+                "effects": [
+                    {
+                        "category": "고정 쿨타임 증가",
+                        "val": 9,
+                        "unit": ""
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "펼치기",
+        "constant": 1682,
+        "coefficient": 7.40190594,
+        "baseCooldown": 7,
+        "mana": 256,
+        "tags": [
+            "펼치기",
+            "백어택",
+            "마나",
+            "우산"
+        ],
+        "tripods": [
+            {
+                "tier": 3,
+                "name": "날카로운 장막",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 105,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 3,
+                "name": "거대 장막",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 95,
+                        "unit": "%"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "돌개바람",
+        "constant": 35,
+        "coefficient": 15.39611163,
+        "baseCooldown": 14,
+        "mana": 382,
+        "tags": [
+            "돌개바람",
+            "우산",
+            "타대",
+            "마나"
+        ],
+        "tripods": [
+            {
+                "tier": 2,
+                "name": "약점 포착",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 60,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 3,
+                "name": "부메랑 우산",
+                "effects": [
+                    {
+                        "category": "적에게 주는 피해",
+                        "val": 105,
+                        "unit": "%"
+                    }
+                ]
+            },
+            {
+                "tier": 3,
+                "name": "우산 복제",
+                "effects": [
+                    {
+                        "category": "치명타 피해",
+                        "val": 210,
+                        "unit": "%"
+                    }
+                ]
+            }
+        ]
     }
 ]

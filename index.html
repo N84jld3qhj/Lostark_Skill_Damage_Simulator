@@ -197,6 +197,9 @@ html.light img,html.light video{filter:invert(1) hue-rotate(180deg)}
 .lx-plist{overflow:auto;padding:8px 10px;display:grid;gap:8px}
 .lx-pgroup strong{display:block;font-size:10px;color:#9bb0c5;margin-bottom:4px}
 .lx-popopts{display:grid;grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));gap:5px}
+.gem.none .gemicon img{filter:grayscale(1) opacity(.35)}
+.lx-gbtn:disabled{opacity:.32;cursor:not-allowed;filter:grayscale(.6)}.lx-effrow.dis .lx-efflabel{opacity:.5}
+.lx-popopt:disabled{opacity:.32;cursor:not-allowed;filter:grayscale(.6)}
 .lx-popopt{position:relative;display:flex;gap:5px;align-items:center;justify-content:center;padding:5px 6px;background:#202c39;color:#e6f1fc;border:1px solid #3a4a5d;border-radius:5px;font:inherit;font-size:11px;cursor:pointer}
 .lx-popopt:hover{border-color:#69b7ff}.lx-popopt[aria-pressed="true"],.lx-gbtn[aria-pressed="true"]{border-color:#69b7ff;background:#234160}
 .lx-popopt.full{width:100%}.lx-popopt em,.lx-gbtn em{font-style:normal;color:#8ff0c0;font-size:10px}
@@ -874,7 +877,8 @@ window.LAParser={parseCharacter};
     const by = slot => eq.filter(e => e.slot === slot);
     const lvl = (slot, i = 0) => { const e = by(slot)[i]; return e ? Number(e.simulation && e.simulation.normalLevel != null ? e.simulation.normalLevel : ((e.name || '').match(/^\+(\d+)/) || [])[1] || 0) : 0; };
 
-    const engravings = (S.engravings || []).map(e => ({ name: e.name, level: (e.level || 0) + 'LV', stone: (e.stoneLevel || 0) + 'LV' }));
+    const stoneList = (() => { const se = by('어빌리티 스톤')[0]; return se && se.stone && Array.isArray(se.stone.engravings) ? se.stone.engravings : null; })();
+    const engravings = (S.engravings || []).map(e => ({ name: e.name, level: (e.level || 0) + 'LV', stone: ((stoneList ? (stoneList.find(x => x && x.name === e.name) || {}).level : e.stoneLevel) || 0) + 'LV' }));
 
     const accessories = [];
     [['목걸이', '목걸이'], ['귀걸이', '귀걸이'], ['반지', '반지']].forEach(([slot]) => {
@@ -890,7 +894,7 @@ window.LAParser={parseCharacter};
     ((S.arkGrid && S.arkGrid.cores) || []).forEach(c => (c.gems || []).forEach(g => (g.effects || []).forEach(f => { sum[f.name] = (sum[f.name] || 0) + Number(f.lv || 0); })));
     const gems = { atk: trunc2((sum['공격력'] || 0) * GEM_RATE['공격력']), addDmg: trunc2((sum['추가 피해'] || 0) * GEM_RATE['추가 피해']), bossDmg: trunc2((sum['보스 피해'] || 0) * GEM_RATE['보스 피해']) };
 
-    const jewels = (S.gems || []).map(g => ({ skillName: g.skill, type: g.kind === '작열' || g.effect === '재사용 대기시간' ? '작열' : '겁화', level: String(g.level) }));
+    const jewels = (S.gems || []).filter(g => g.kind !== '없음').map(g => ({ skillName: g.skill, type: (g.kind === '작열' || g.kind === '겁화' ? g.kind === '작열' : g.effect === '재사용 대기시간') ? '작열' : '겁화', level: String(g.level) }));
 
     const cores = (S.arkGrid && S.arkGrid.cores) || [];
     const mk = c => {
@@ -915,7 +919,8 @@ window.LAParser={parseCharacter};
     const bracelet = { options: [], crit: 0, swift: 0 };
     if (bEq && bEq.bracelet) {
       (bEq.bracelet.stats || []).forEach(s => { if (s.name === '치명') bracelet.crit = s.val; else if (s.name === '신속') bracelet.swift = s.val; });
-      (bEq.bracelet.slots || []).forEach(s => { if (s.row && s.row !== '없음') bracelet.options.push({ opt: braceletOpt(s.row), grade: s.grade }); });
+      const seenRows = new Set();
+      (bEq.bracelet.slots || []).slice(0, 3).forEach(s => { if (s.row && s.row !== '없음' && !seenRows.has(s.row)) { seenRows.add(s.row); bracelet.options.push({ opt: braceletOpt(s.row), grade: s.grade }); } });
     }
 
     const w = by('무기')[0], v = by('완갑')[0];
@@ -1793,7 +1798,9 @@ function makeEnv(o) {
     }
 
     function applySkillGemStats(stats, skillGemMap, skillName) {
-        (skillGemMap[skillName] || []).forEach(({ type, level }) => {
+        const best = {};
+        (skillGemMap[skillName] || []).forEach(g => { if (!best[g.type] || Number(g.level) > Number(best[g.type].level)) best[g.type] = g; });
+        Object.values(best).forEach(({ type, level }) => {
             if (type === "겁화") {
                 addStat(stats, "적에게 주는 피해", `보석(겁화): ${skillName} [${level}레벨]`, parseFloat(((gemDataTable["겁화"][level] - 1) * 100).toFixed(2)));
             } else if (type === "작열") {
@@ -2878,9 +2885,9 @@ function openPicker(trigger,spec){
  closePicker();
  const pop=document.createElement('div');pop.className='lx-pop'+(spec.grades?' gradelist':'');pop.setAttribute('role','dialog');pop.setAttribute('aria-label',spec.title);
  const rows=spec.rows.map(r=>{
-  if(r.type==='single')return `<div class="lx-prow"><button type="button" class="lx-popopt full" data-val="${esc(r.value)}" aria-pressed="${!!r.selected}">${esc(r.label)}${r.selected?'<em>✓</em>':''}</button></div>`;
-  if(r.type==='group')return `<div class="lx-pgroup"><strong>${esc(r.label)}</strong><div class="lx-popopts" style="--cols:${r.columns||3}">${r.options.map(o=>`<button type="button" class="lx-popopt" data-val="${esc(o.value)}" aria-pressed="${!!o.selected}">${o.grade?gradeBadge(o.grade):''}<span>${esc(o.text)}</span>${o.selected?'<em>✓</em>':''}</button>`).join('')}</div></div>`;
-  return `<div class="lx-effrow ${r.selected?'sel':''}"><div class="lx-efflabel">${esc(r.label)}</div><div class="lx-effbtns">${r.buttons.map(b=>`<button type="button" class="lx-gbtn" data-g="${b.grade}" data-val="${esc(b.value)}" aria-pressed="${!!b.selected}" title="${esc(b.text)}">${b.grade}${b.selected?'<em>✓</em>':''}</button>`).join('')}</div></div>`;
+  if(r.type==='single')return `<div class="lx-prow"><button type="button" class="lx-popopt full" data-val="${esc(r.value)}" ${r.disabled?'disabled':''} aria-pressed="${!!r.selected}">${esc(r.label)}${r.selected?'<em>✓</em>':''}</button></div>`;
+  if(r.type==='group')return `<div class="lx-pgroup"><strong>${esc(r.label)}</strong><div class="lx-popopts" style="--cols:${r.columns||3}">${r.options.map(o=>`<button type="button" class="lx-popopt" data-val="${esc(o.value)}" ${o.disabled?'disabled title="이미 사용 중인 항목입니다"':''} aria-pressed="${!!o.selected}">${o.grade?gradeBadge(o.grade):''}<span>${esc(o.text)}</span>${o.selected?'<em>✓</em>':''}</button>`).join('')}</div></div>`;
+  return `<div class="lx-effrow ${r.selected?'sel':''} ${r.disabled?'dis':''}"><div class="lx-efflabel">${esc(r.label)}${r.disabled?' — 다른 칸에서 사용 중':''}</div><div class="lx-effbtns">${r.buttons.map(b=>`<button type="button" class="lx-gbtn" data-g="${b.grade}" data-val="${esc(b.value)}" ${r.disabled?'disabled':''} aria-pressed="${!!b.selected}" title="${esc(b.text)}">${b.grade}${b.selected?'<em>✓</em>':''}</button>`).join('')}</div></div>`;
  }).join('');
  pop.innerHTML=`<div class="lx-phead"><strong>${esc(spec.title)}</strong><button type="button" class="lx-pclose" aria-label="닫기">×</button></div><div class="lx-plist">${rows}</div>`;
  document.body.appendChild(pop);
@@ -2892,7 +2899,7 @@ function openPicker(trigger,spec){
  let top=r.bottom+4;if(top+h>innerHeight-8)top=Math.max(8,r.top-h-4);
  pop.style.left=left+'px';pop.style.top=top+'px';
  pop.querySelector('.lx-pclose').onclick=closePicker;
- pop.addEventListener('click',ev=>{const b=ev.target.closest('[data-val]');if(!b)return;const v=b.dataset.val;closePicker();spec.onPick(v);render();});
+ pop.addEventListener('click',ev=>{const b=ev.target.closest('[data-val]');if(!b||b.disabled)return;const v=b.dataset.val;closePicker();spec.onPick(v);render();});
  lxPop=pop;lxPopTrig=trigger;
  document.addEventListener('mousedown',lxOutside,true);document.addEventListener('keydown',lxKey,true);window.addEventListener('resize',closePicker);
  const cur=pop.querySelector('[aria-pressed="true"]');if(cur)cur.scrollIntoView({block:'nearest'});
@@ -2931,7 +2938,7 @@ function renderAccessories(){
  ['목걸이','귀걸이','반지'].forEach(slot=>{
   const list=eq.map((e,i)=>({e,i})).filter(x=>x.e.slot===slot);
   list.forEach(({e,i},n)=>{
-   const x=e.simulation||(e.simulation={tier:'T4 '+(e.grade||'고대'),batch:true});
+   const x=e.simulation||(e.simulation={tier:'T4 고대',batch:true});x.tier='T4 고대';
    const main=e.base?.지능??e.base?.힘??0, mk=Object.hasOwn(e.base||{},'지능')?'지능':'힘';
    const polish=e.polish||(e.polish=[]);
    while(polish.length<3)polish.push(null);
@@ -2940,7 +2947,7 @@ function renderAccessories(){
     return `<div class="lx-opt">${gradeBadge(f?f.grade:'하',!f&&!!o)}${trig(`acc:${i}:${k}`,polishText(o))}</div>`;
    }).join('');
    html+=`<div class="lx-acc"><div class="lx-accmain"><div class="lx-eqicon">${icon(e,slot)}</div>
-    <div class="lx-acctier">${sel(`equipment.${i}.simulation.tier`,x.tier||'T4 고대',['T4 유물','T4 고대'])}<input class="field" type="number" value="${main}" min="${(ACC_RNG[slot]||[0])[0]}" max="${(ACC_RNG[slot]||[0,999999])[1]}" step="1" data-accstat="${i}|${mk}" title="범위 ${(ACC_RNG[slot]||[0,0]).map(v=>v.toLocaleString()).join(' ~ ')}" aria-label="스텟값 입력"></div></div>
+    <div class="lx-acctier">${sel(`equipment.${i}.simulation.tier`,'T4 고대',['T4 고대'],null,false,true)}<input class="field" type="number" value="${main}" min="${(ACC_RNG[slot]||[0])[0]}" max="${(ACC_RNG[slot]||[0,999999])[1]}" step="1" data-accstat="${i}|${mk}" title="범위 ${(ACC_RNG[slot]||[0,0]).map(v=>v.toLocaleString()).join(' ~ ')}" aria-label="스텟값 입력"></div></div>
     <div class="lx-accopts">${opts}</div></div>`;
   });
  });
@@ -2950,7 +2957,8 @@ function accSpec(i,k){
  const e=state.equipment[i],cat=ACC_CATALOG[e.slot]||[],cur=e.polish[k];
  const f=accFind(e.slot,cur);
  const rows=[{type:'single',label:'없음',value:'none',selected:!cur}];
- cat.forEach((c,ci)=>rows.push({type:'group',label:c.g,columns:3,options:GR.map(g=>({value:ci+':'+g,grade:g,text:fmtAccVal(c,c.v[g]),selected:!!f&&f.c===c&&f.grade===g}))}));
+ const used=new Set();e.polish.forEach((o,k2)=>{if(k2===k)return;const f2=accFind(e.slot,o);if(f2)used.add(f2.c);});
+ cat.forEach((c,ci)=>rows.push({type:'group',label:c.g+(used.has(c)?' — 다른 칸에서 사용 중':''),columns:3,options:GR.map(g=>({value:ci+':'+g,grade:g,text:fmtAccVal(c,c.v[g]),disabled:used.has(c),selected:!!f&&f.c===c&&f.grade===g}))}));
  rows.push({type:'single',label:'기타 (효과 없는 옵션)'+(cur&&!f?' — '+polishText(cur):''),value:'other',selected:!!cur&&!f});
  return {title:`${e.slot} 옵션 ${k+1}`,rows,onPick:v=>{
   if(v==='none')e.polish[k]=null;
@@ -2978,7 +2986,8 @@ function stoneSpec(k){
  const eff=stoneEntries(st),cur=eff[k];
  const names=[...new Set([...(state.engravings||[]).map(e=>e.name),...(cur?[cur.name]:[])])];
  const rows=[{type:'single',label:'없음',value:'none',selected:!cur}];
- names.forEach(n=>rows.push({type:'group',label:n,columns:4,options:[1,2,3,4].map(l=>({value:n+'|'+l,text:'Lv.'+l,selected:!!cur&&cur.name===n&&cur.level===l}))}));
+ const other=eff.filter((x,j)=>j!==k).map(x=>x.name);
+ names.forEach(n=>rows.push({type:'group',label:n+(other.includes(n)?' — 다른 칸에서 사용 중':''),columns:4,options:[1,2,3,4].map(l=>({value:n+'|'+l,text:'Lv.'+l,disabled:other.includes(n),selected:!!cur&&cur.name===n&&cur.level===l}))}));
  return {title:`스톤 각인 ${k+1}`,rows,onPick:v=>{
   if(v==='none'){ if(cur){const idx=st.engravings.indexOf(cur);if(idx>=0)st.engravings.splice(idx,1);} return;}
   const [n,l]=v.split('|');
@@ -2990,12 +2999,12 @@ const normB=s=>String(s||'').replace(/[\s()]/g,'').replace(/(\d+)\.0(?!\d)/g,'$1
 function bangleDerive(br){
  const rest0=normB((br.effects||[]).map(e=>e.text).join(''));
  let rest=rest0;const slots=[];
- while(rest&&slots.length<4){
+ while(rest&&slots.length<3){
   let best=null;
   for(const c of BANGLE_CATALOG)for(const g of GR){const v=normB(c.g[g].v);if(rest.startsWith(v)&&(!best||v.length>best.len))best={row:c.row,grade:g,len:v.length};}
   if(!best)break;slots.push({row:best.row,grade:best.grade});rest=rest.slice(best.len);
  }
- while(slots.length<4)slots.push({row:'없음',grade:''});
+ while(slots.length<3)slots.push({row:'없음',grade:''});
  return slots;
 }
 function bangleSync(br){
@@ -3007,6 +3016,8 @@ function renderBracelet(){
  const bi=eq.indexOf(e);e.bracelet=e.bracelet||{stats:[],effects:[]};
  const br=e.bracelet;br.stats=br.stats||[];while(br.stats.length<2)br.stats.push({name:'없음',val:0,unit:''});
  if(!br.slots)br.slots=bangleDerive(br);
+ if(br.slots.length>3){br.slots=br.slots.slice(0,3);bangleSync(br);}
+ while(br.slots.length<3)br.slots.push({row:'없음',grade:''});
  const statNames=['없음','힘','민첩','지능','치명','특화','신속','제압','인내','숙련','체력'];
  const slotRow=(s,k)=>{const c=BANGLE_CATALOG.find(x=>x.row===s.row),g=c&&c.g[s.grade];return `<div class="lx-opt">${s.row==='없음'?gradeBadge('-',true):gradeBadge(s.grade)}${trig(`bangle:${k}`,g?g.t:'없음')}</div>`;};
  $('bracelet-editor').innerHTML=`<div class="lx-bangle"><div class="lx-eqicon">${icon(e,'팔찌')}</div><div class="lx-bangpick">
@@ -3016,7 +3027,8 @@ function renderBracelet(){
 function bangleSpec(k){
  const e=state.equipment.find(x=>x.slot==='팔찌'),br=e.bracelet,cur=br.slots[k];
  const rows=[{type:'single',label:'없음',value:'none',selected:cur.row==='없음'}];
- BANGLE_CATALOG.forEach((c,ci)=>rows.push({type:'effect',label:c.row,selected:cur.row===c.row,buttons:GR.map(g=>({grade:g,value:ci+':'+g,text:c.g[g].t,selected:cur.row===c.row&&cur.grade===g}))}));
+ const usedRows=br.slots.filter((x,j)=>j!==k&&x.row!=='없음').map(x=>x.row);
+ BANGLE_CATALOG.forEach((c,ci)=>rows.push({type:'effect',label:c.row,disabled:usedRows.includes(c.row),selected:cur.row===c.row,buttons:GR.map(g=>({grade:g,value:ci+':'+g,text:c.g[g].t,selected:cur.row===c.row&&cur.grade===g}))}));
  return {title:`팔찌 효과 ${k+1}`,grades:true,rows,onPick:v=>{
   if(v==='none')br.slots[k]={row:'없음',grade:''};
   else{const [ci,g]=v.split(':');br.slots[k]={row:BANGLE_CATALOG[Number(ci)].row,grade:g};}
@@ -3029,7 +3041,7 @@ function renderEngravings(){
  $('engcount').textContent=list.length+'개';
  $('engrlist').innerHTML=list.map((e,i)=>{
   const names=[...new Set([...ENG_NAMES,e.name])];
-  return `<div class="lx-eng"><div class="lx-engicon">${(()=>{const u=window.laIcon&&laIcon.engraving(e.name);return u?`<img src="${esc(u)}" alt="" loading="lazy" onerror="this.remove()">`:'✧'})()}</div><div class="lx-engbody"><div class="lx-line">${sel(`engravings.${i}.grade`,e.grade||'유물',['유물'],null,false)}${sel(`engravings.${i}.level`,e.level??0,[0,1,2,3,4],[0,1,2,3,4].map(n=>'X'+n),true)}</div>${sel(`engravings.${i}.name`,e.name,names)}</div></div>`;
+  return `<div class="lx-eng"><div class="lx-engicon">${(()=>{const u=window.laIcon&&laIcon.engraving(e.name);return u?`<img src="${esc(u)}" alt="" loading="lazy" onerror="this.remove()">`:'✧'})()}</div><div class="lx-engbody"><div class="lx-line">${sel(`engravings.${i}.grade`,e.grade||'유물',['유물'],null,false)}${sel(`engravings.${i}.level`,e.level??0,[0,1,2,3,4],[0,1,2,3,4].map(n=>'X'+n),true)}</div>${(()=>{const taken=new Set(list.filter((x,j)=>j!==i).map(x=>x.name));return `<select class="field" data-path="engravings.${i}.name">${names.map(v=>`<option value="${esc(v)}" ${v===e.name?'selected':''} ${taken.has(v)?'disabled':''}>${esc(v)}${taken.has(v)?' (사용 중)':''}</option>`).join('')}</select>`})()}</div></div>`;
  }).join('')||'<div class="muted">각인 데이터 없음</div>';
 }
 
@@ -3116,11 +3128,11 @@ renderArkPoints();
 const gemSkills=[...new Set((state.skills||[]).map(x=>x?.name).filter(Boolean))];
 $('gemcount').textContent=(state.gems||[]).length+'개';
 $('gemlist').innerHTML=(state.gems||[]).map((g,i)=>{
- if(!['겁화','작열'].includes(g.kind))g.kind=(g.effect==='재사용 대기시간'?'작열':'겁화');
+ if(!['겁화','작열','없음'].includes(g.kind))g.kind=(g.effect==='재사용 대기시간'?'작열':'겁화');
  if(![6,7,8,9,10].includes(Number(g.level)))g.level=6;
  if(gemSkills.length&&!gemSkills.includes(g.skill))g.skill=gemSkills[0];
  const skillOptions=gemSkills.length?gemSkills:['스킬 데이터 없음'];
- return `<div class="gem"><div class="gemicon" aria-label="보석 이미지"><img src="${esc((window.laIcon&&laIcon.gem(g.kind,g.level))||g.icon||'https://cdn-lostark.game.onstove.com/efui_iconatlas/use/use_13_55.png')}" alt="보석" loading="lazy"><span class="gemlevel">${Number(g.level)||6}</span></div>${select(g.kind,['겁화','작열'],`data-path="gems.${i}.kind"`)}${select(Number(g.level),[10,9,8,7,6],`data-path="gems.${i}.level"`)}${select(g.skill||skillOptions[0],skillOptions,`data-path="gems.${i}.skill" ${gemSkills.length?'':'disabled'}`)}</div>`;
+ return `<div class="gem${g.kind==='없음'?' none':''}"><div class="gemicon" aria-label="보석 이미지"><img src="${esc((window.laIcon&&laIcon.gem(g.kind,g.level))||g.icon||'https://cdn-lostark.game.onstove.com/efui_iconatlas/use/use_13_55.png')}" alt="보석" loading="lazy"><span class="gemlevel">${Number(g.level)||6}</span></div>${select(g.kind,['겁화','작열','없음'],`data-path="gems.${i}.kind"`)}${select(Number(g.level),[10,9,8,7,6],`data-path="gems.${i}.level"`)}${select(g.skill||skillOptions[0],skillOptions,`data-path="gems.${i}.skill" ${gemSkills.length?'':'disabled'}`)}</div>`;
 }).join('');
 renderEquipment();renderAccessories();
 const avatarSlots=[['무기','weapon'],['투구','head'],['상의','top'],['하의','bottom']];
@@ -3231,11 +3243,11 @@ render();
   }
 
   const DATA_KEYS = ['game', 'skills', 'addStat', 'spec', 'cores'];
-  const DATA_LABEL = { game: '공용 데이터', skills: '스킬', addStat: '도약·깨달음', spec: '특화', cores: '질서 코어' };
+  const DATA_LABEL = { game: '게임 데이터', skills: '스킬', addStat: '고정 효과', spec: '특화', cores: '질서 코어' };
   const DATA_REQ = { game: true, skills: true, spec: true, addStat: false, cores: false };
   const DATA_HINT = {
-    game: '장비/보석/각인/진화 노드 등 (gemDataTable, evolutionNodes …)', skills: '스킬 DB 배열 (constant, coefficient, tripods …)',
-    addStat: '깨달음·도약 (effects …)', spec: '특화 계수 ({coefficient, targetTags})', cores: '질서 코어 파일 (여러 개 가능)'
+    game: '장비/보석/각인/진화 노드 등 표 (gemDataTable, evolutionNodes …)', skills: '스킬 DB 배열 (constant, coefficient, tripods …)',
+    addStat: '깨달음/도약 등 고정 효과 배열 (effects …)', spec: '특화 계수 ({coefficient, targetTags})', cores: '질서 코어 파일 (여러 개 가능)'
   };
   let DATA = {};
   DATA_KEYS.forEach(k => { const v = jget('la_d_' + k, null); if (v != null) DATA[k] = v; });
@@ -3565,7 +3577,7 @@ render();
     const draw = (msgs) => {
       m.body.innerHTML = `<p class="la-mdesc">계산에 쓰는 게임 데이터 JSON을 올립니다. 종류는 내용으로 자동 인식하며, 올린 데이터는 이 브라우저에 저장되어 다음에도 유지됩니다. 코어 파일은 여러 개를 한 번에 올려도 됩니다.</p>
       <div class="la-drow-list">${DATA_KEYS.map(k => { const c = dataCount(k); return `<div class="la-drow ${c ? 'ok' : (DATA_REQ[k] ? 'need' : '')}">
-        <div class="la-dname"><b>${DATA_LABEL[k]}</b> <small>${DATA_REQ[k] ? '' : ''}</small><div class="la-dhint">${esc(DATA_HINT[k])}</div></div>
+        <div class="la-dname"><b>${DATA_LABEL[k]}</b> <small>${DATA_REQ[k] ? '필수' : '선택'}</small><div class="la-dhint">${esc(DATA_HINT[k])}</div></div>
         <span class="la-dstat">${c || (DATA_REQ[k] ? '미등록' : '없음')}</span>
         <button class="btn" type="button" data-view="${k}" ${c ? '' : 'disabled'}>보기</button><button class="btn" type="button" data-clear="${k}" ${c ? '' : 'disabled'}>삭제</button></div>`; }).join('')}</div>
       <div class="la-drop" id="la-drop"><label class="btn primary">JSON 파일 올리기<input id="la-dfiles" type="file" accept=".json,application/json" multiple hidden></label><span>또는 파일을 여기로 끌어다 놓기</span></div>
@@ -3747,6 +3759,8 @@ render();
     try {
       const bad = (S.equipment || []).filter(e => ['투구', '어깨', '상의', '하의', '장갑', '무기'].includes(e.slot) && !/에스더/.test(e.grade || '') && !/전율/.test(e.name || ''));
       if (bad.length) groups.push({ title: 'T4 전율 장비가 아닌 부위가 있어요', chips: bad.map(e => e.slot), desc: '이 시뮬레이터는 T4 전율 장비 기준으로만 정상 작동합니다.<br>해당 부위가 포함되면 계산 결과가 올바르지 않을 수 있어요.' });
+      const badAcc = (S.equipment || []).filter(e => ['목걸이', '귀걸이', '반지'].includes(e.slot) && !/고대/.test(e.grade || ''));
+      if (badAcc.length) groups.push({ title: 'T4 고대 장신구가 아닌 부위가 있어요', chips: badAcc.map(e => e.slot), desc: '이 시뮬레이터는 T4 고대 장신구 기준으로만 정상 작동합니다.<br>해당 부위가 포함되면 계산 결과가 올바르지 않을 수 있어요.' });
       const cs = (S.arkGrid && S.arkGrid.cores) || [], labs = ['질서의 해', '질서의 달', '질서의 별', '혼돈의 해', '혼돈의 달', '혼돈의 별'];
       const unsup = ['신념의 강화', '흐르는 마나', '불굴의 강화', '낙인의 흔적', '강철의 흔적', '치명적인 흔적', '구원', '생명', '속도', '방어'];
       const cg = [], cn = [];
@@ -4249,7 +4263,7 @@ render();
   }
   function openNotice() {
     openModal('la-notice', '📢 Notice', `<div class="la-note"><div><span class="tg a">기본 전제</span><b>데이터는 API 값 기준</b><p>캐릭터 정보는 공식 API 값을 그대로 쓰고, 계산에 쓰는 게임 데이터는 <b>컨트롤 패널 &gt; 데이터 불러오기</b>로 올린 JSON을 사용합니다.</p></div>
-      <div><span class="tg b">지원 장비</span><b>장비 범위</b><p>장비는 <b>T4 전율</b> 및 <b>에스더 장비</b>만 지원합니다.</p></div>
+      <div><span class="tg b">지원 장비</span><b>장비 범위</b><p>장비는 <b>T4 전율</b> 및 <b>에스더 장비</b>, 장신구는 <b>T4 고대</b>만 지원합니다.</p></div>
       <div><span class="tg b">지원 범위</span><b>보석</b><p><b>6레벨 이상</b> 보석만 계산합니다.</p></div>
       <div><span class="tg c">미지원</span><b>혼돈 코어 옵션</b><p>혼돈 코어 중 <b>서포터 옵션</b>의 코어는 지원하지 않습니다.</p></div>
       <div><span class="tg c">시뮬레이션</span><b>조작 가능한 부분</b><p>아크 패시브는 <b>진화 · 깨달음 · 도약</b> 노드를 조작할 수 있습니다 (깨달음·도약은 데이터 JSON의 노드 정의 기준). 스킬 트라이포드는 아래 스킬 시뮬레이션에서 바꿔 볼 수 있습니다.</p></div></div>`, 460);

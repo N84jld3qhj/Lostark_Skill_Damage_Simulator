@@ -1,7 +1,5 @@
 <!doctype html>
-<html lang="ko">
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="076cceab-7054-41bf-b0e4-e62bf4746f68"></script>
-  <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>로스트아크 시뮬레이터</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -706,6 +704,7 @@ button,input,select,textarea{font-family:inherit}
 <style>#gems .arktoolbar{padding:10px 12px;margin:0 0 14px;border:1px solid var(--line);border-radius:9px;background:#111b27}#gems .arktoolbar>.muted{font-size:15px;font-weight:700;color:#cfe0f5}#gems .arkbulk select{min-width:112px;width:auto}</style>
 <style>.arkpoints-tools{display:flex;justify-content:flex-end;margin:0 0 10px}.arkpoints-tools .btn{padding:7px 12px;font-size:13px;font-weight:700}</style>
 <style>#evo-body details>summary{display:none!important}#evo-body details{margin-bottom:6px!important}</style>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="076cceab-7054-41bf-b0e4-e62bf4746f68"></script>
 </head><body>
 <div class="wrap">
 <div class="hero"><section class="profile"><div class="avatar"></div><div class="pinfo"><div class="pname"><span id="name"></span><span id="emblems"></span></div><div class="pstats"><div class="metric"><small>전투력</small><div class="big" id="power"></div></div><div class="metric"><small>아이템 레벨</small><strong id="ilevel"></strong></div><div class="metric"><small>클래스</small><strong id="class"></strong></div><div class="metric"><small>원정대 레벨</small><strong id="pv-exp"></strong></div></div><div class="pstats pstats2"><div class="metric"><small>서버</small><strong id="pv-server"></strong></div><div class="metric"><small>길드</small><strong id="pv-guild"></strong></div><div class="metric"><small>칭호</small><strong id="pv-title"></strong></div></div></div></section></div>
@@ -2465,8 +2464,9 @@ if (window.isArkPassiveOpen === undefined) window.isArkPassiveOpen = true;
                     </div>
 
                     
-                    <div style="font-size: 0.95rem; font-weight: bold; color: #e2e8f0; margin-bottom: 8px;">
-                        [스킬별 시뮬레이션 결과 요약] <span style="font-size: 0.75em; font-weight: normal; color: #94a3b8;">(행 클릭 시 세부 내역 표시)</span>
+                    <div style="font-size: 0.95rem; font-weight: bold; color: #e2e8f0; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+                        <span>[스킬별 시뮬레이션 결과 요약] <span style="font-size: 0.75em; font-weight: normal; color: #94a3b8;">(행 클릭 시 세부 내역 표시)</span></span>
+                        <button type="button" class="btn" data-act="save-table-img" style="font-size: 0.75rem; padding: 4px 10px; white-space: nowrap;">🖼 이미지로 저장</button>
                     </div>
                     <div style="overflow-x: auto;">
                         <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
@@ -4059,6 +4059,49 @@ render();
     });
   }
 
+  function saveTableImage() {
+    const rows = [...document.querySelectorAll('#result-body .sim-skill-row')].map(tr => { const t = tr.querySelectorAll('td'); return { name: t[0].textContent.replace('✔', '').trim(), dmg: t[1].textContent.trim(), cd: t[2].textContent.trim(), sel: /✔/.test(t[0].textContent) }; });
+    if (!rows.length) { toast('저장할 결과가 없어요.', true); return; }
+    const old = document.getElementById('la-warn'); if (old) old.remove();
+    const ov = document.createElement('div'); ov.id = 'la-warn'; ov.className = 'la-warn';
+    ov.innerHTML = '<div class="la-warn-box" role="dialog" aria-modal="true"><div class="la-warn-t">이미지로 저장</div><div class="la-warn-d">이미지 상단에 들어갈 표 이름을 입력하세요.</div><input id="img-title" class="field" type="text" maxlength="60" style="width:100%;margin:8px 0 12px"><div class="la-warn-btns"><button type="button" class="la-warn-b la-warn-no">취소</button><button type="button" class="la-warn-b la-warn-ok">저장</button></div></div>';
+    const inp = ov.querySelector('#img-title'); inp.value = store.get('la_img_title') || '스킬별 시뮬레이션 결과 요약';
+    const close = () => { ov.remove(); document.removeEventListener('keydown', key, true); };
+    const go = () => { const t = inp.value.trim() || '스킬별 시뮬레이션 결과 요약'; store.set('la_img_title', t); close(); drawTableImage(t, rows); };
+    const key = e => { if (e.key === 'Escape') { e.preventDefault(); close(); } else if (e.key === 'Enter') { e.preventDefault(); go(); } };
+    ov.querySelector('.la-warn-no').onclick = close; ov.querySelector('.la-warn-ok').onclick = go;
+    document.addEventListener('keydown', key, true); document.body.appendChild(ov); inp.focus(); inp.select();
+  }
+  function drawTableImage(title, rows) {
+    const SC = 2, W = 720, PAD = 24, TH = 40, RH = 42, HEAD = 56, H = PAD + HEAD + TH + rows.length * RH + PAD;
+    const c = document.createElement('canvas'); c.width = W * SC; c.height = H * SC;
+    const g = c.getContext('2d'); g.scale(SC, SC);
+    const ff = (getComputedStyle(document.body).fontFamily || 'sans-serif');
+    g.fillStyle = '#12151c'; g.fillRect(0, 0, W, H);
+    g.textBaseline = 'middle';
+    g.fillStyle = '#e2e8f0'; g.font = 'bold 20px ' + ff; g.fillText(title, PAD, PAD + 22);
+    let y = PAD + HEAD; const X = [PAD + 12, 330, 540];
+    g.fillStyle = '#181920'; g.fillRect(PAD, y, W - PAD * 2, TH);
+    g.fillStyle = '#94a3b8'; g.font = 'bold 14px ' + ff; ['스킬명', '대미지 기대값', '스킬 쿨타임'].forEach((h, i) => g.fillText(h, X[i], y + TH / 2));
+    g.strokeStyle = '#2e323d'; g.lineWidth = 1; g.beginPath(); g.moveTo(PAD, y + TH + .5); g.lineTo(W - PAD, y + TH + .5); g.stroke();
+    y += TH;
+    rows.forEach(r => {
+      if (r.sel) { g.fillStyle = '#2d3142'; g.fillRect(PAD, y, W - PAD * 2, RH); }
+      g.fillStyle = r.sel ? '#38bdf8' : '#e2e8f0'; g.font = 'bold 15px ' + ff; g.fillText(r.name, X[0], y + RH / 2);
+      g.fillStyle = '#facc15'; g.fillText(r.dmg, X[1], y + RH / 2);
+      g.fillStyle = '#38bdf8'; g.font = '15px ' + ff; g.fillText(r.cd, X[2], y + RH / 2);
+      g.strokeStyle = '#2e323d'; g.beginPath(); g.moveTo(PAD, y + RH + .5); g.lineTo(W - PAD, y + RH + .5); g.stroke();
+      y += RH;
+    });
+    c.toBlob(b => {
+      if (!b) { toast('이미지를 만들지 못했어요.', true); return; }
+      const a = document.createElement('a'); a.href = URL.createObjectURL(b);
+      a.download = (title.replace(/[\\/:*?"<>|]/g, '').trim() || '시뮬레이션 결과') + '.png';
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+      toast('이미지를 저장했어요.');
+    }, 'image/png');
+  }
+
   const BK_APP = 'lostark-sim-backup';
   function bkLocalKeys() { const ks = []; try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && /^la_/.test(k) && k !== 'la_key') ks.push(k); } } catch (e) { } return ks.sort(); }
   function bkSummary(items) {
@@ -4354,7 +4397,7 @@ render();
     let anchor = main.closest('.layout') || main; zone.forEach(z => { anchor.parentNode.insertBefore(z, anchor.nextSibling); anchor = z; });
     zone.forEach(makeCollapsible);
     $q('#skill-body').className = 'ss-wrap';
-    document.addEventListener('click', e => { if (e.target.closest('[data-act="open-data"]')) openDataModal(); });
+    document.addEventListener('click', e => { if (e.target.closest('[data-act="open-data"]')) openDataModal(); if (e.target.closest('[data-act="save-table-img"]')) { e.preventDefault(); e.stopPropagation(); saveTableImage(); } });
     mountControlPanel();
     applyLayout();
   }

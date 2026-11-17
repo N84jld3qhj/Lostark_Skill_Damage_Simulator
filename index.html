@@ -80,6 +80,8 @@
 .tabcard .panel-toggle .collapse-mark{display:none}
 .cp-btn.lay{background:#7c3aed;border-color:#a78bfa}
 .cp-btn.thm{background:#475569;border-color:#94a3b8}
+.cp-btn.rpt{background:#9a3412;border-color:#fb923c}
+.cc-wset{margin-top:10px}
 #la-theme{box-sizing:border-box;margin:0;padding:0;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:2px;color:var(--text);cursor:pointer;font-size:.95rem;line-height:1;transition:border-color .15s ease,transform .1s ease;position:fixed;top:20px;right:20px;z-index:100;background:var(--panel);border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.2)}
 #la-theme:hover{border-color:var(--blue)}#la-theme:active{transform:scale(.94)}#la-theme:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 #la-theme .theme-ico{display:none}#la-theme .theme-ico--sun{display:inline}html.light #la-theme .theme-ico--sun{display:none}html.light #la-theme .theme-ico--moon{display:inline}
@@ -704,7 +706,7 @@ button,input,select,textarea{font-family:inherit}
 <style>#gems .arktoolbar{padding:10px 12px;margin:0 0 14px;border:1px solid var(--line);border-radius:9px;background:#111b27}#gems .arktoolbar>.muted{font-size:15px;font-weight:700;color:#cfe0f5}#gems .arkbulk select{min-width:112px;width:auto}</style>
 <style>.arkpoints-tools{display:flex;justify-content:flex-end;margin:0 0 10px}.arkpoints-tools .btn{padding:7px 12px;font-size:13px;font-weight:700}</style>
 <style>#evo-body details>summary{display:none!important}#evo-body details{margin-bottom:6px!important}</style>
-<script defer src="https://cloud.umami.is/script.js" data-website-id="076cceab-7054-41bf-b0e4-e62bf4746f68"></script>
+<script defer="" src="https://cloud.umami.is/script.js" data-website-id="076cceab-7054-41bf-b0e4-e62bf4746f68"></script>
 </head><body>
 <div class="wrap">
 <div class="hero"><section class="profile"><div class="avatar"></div><div class="pinfo"><div class="pname"><span id="name"></span><span id="emblems"></span></div><div class="pstats"><div class="metric"><small>전투력</small><div class="big" id="power"></div></div><div class="metric"><small>아이템 레벨</small><strong id="ilevel"></strong></div><div class="metric"><small>클래스</small><strong id="class"></strong></div><div class="metric"><small>원정대 레벨</small><strong id="pv-exp"></strong></div></div><div class="pstats pstats2"><div class="metric"><small>서버</small><strong id="pv-server"></strong></div><div class="metric"><small>길드</small><strong id="pv-guild"></strong></div><div class="metric"><small>칭호</small><strong id="pv-title"></strong></div></div></div></section></div>
@@ -3223,7 +3225,12 @@ render();
   const sgn = p => (p > 0 ? '+' : '') + p.toFixed(1) + '%';
   const sgn2 = p => (p > 0 ? '+' : '') + p.toFixed(2) + '%';
 
+  const errLog = [];
+  const logErr = (kind, msg, extra) => { errLog.push(Object.assign({ t: new Date().toISOString(), kind, msg: String(msg || '').slice(0, 400) }, extra || {})); if (errLog.length > 40) errLog.shift(); };
+  window.addEventListener('error', e => logErr('error', e.message, { src: String(e.filename || '').split('/').pop(), line: e.lineno, col: e.colno, stack: e.error && e.error.stack ? String(e.error.stack).slice(0, 800) : '' }));
+  window.addEventListener('unhandledrejection', e => logErr('promise', e.reason && e.reason.message ? e.reason.message : e.reason, { stack: e.reason && e.reason.stack ? String(e.reason.stack).slice(0, 800) : '' }));
   function toast(msg, bad) {
+    if (bad) logErr('toast', msg);
     let t = $q('#la-toast'); if (!t) { t = document.createElement('div'); t.id = 'la-toast'; document.body.appendChild(t); }
     t.textContent = msg; t.className = 'show' + (bad ? ' bad' : '');
     clearTimeout(toast._t); toast._t = setTimeout(() => { t.className = ''; }, 2600);
@@ -3239,8 +3246,8 @@ render();
     ov.addEventListener('mousedown', e => { if (e.target === ov) close(); });
     return { el: ov, body: ov.querySelector('.la-mbody'), close };
   }
-  function download(name, obj) {
-    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' }));
+  function download(name, obj, compact) {
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([compact ? JSON.stringify(obj) : JSON.stringify(obj, null, 2)], { type: 'application/json' }));
     a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 500);
   }
 
@@ -3872,6 +3879,32 @@ render();
   let excluded = new Set(jget('la_evo_excl', []));
   let cmpView = store.get('la_cmp_view') || 'chart', cmpMetric = store.get('la_cmp_metric') || 'dmg', weightOpen = false, weightSig = '';
   const MAX_BASELINES = 10;
+  let weightSets = jget('la_weight_sets', []), activeWSet = store.get('la_wset_active') || '';
+  const persistWS = () => { store.set('la_weight_sets', JSON.stringify(weightSets)); store.set('la_wset_active', activeWSet || ''); };
+  function saveWeightSet(name) {
+    if (!Object.keys(weights).length) { toast('저장할 스킬 딜비중이 없습니다. 먼저 비중을 입력하세요.', true); return; }
+    name = String(name || '').trim().slice(0, 20);
+    if (!name) { let n = weightSets.length + 1; while (weightSets.some(x => x.name === '딜비중 ' + n)) n++; name = '딜비중 ' + n; }
+    const snap = { weights: JSON.parse(JSON.stringify(weights)), cdRatio: JSON.parse(JSON.stringify(cdRatio)), basis };
+    const ex = weightSets.find(x => x.name === name);
+    if (ex) { if (!confirm(`'${name}' 딜비중 세트가 이미 있습니다. 현재 입력값으로 덮어쓸까요?`)) return; Object.assign(ex, snap, { savedAt: Date.now() }); activeWSet = ex.id; }
+    else {
+      if (weightSets.length >= MAX_BASELINES) { toast(`딜비중 세트는 최대 ${MAX_BASELINES}개까지 저장할 수 있습니다. 하나를 삭제해주세요.`, true); return; }
+      const w = Object.assign({ id: 'w' + Date.now() + Math.floor(Math.random() * 1000), name, savedAt: Date.now() }, snap); weightSets.push(w); activeWSet = w.id;
+    }
+    persistWS(); renderWeights(); toast(`'${name}' 딜비중 세트를 저장했습니다.`);
+  }
+  function loadWeightSet(id) {
+    const w = weightSets.find(x => x.id === id); if (!w) { toast('불러올 딜비중 세트가 없습니다.', true); return; }
+    weights = JSON.parse(JSON.stringify(w.weights || {})); cdRatio = JSON.parse(JSON.stringify(w.cdRatio || {}));
+    if (w.basis && BASIS[w.basis]) basis = w.basis;
+    activeWSet = w.id; persist(); persistWS(); weightOpen = true; renderWeights(); toast(`'${w.name}' 딜비중 세트를 불러왔습니다.`);
+  }
+  function deleteWeightSet(id) {
+    const w = weightSets.find(x => x.id === id); if (!w) { toast('삭제할 딜비중 세트가 없습니다.', true); return; }
+    if (!confirm(`'${w.name}' 딜비중 세트를 삭제할까요?`)) return;
+    weightSets = weightSets.filter(x => x.id !== w.id); activeWSet = weightSets[0] ? weightSets[0].id : ''; persistWS(); renderWeights();
+  }
   const persist = () => { store.set('la_baselines', JSON.stringify(baselineSets)); store.set('la_base_active', activeBase || ''); store.set('la_weights', JSON.stringify(weights)); store.set('la_cdratio', JSON.stringify(cdRatio)); store.set('la_basis', basis); store.set('la_evo_excl', JSON.stringify([...excluded])); };
   const activeSet = () => baselineSets.find(b => b.id === activeBase) || baselineSets[0] || null;
   const BASIS = { real: '실전 보정 DPS', theory: '이론 DPS', cast: '1회 데미지' };
@@ -3970,13 +4003,24 @@ render();
     const box = $q('#cc-weights'); if (!box) return;
     if (!lastRun) { box.innerHTML = ''; return; }
     const names = lastRun.res.map(r => r.skillName);
-    box.innerHTML = `<details class="cc-wd" ${weightOpen ? 'open' : ''}><summary>⚖ 스킬 딜비중 · 전체 딜 변화 (가중 합계)</summary><div class="cc-wbody">
+    if (!weightSets.some(x => x.id === activeWSet)) activeWSet = weightSets[0] ? weightSets[0].id : '';
+    box.innerHTML = `<div class="cc-top cc-wset"><span class="cc-lbl">딜비중 세트</span>
+        <select id="ws-sel" class="field">${weightSets.length ? weightSets.map(x => `<option value="${esc(x.id)}" ${x.id === activeWSet ? 'selected' : ''}>${esc(x.name)}</option>`).join('') : '<option value="">저장된 세트 없음</option>'}</select>
+        <button class="btn" type="button" id="ws-load" ${weightSets.length ? '' : 'disabled'}>📂 불러오기</button>
+        <button class="btn cc-del" type="button" id="ws-del" ${weightSets.length ? '' : 'disabled'}>🗑 삭제</button>
+        <span class="cc-right"><input id="ws-name" class="field" placeholder="새 세트 이름" maxlength="20"><button class="btn primary" type="button" id="ws-save">💾 현재 딜비중 저장</button></span></div>
+      <details class="cc-wd" ${weightOpen ? 'open' : ''}><summary>⚖ 스킬 딜비중 · 전체 딜 변화 (가중 합계)</summary><div class="cc-wbody">
       <div class="cc-whelp">비교군 세팅에서 각 스킬이 전체 딜에서 차지하던 비중(%)과, 쿨이 돌자마자 쓰는 정도인 <b>쿨타임 비율(쿨)</b>을 입력하세요(쿨은 비우면 100%). 합이 100%가 안 되는 나머지는 변하지 않는 '기타'로 계산합니다.</div>
       <div class="cc-wgrid">${names.map(n => `<label class="cc-wi"><span title="${esc(n)}">${esc(n)}</span><input type="number" min="0" max="100" step="0.1" data-skill="${esc(n)}" value="${weights[n] ?? ''}" placeholder="0" title="딜비중"><em>%</em><input type="number" min="5" max="100" step="1" data-cdr="${esc(n)}" value="${cdRatio[n] ?? ''}" placeholder="100" title="쿨타임 비율(비우면 100%)"><em>쿨</em></label>`).join('')}</div>
       <div class="cc-wfoot"><span>합계 <b id="cc-wsum">0%</b></span><span>기타(자동) <b id="cc-woth">100%</b></span>
         <select id="cc-wbasis" class="field">${LAOpt.EVO_MODES.map(m => `<option value="${m.key}" ${m.key === basis ? 'selected' : ''}>${m.label} 기준</option>`).join('')}</select></div>
       <div id="cc-wres" class="cc-wres"></div></div></details>`;
     box.querySelector('details').ontoggle = function () { weightOpen = this.open; };
+    const wsv = () => { const n = box.querySelector('#ws-name'); saveWeightSet(n.value); };
+    box.querySelector('#ws-sel').onchange = e => { activeWSet = e.target.value; persistWS(); };
+    box.querySelector('#ws-load').onclick = () => loadWeightSet(box.querySelector('#ws-sel').value);
+    box.querySelector('#ws-del').onclick = () => deleteWeightSet(box.querySelector('#ws-sel').value);
+    box.querySelector('#ws-save').onclick = wsv; box.querySelector('#ws-name').onkeydown = e => { if (e.key === 'Enter') wsv(); };
     box.querySelector('#cc-wbasis').onchange = e => { basis = e.target.value; persist(); weightResult(); };
     box.querySelectorAll('input[data-skill]').forEach(i => i.oninput = () => { let v = parseFloat(i.value); if (!isFinite(v) || v < 0) v = 0; if (v > 100) v = 100; if (v === 0) delete weights[i.dataset.skill]; else weights[i.dataset.skill] = v; persist(); weightResult(); });
     box.querySelectorAll('input[data-cdr]').forEach(i => i.oninput = () => { const v = parseFloat(i.value); if (!isFinite(v) || v <= 0) delete cdRatio[i.dataset.cdr]; else cdRatio[i.dataset.cdr] = Math.min(Math.max(v, 5), 100); persist(); weightResult(); });
@@ -4111,6 +4155,7 @@ render();
     const dk = ks.filter(k => /^la_d_/.test(k)).length; if (dk) parts.push('데이터 ' + dk + '종');
     const ch = cnt(/^la_char_/); if (ch) parts.push('저장 캐릭터 ' + ch + '개');
     if (items.la_baselines) parts.push('비교군 ' + arr('la_baselines') + '개');
+    if (items.la_weight_sets) parts.push('딜비중 세트 ' + arr('la_weight_sets') + '개');
     if (items.la_db_presets) parts.push('DB 프리셋 ' + arr('la_db_presets') + '개');
     if (items.la_evo_presets) parts.push('아크패시브 세팅 ' + arr('la_evo_presets') + '개');
     parts.push('전체 항목 ' + ks.length + '개');
@@ -4153,12 +4198,48 @@ render();
       try {
         if (f.size > 30 * 1024 * 1024) throw new Error('파일이 너무 큽니다.');
         const j = JSON.parse(await f.text());
+        if (j && j.app === RP_APP && j.state && j.items) {
+          const rn = j.items ? Object.keys(j.items).filter(k => /^la_d_/.test(k)).length : 0;
+          pv.innerHTML = `<div style="border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#111b27;font-size:12px;line-height:1.6"><b>🐞 오류 제보 파일: ${esc(f.name)}</b><br>저장 시각 ${esc(j.savedAt || '')} · 데이터 ${rn}종 · 오류 기록 ${(j.errors || []).length}건<br>${j.note ? '제보 내용: ' + esc(j.note) + '<br>' : ''}<span class="muted">적용하면 <b>이 브라우저의 데이터 JSON·설정이 제보 파일 내용으로 덮어써지고</b>, 제보 당시의 세팅이 그대로 복원됩니다. 필요하면 먼저 설정 백업을 저장하세요.</span><br><button type="button" class="btn primary" id="bk-go" style="margin-top:8px">제보 상황 재현하기</button></div>`;
+          pv.querySelector('#bk-go').onclick = () => { const its = {}; Object.keys(j.items).forEach(k => { if (/^la_/.test(k) && k !== 'la_key' && typeof j.items[k] === 'string') its[k] = j.items[k]; }); bkApply(its); try { sessionStorage.setItem('la_report_state', JSON.stringify({ state: j.state, note: j.note || '', errors: j.errors || [], env: j.env || {} })); } catch (e) { toast('제보 세팅을 임시 저장하지 못했습니다.', true); return; } toast('제보 상황을 불러옵니다. 새로고침합니다…'); setTimeout(() => location.reload(), 700); };
+          return;
+        }
         if (!j || j.app !== BK_APP || !j.items || typeof j.items !== 'object') throw new Error('이 시뮬레이터의 백업 파일이 아닙니다.');
         const items = {}; Object.keys(j.items).forEach(k => { if (/^la_/.test(k) && k !== 'la_key' && typeof j.items[k] === 'string') items[k] = j.items[k]; });
         if (!Object.keys(items).length) throw new Error('복원할 항목이 없습니다.');
         pv.innerHTML = `<div style="border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#111b27;font-size:12px;line-height:1.6"><b>${esc(f.name)}</b><br>${esc(bkSummary(items))}<br><span class="muted">같은 이름의 항목은 백업 내용으로 덮어쓰고, 백업에 없는 항목은 그대로 둡니다. 적용 후 페이지가 새로고침됩니다.</span><div style="margin-top:8px"><button type="button" class="btn primary" id="bk-go">이 백업 적용</button></div></div>`;
         pv.querySelector('#bk-go').onclick = () => { const n = bkApply(items); toast(n + '개 항목을 복원했습니다. 새로고침합니다…'); setTimeout(() => location.reload(), 700); };
       } catch (e) { pv.innerHTML = ''; toast('불러오기 실패: ' + (e.message || e), true); }
+    };
+  }
+
+  const RP_APP = 'lostark-sim-report';
+  function buildReport(note, withName) {
+    const items = {}; bkLocalKeys().forEach(k => { if (/^la_char/.test(k)) return; const v = store.get(k); if (v !== null) items[k] = v; });
+    const st = JSON.parse(JSON.stringify(state)); if (!withName && st.meta) { if (st.meta.name) st.meta.name = '(제외)'; }
+    const safe = o => { try { return JSON.parse(JSON.stringify(o)); } catch (e) { return null; } };
+    const lr = lastRun ? { res: safe(lastRun.res), unmatchedSkills: safe(lastRun.unmatchedSkills), ignoredTripods: safe(lastRun.ignoredTripods), inputs: safe(lastRun.inputs) } : null;
+    return {
+      app: RP_APP, version: 1, savedAt: new Date().toISOString(), note: String(note || '').slice(0, 1000), nameIncluded: !!withName,
+      env: { ua: navigator.userAgent, lang: navigator.language, tz: (Intl.DateTimeFormat().resolvedOptions() || {}).timeZone, screen: [screen.width, screen.height, window.devicePixelRatio], viewport: [innerWidth, innerHeight], layout: store.get('la_layout'), theme: document.documentElement.classList.contains('light') ? 'light' : 'dark', hasData: DATA_KEYS.filter(k => DATA[k] != null), live: !paused },
+      errors: errLog.slice(), state: st, result: lr, items
+    };
+  }
+  function openReportModal() {
+    const n = errLog.length;
+    const m = openModal('la-rp', '🐞 오류 제보 데이터 저장', `
+      <div class="muted" style="font-size:12px;line-height:1.7;margin-bottom:10px">오류가 난 <b>그 상태 그대로</b> 지금 화면의 모든 세팅·불러온 데이터·계산 결과·오류 기록을 파일 하나로 저장합니다. 이 파일을 제보할 때 첨부해 주세요.<br><b>API 키와 저장된 캐릭터 목록은 포함되지 않습니다.</b></div>
+      <label class="la-lbl" style="display:block;margin-bottom:4px">어떤 상황인가요? (선택)</label>
+      <textarea id="rp-note" class="field" rows="3" maxlength="1000" placeholder="예: 팔찌 옵션을 바꿨더니 결과가 0으로 나와요" style="width:100%;resize:vertical"></textarea>
+      <label style="display:flex;gap:6px;align-items:center;margin:10px 0;font-size:12px"><input type="checkbox" id="rp-name"> 캐릭터 이름을 포함 (기본: 제외)</label>
+      <div class="muted" style="font-size:12px;margin-bottom:12px">포함 내용: 시뮬레이션 세팅 · 불러온 데이터 ${DATA_KEYS.filter(k => DATA[k] != null).length}종 · 계산 결과${lastRun ? '' : '(없음)'} · 오류 기록 ${n}건</div>
+      <div style="display:flex;gap:8px"><button type="button" class="btn primary" id="rp-go">⬇ 제보 데이터 저장</button><button type="button" class="btn" id="rp-cancel">취소</button></div>`, 500);
+    m.el.querySelector('#rp-cancel').onclick = m.close;
+    m.el.querySelector('#rp-go').onclick = () => {
+      const rep = buildReport(m.el.querySelector('#rp-note').value, m.el.querySelector('#rp-name').checked);
+      const d = new Date(), pad = x => String(x).padStart(2, '0');
+      download('lostark-sim-report-' + d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + '-' + pad(d.getHours()) + pad(d.getMinutes()) + '.json', rep, true);
+      m.close(); toast('제보 데이터를 저장했습니다. 이 파일을 제보에 첨부해 주세요.');
     };
   }
 
@@ -4241,7 +4322,8 @@ render();
         <button class="cp-btn notice" type="button" data-cp="notice">📢 Notice</button>
         <button class="cp-btn data" type="button" data-cp="data">📂 데이터 불러오기<em id="cp-dwarn" hidden>!</em></button>
         <button class="cp-btn dbp" type="button" data-cp="dbp">📦 DB 프리셋 관리</button>
-        <button class="cp-btn lay" type="button" data-cp="layout"></button></div>
+        <button class="cp-btn lay" type="button" data-cp="layout"></button>
+        <button class="cp-btn rpt" type="button" data-cp="report">🐞 오류 제보 데이터 저장</button></div>
       </div>`;
     document.body.appendChild(cp);
     const cp2 = document.createElement('div'); cp2.id = 'la-cp2';
@@ -4280,7 +4362,7 @@ render();
       if (t) { const k = t.dataset.tg; if (t.disabled) return; FLAGS[k] = !FLAGS[k]; saveFlags(); syncCp(); scheduleCalc(); return; }
       if (!b) return;
       ({
-        notice: openNotice, data: openDataModal, dbp: openDbPresetModal, layout: toggleLayout,
+        notice: openNotice, data: openDataModal, dbp: openDbPresetModal, layout: toggleLayout, report: openReportModal,
         pause: () => { paused = !paused; syncCp(); if (!paused) runCalc(); }
       })[b.dataset.cp]();
     };
@@ -4407,7 +4489,10 @@ render();
 
   const _render = render;
   render = function () { _render(); scheduleCalc(); };
+  let reportInfo = null;
+  try { const rs = sessionStorage.getItem('la_report_state'); if (rs) { sessionStorage.removeItem('la_report_state'); reportInfo = JSON.parse(rs); if (reportInfo && reportInfo.state) state = reportInfo.state; } } catch (e) { reportInfo = null; }
   ensureEvo(); ensureTripodSel(); renderEvo(); renderOptBody(); renderSkillSim(); runCalc(); histReset();
+  if (reportInfo) { const er = (reportInfo.errors || []).slice(-5).map(x => esc(x.kind + ': ' + x.msg)); warnModal([{ title: '오류 제보 상황을 불러왔어요', chips: [esc((reportInfo.env && reportInfo.env.ua || '').slice(0, 60) || '환경 정보 없음')], desc: (reportInfo.note ? '제보 내용: ' + esc(reportInfo.note) + '<br>' : '') + (er.length ? '기록된 오류<br>' + er.join('<br>') : '기록된 오류 없음') }]); }
   window.LAApp = { getState: () => state, undo, redo, histInfo: () => ({ u: HIST.undo.length, r: HIST.redo.length }), saveChar, loadSavedChar, runOpt, runCalc, lastRun: () => lastRun, loadDataFiles, loadFromFiles, applyRaw, openDataModal, DATA: () => DATA, FLAGS };
 })();
 </script></body></html>

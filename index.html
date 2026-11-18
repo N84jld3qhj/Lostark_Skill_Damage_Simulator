@@ -81,6 +81,7 @@
 .cp-btn.lay{background:#7c3aed;border-color:#a78bfa}
 .cp-btn.thm{background:#475569;border-color:#94a3b8}
 .cp-btn.rpt{background:#9a3412;border-color:#fb923c}
+.cp-btn.dc{background:#4752c4;border-color:#7983f5}
 .cc-wset{margin-top:10px}
 #la-theme{box-sizing:border-box;margin:0;padding:0;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:2px;color:var(--text);cursor:pointer;font-size:.95rem;line-height:1;transition:border-color .15s ease,transform .1s ease;position:fixed;top:20px;right:20px;z-index:100;background:var(--panel);border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.2)}
 #la-theme:hover{border-color:var(--blue)}#la-theme:active{transform:scale(.94)}#la-theme:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
@@ -3877,6 +3878,7 @@ render();
   let weights = jget('la_weights', {}), cdRatio = jget('la_cdratio', {}), basis = store.get('la_basis') || 'real';
   let excluded = new Set(jget('la_evo_excl', []));
   let cmpView = store.get('la_cmp_view') || 'chart', cmpMetric = store.get('la_cmp_metric') || 'dmg', weightOpen = false, weightSig = '';
+  const DISCORD_URL = 'https://discord.gg/RCXdwn5xtf'; 
   const MAX_BASELINES = 10;
   let weightSets = jget('la_weight_sets', []), activeWSet = store.get('la_wset_active') || '';
   const persistWS = () => { store.set('la_weight_sets', JSON.stringify(weightSets)); store.set('la_wset_active', activeWSet || ''); };
@@ -4322,7 +4324,8 @@ render();
         <button class="cp-btn data" type="button" data-cp="data">📂 데이터 불러오기<em id="cp-dwarn" hidden>!</em></button>
         <button class="cp-btn dbp" type="button" data-cp="dbp">📦 DB 프리셋 관리</button>
         <button class="cp-btn lay" type="button" data-cp="layout"></button>
-        <button class="cp-btn rpt" type="button" data-cp="report">🐞 오류 제보 데이터 저장</button></div>
+        <button class="cp-btn rpt" type="button" data-cp="report">🐞 오류 제보 데이터 저장</button>
+        <button class="cp-btn dc" type="button" data-cp="discord">💬 디스코드 (오류 제보/문의)</button></div>
       </div>`;
     document.body.appendChild(cp);
     const cp2 = document.createElement('div'); cp2.id = 'la-cp2';
@@ -4361,7 +4364,7 @@ render();
       if (t) { const k = t.dataset.tg; if (t.disabled) return; FLAGS[k] = !FLAGS[k]; saveFlags(); syncCp(); scheduleCalc(); return; }
       if (!b) return;
       ({
-        notice: openNotice, data: openDataModal, dbp: openDbPresetModal, layout: toggleLayout, report: openReportModal,
+        notice: openNotice, data: openDataModal, dbp: openDbPresetModal, layout: toggleLayout, report: openReportModal, discord: () => { window.open(DISCORD_URL, '_blank', 'noopener'); },
         pause: () => { paused = !paused; syncCp(); if (!paused) runCalc(); }
       })[b.dataset.cp]();
     };

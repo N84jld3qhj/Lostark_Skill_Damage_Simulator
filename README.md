@@ -5,7 +5,18 @@
 
 **[시뮬레이터 바로가기](https://n84jld3qhj.github.io/Lostark_Skill_Damage_Simulator/)**
 
-계산 결과는 참고용이며 실제 인게임 수치와 다를 수 있습니다.
+계산 결과는 참고용이며 실제 인게임 수치와 다를 수 있습니다.   
+
+## 💬 디스코드 서버
+**오류 제보 · 문의 · 직업 데이터 제작 요청**은 디스코드에서 받고 있습니다.
+
+[![Discord](https://img.shields.io/badge/Discord-참여하기-5865F2?logo=discord&logoColor=white)](https://discord.gg/RCXdwn5xtf)
+
+| 채널 | 용도 |
+|---|---|
+| `#오류-제보` | 오류가 생기면 시뮬레이터 왼쪽 메뉴의 **🐞 오류 제보 데이터 저장** 버튼으로 파일을 저장해서 올려 주세요. |
+| `#데이터-제작-요청` | 직업 데이터를 만들기 어렵다면 요청해 주세요. |
+
 
 ## AI 활용 안내 (AI Disclosure)
 

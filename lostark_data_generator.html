@@ -85,7 +85,7 @@
         .btn-reset { background: #dc3545; grid-column: span 2; }
 
         /* 등록된 리스트 현황 노출 영역 */
-        .list-preview { background: #252526; border: 1px solid #333; padding: 10px; border-radius: 4px; max-height: 220px; overflow-y: auto; }
+        .list-preview { background: #252526; border: 1px solid #333; padding: 10px; border-radius: 4px; height: 220px; min-height: 60px; overflow-y: auto; resize: vertical; box-sizing: border-box; }
         .list-item { display: flex; justify-content: space-between; align-items: center; background: #333; padding: 6px 10px; border-radius: 4px; margin-bottom: 5px; font-size: 13px; color: #fff; }
 
         /* JSON 미리보기 */
@@ -154,6 +154,12 @@
                             <button type="button" class="btn-sub-add" style="background:#6c757d" onclick="clearLvTable()">표 비우기</button>
                         </div>
                     </div>
+                    <details class="motion-box" id="motionBox" style="margin-top:10px;border:1px solid #cfd8e3;border-radius:6px;padding:8px 10px;background:#f8fafc">
+                        <summary style="cursor:pointer;font-weight:700">🎯 모션별 상수 · 계수 <small style="font-weight:normal;color:#6c757d">(선택 · 모션마다 효과 범위가 다른 스킬에만 사용)</small></summary>
+                        <div style="font-size:12px;color:#6c757d;margin:6px 0">모션을 추가하면 위의 상수/계수 표는 <b>모션 합계</b>로 자동 계산되어 저장됩니다. 모션은 순서대로 <code>모션1</code>, <code>모션2</code>… 태그가 붙고, 트라이포드 효과의 적용 조건 태그에 <code>모션2</code>를 적으면 그 모션에만 적용됩니다. 반복 타수(×N)는 상수/계수에 곱해서 입력하거나 "횟수"에 적어 주세요.</div>
+                        <div id="motionContainer"></div>
+                        <button type="button" class="btn-sub-add" onclick="addMotionCard()">+ 모션 추가</button>
+                    </details>
                     <small style="color: #6c757d;">※ 최대 레벨이 1이면 1줄만 입력됩니다(공간가르기처럼 레벨 없는 스킬). 마나를 전부 비우면 마나 값 없음([])으로 저장됩니다.</small>
                 </div>
 
@@ -395,22 +401,24 @@
         "적에게 주는 피해", "방어력 무시",
         "이동 속도", "공격 속도", "쿨타임 감소",
         "마나 스킬 쿨타임 감소", "쿨타임 증가", "고정 쿨타임 감소", "고정 쿨타임 증가",
-        "태그 추가", "태그 제거"
+        "태그 추가", "태그 제거", "모션 추가"
     ];
 
     const FIXED_UNITS = ["주스탯", "무기 공격력", "기본 공격력", "공격력", "치명", "특화", "신속"];
     const SECOND_UNITS = ["고정 쿨타임 감소", "고정 쿨타임 증가"];
     const TAG_CATEGORIES = ["태그 추가", "태그 제거"];
+    const MOTION_ADD = "모션 추가";
 
     function getCategoryLabel(cat) {
         if (FIXED_UNITS.includes(cat)) return `${cat} (고정치)`;
         if (SECOND_UNITS.includes(cat)) return `${cat} (초)`;
         if (TAG_CATEGORIES.includes(cat)) return `${cat}`;
+        if (cat === MOTION_ADD) return `${cat} (스킬 기본 피해의 N%)`;
         return `${cat} (%)`;
     }
 
     function getUnitByCategory(category) {
-        if (FIXED_UNITS.includes(category) || SECOND_UNITS.includes(category) || TAG_CATEGORIES.includes(category)) {
+        if (FIXED_UNITS.includes(category) || SECOND_UNITS.includes(category) || TAG_CATEGORIES.includes(category) || category === MOTION_ADD) {
             return "";
         }
         return "%";
@@ -435,6 +443,9 @@
         } else if (selected === "태그 제거") {
             guideBox.style.display = "block";
             guideBox.innerHTML = `💡 <strong>태그 제거 예시:</strong> 스킬에 지정 태그를 제거할 때 사용합니다.<br>"더 이상 헤드 어택 공격이 적용되지 않지만 적에게 주는 피해가 10.0% 증가한다." ➔ 값 항목에 <code>헤드어택</code> 입력`;
+        } else if (selected === MOTION_ADD) {
+            guideBox.style.display = "block";
+            guideBox.innerHTML = `💡 <strong>모션 추가:</strong> 이 트라이포드를 선택하면 모션이 하나 늘어납니다. 수치 칸에 <code>10</code> 또는 <code>10@모션3</code> 처럼 적으세요.<br>10 = 스킬 전체 기본 피해(모든 기본 모션 합)의 10% · <code>@모션3</code> = 새 모션의 이름(태그). 생략하면 마지막 번호 다음 번호가 붙습니다. 이 모션에만 적용할 효과는 다른 효과의 "적용 조건 태그"에 <code>모션3</code>을 적으면 됩니다.`;
         } else {
             guideBox.style.display = "none";
         }
@@ -668,7 +679,8 @@
         const esc = v => String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 
         const catOptions = getCategoryOptionsHtml(effectData ? effectData.category : "적에게 주는 피해");
-        const val = effectData ? (effectData.val !== undefined ? effectData.val : effectData.value ?? "") : "";
+        let val = effectData ? (effectData.val !== undefined ? effectData.val : effectData.value ?? "") : "";
+        if (effectData && effectData.category === MOTION_ADD) val = (effectData.ratio ?? "") + (effectData.tag ? "@" + effectData.tag : "");
         const req = effectData && Array.isArray(effectData.requireTags) ? effectData.requireTags.join(", ") : "";
         const exc = effectData && Array.isArray(effectData.excludeTags) ? effectData.excludeTags.join(", ") : "";
 
@@ -730,6 +742,7 @@
         if (n > 20) n = 20;
         mi.value = n;
         buildLvTable(n, readLvTable());
+        rebuildMotionTables(n);
     }
 
     function onLvPaste(e) {
@@ -738,7 +751,7 @@
         e.preventDefault();
         const rows = text.replace(/\r/g, "").split("\n").filter((l, i, a) => l.length > 0 || i < a.length - 1);
         const r0 = parseInt(e.target.dataset.r), c0 = parseInt(e.target.dataset.c);
-        const body = document.getElementById("lvBody");
+        const body = e.target.closest("tbody") || document.getElementById("lvBody");
         rows.forEach((line, ri) => {
             const cells = line.indexOf("\t") >= 0 ? line.split("\t") : line.split(/[,\s]+/);
             cells.forEach((cell, ci) => {
@@ -758,6 +771,66 @@
 
     function clearLvTable() {
         document.querySelectorAll("#lvBody .lv-in").forEach(inp => inp.value = "");
+    }
+
+    // ---- 모션 표 (모션마다 레벨 × [상수, 계수, 횟수])
+    function addMotionCard(data) {
+        const box = document.getElementById("motionContainer");
+        const idx = box.querySelectorAll(".mo-card").length + 1;
+        const n = Math.max(1, Math.min(20, parseInt(document.getElementById("maxLevel").value) || 1));
+        const card = document.createElement("div");
+        card.className = "mo-card";
+        card.style.cssText = "border:1px solid #d5dbe3;border-radius:6px;padding:6px 8px;margin:6px 0;background:#fff";
+        card.innerHTML = `<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><b class="mo-title">모션${idx}</b><label style="font-size:12px">횟수 <input type="number" class="mo-hits" min="1" value="${data && data.hits ? data.hits : 1}" style="width:56px"></label><button type="button" class="btn-del" style="margin-left:auto" onclick="this.closest('.mo-card').remove();renumberMotions()">X</button></div><div class="lv-wrap"><table class="lv-table"><thead><tr><th>Lv</th><th>상수</th><th>계수</th></tr></thead><tbody class="mo-body"></tbody></table></div>`;
+        box.appendChild(card);
+        buildMotionTable(card.querySelector(".mo-body"), n, data);
+        document.getElementById("motionBox").open = true;
+    }
+    function buildMotionTable(body, n, vals) {
+        body.innerHTML = "";
+        const cols = ["constant", "coefficient"];
+        for (let i = 0; i < n; i++) {
+            const tr = document.createElement("tr");
+            let html = `<td class="lv-no">${i + 1}</td>`;
+            cols.forEach((c, ci) => { const v = vals && vals[c] && vals[c][i] !== undefined ? vals[c][i] : ""; html += `<td><input type="text" inputmode="decimal" class="lv-in" data-r="${i}" data-c="${ci}" value="${v}"></td>`; });
+            tr.innerHTML = html; body.appendChild(tr);
+        }
+        body.querySelectorAll(".lv-in").forEach(inp => {
+            inp.addEventListener("paste", onLvPaste);
+            inp.addEventListener("keydown", e => {
+                if (e.key === "Enter" || e.key === "ArrowDown" || e.key === "ArrowUp") {
+                    e.preventDefault();
+                    const r = parseInt(inp.dataset.r) + (e.key === "ArrowUp" ? -1 : 1);
+                    const nx = body.querySelector(`.lv-in[data-r="${r}"][data-c="${inp.dataset.c}"]`);
+                    if (nx) { nx.focus(); nx.select(); }
+                }
+            });
+        });
+    }
+    function readMotions(n) {
+        return [...document.querySelectorAll("#motionContainer .mo-card")].map((card, i) => {
+            const raw = { constant: [], coefficient: [] };
+            card.querySelectorAll(".lv-in").forEach(inp => { raw[["constant", "coefficient"][parseInt(inp.dataset.c)]][parseInt(inp.dataset.r)] = inp.value.trim(); });
+            const m = { name: "모션" + (i + 1), constant: numArr(raw.constant, n, true), coefficient: numArr(raw.coefficient, n, true) };
+            const h = parseFloat(card.querySelector(".mo-hits").value);
+            if (h > 1) m.hits = h;
+            return m;
+        });
+    }
+    function renumberMotions() {
+        document.querySelectorAll("#motionContainer .mo-card").forEach((c, i) => { c.querySelector(".mo-title").textContent = "모션" + (i + 1); });
+    }
+    function rebuildMotionTables(n) {
+        document.querySelectorAll("#motionContainer .mo-card").forEach(card => {
+            const raw = { constant: [], coefficient: [] };
+            card.querySelectorAll(".lv-in").forEach(inp => { raw[["constant", "coefficient"][parseInt(inp.dataset.c)]][parseInt(inp.dataset.r)] = inp.value.trim(); });
+            buildMotionTable(card.querySelector(".mo-body"), n, raw);
+        });
+    }
+    function loadMotionCards(list) {
+        document.getElementById("motionContainer").innerHTML = "";
+        (list || []).forEach(m => addMotionCard(m));
+        if (!(list && list.length)) document.getElementById("motionBox").open = false;
     }
 
     function numArr(raw, n, blankToZero) {
@@ -797,6 +870,14 @@
         const coefficient = numArr(raw.coefficient, n, true);
         const manaTmp = numArr(raw.mana, n, false);
         const mana = manaTmp.every(v => v === null) ? [] : manaTmp.map(v => v === null ? 0 : v);
+        const motions = readMotions(n);
+        if (motions.length) {
+            // 상수/계수 표는 모션 합계(횟수 반영)로 자동 계산
+            for (let i = 0; i < n; i++) {
+                constant[i] = Math.round(motions.reduce((a, m) => a + m.constant[i] * (m.hits || 1), 0) * 1e4) / 1e4;
+                coefficient[i] = Math.round(motions.reduce((a, m) => a + m.coefficient[i] * (m.hits || 1), 0) * 1e6) / 1e6;
+            }
+        }
 
         const tripods = [];
         document.querySelectorAll("#tripodContainer .tp-card").forEach(card => {
@@ -810,9 +891,15 @@
                 const category = row.querySelector(".sub-cat").value;
                 const rawVal = row.querySelector(".sub-val").value.trim();
                 if (rawVal === "") return;
-                const val = TAG_CATEGORIES.includes(category) ? rawVal : (parseFloat(rawVal) || 0);
-                const unit = getUnitByCategory(category);
-                const eff = { category, val, unit };
+                let eff;
+                if (category === MOTION_ADD) {
+                    const [rt, tg] = rawVal.split("@");
+                    eff = { category, ratio: parseFloat(rt) || 0 };
+                    if (tg && tg.trim()) eff.tag = tg.trim();
+                } else {
+                    const val = TAG_CATEGORIES.includes(category) ? rawVal : (parseFloat(rawVal) || 0);
+                    eff = { category, val, unit: getUnitByCategory(category) };
+                }
                 const req = parseTagList(row.querySelector(".sub-req").value);
                 const exc = parseTagList(row.querySelector(".sub-exc").value);
                 if (req.length) eff.requireTags = req;
@@ -830,7 +917,9 @@
         skillData.name = name;
         if (cls) skillData.class = cls;
         skillData.attackType = attackType;
-        Object.assign(skillData, { maxLevel: n, baseCooldown, coefficient, constant, mana, tags, tripods });
+        Object.assign(skillData, { maxLevel: n, baseCooldown, coefficient, constant, mana, tags });
+        if (motions.length) skillData.motions = motions;
+        skillData.tripods = tripods;
 
         if (editingSkillIndex !== null) {
             skillDatabase[editingSkillIndex] = skillData;
@@ -917,6 +1006,7 @@
         document.getElementById("baseCooldown").value = sk.baseCooldown;
         document.getElementById("maxLevel").value = sk.maxLevel || 1;
         buildLvTable(sk.maxLevel || 1, { constant: sk.constant, coefficient: sk.coefficient, mana: sk.mana });
+        loadMotionCards(sk.motions);
         document.getElementById("tags").value = sk.tags.join(", ");
         document.getElementById("tripodContainer").innerHTML = "";
         sk.tripods.forEach(tp => addTripodCard(tp));
@@ -943,6 +1033,7 @@
         document.getElementById("baseCooldown").value = "";
         document.getElementById("maxLevel").value = 14;
         buildLvTable(14);
+        loadMotionCards([]);
         document.getElementById("tags").value = "";
         document.getElementById("tripodContainer").innerHTML = "";
         for (let k = 1; k <= 8; k++) addTripodCard({ key: k });
@@ -1715,6 +1806,15 @@
     updateOrderUI();
     updateBuffUI();
     updateSpecUI();
+
+    // 목록 영역 높이: 오른쪽 아래 모서리를 드래그해 조절, 다음에 열어도 유지
+    (function () {
+        document.querySelectorAll(".list-preview").forEach(el => {
+            const k = "gen_h_" + el.id;
+            try { const h = localStorage.getItem(k); if (h) el.style.height = h; } catch (e) { /* 저장소 사용 불가 */ }
+            el.addEventListener("mouseup", () => { try { localStorage.setItem(k, el.style.height); } catch (e) { /* 저장소 사용 불가 */ } });
+        });
+    })();
 </script>
 
 </body>

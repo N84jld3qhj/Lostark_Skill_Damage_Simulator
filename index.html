@@ -4026,7 +4026,6 @@ render();
   let weights = jget('la_weights', {}), cdRatio = jget('la_cdratio', {}), basis = store.get('la_basis') || 'real';
   let excluded = new Set(jget('la_evo_excl', []));
   let cmpView = store.get('la_cmp_view') || 'chart', cmpMetric = store.get('la_cmp_metric') || 'dmg', weightOpen = false, weightSig = '';
-  const DISCORD_URL = 'https://discord.gg/여기에_초대링크'; // 디스코드 초대 링크를 여기에 넣으세요
   const MAX_BASELINES = 10;
   let weightSets = jget('la_weight_sets', []), activeWSet = store.get('la_wset_active') || '';
   const persistWS = () => { store.set('la_weight_sets', JSON.stringify(weightSets)); store.set('la_wset_active', activeWSet || ''); };
@@ -4467,8 +4466,7 @@ render();
         <button class="cp-btn data" type="button" data-cp="data">📂 데이터 불러오기<em id="cp-dwarn" hidden>!</em></button>
         <button class="cp-btn dbp" type="button" data-cp="dbp">📦 DB 프리셋 관리</button>
         <button class="cp-btn lay" type="button" data-cp="layout"></button>
-        <button class="cp-btn rpt" type="button" data-cp="report">🐞 오류 제보 데이터 저장</button>
-        <button class="cp-btn dc" type="button" data-cp="discord">💬 디스코드 (오류 제보/문의)</button></div>
+        </div>
       </div>`;
     document.body.appendChild(cp);
     const cp2 = document.createElement('div'); cp2.id = 'la-cp2';
@@ -4515,7 +4513,7 @@ render();
       if (t) { const k = t.dataset.tg; if (t.disabled) return; FLAGS[k] = !FLAGS[k]; saveFlags(); syncCp(); scheduleCalc(); return; }
       if (!b) return;
       ({
-        notice: openNotice, data: openDataModal, dbp: openDbPresetModal, layout: toggleLayout, report: openReportModal, discord: () => { window.open(DISCORD_URL, '_blank', 'noopener'); },
+        notice: openNotice, data: openDataModal, dbp: openDbPresetModal, layout: toggleLayout,
         pause: () => { paused = !paused; syncCp(); if (!paused) runCalc(); }
       })[b.dataset.cp]();
     };
@@ -4667,29 +4665,34 @@ render();
   try { const rs = sessionStorage.getItem('la_report_state'); if (rs) { sessionStorage.removeItem('la_report_state'); reportInfo = JSON.parse(rs); if (reportInfo && reportInfo.state) state = reportInfo.state; } } catch (e) { reportInfo = null; }
   ensureEvo(); ensureTripodSel(); renderEvo(); renderOptBody(); renderSkillSim(); runCalc(); histReset();
   if (reportInfo) { const er = (reportInfo.errors || []).slice(-5).map(x => esc(x.kind + ': ' + x.msg)); warnModal([{ title: '오류 제보 상황을 불러왔어요', chips: [esc((reportInfo.env && reportInfo.env.ua || '').slice(0, 60) || '환경 정보 없음')], desc: (reportInfo.note ? '제보 내용: ' + esc(reportInfo.note) + '<br>' : '') + (er.length ? '기록된 오류<br>' + er.join('<br>') : '기록된 오류 없음') }]); }
-  // 업데이트로 데이터 구조가 바뀐 경우 안내 (저장된 데이터가 있는 사용자에게만, '다시 보지 않기' 지원). 구조가 또 바뀌면 DATA_ALERT_ID만 바꾸면 다시 표시됨
-  const DATA_ALERT_ID = 'data-structure-2026-11-20_2';
+  // 업데이트 안내 (업데이트 중단 + 데이터 구조 변경). '다시 보지 않기' 지원. 내용을 바꿔 다시 띄우려면 DATA_ALERT_ID만 바꾸면 됨
+  const DATA_ALERT_ID = 'update-pause-2026-11-21';
   function dataAlert() {
     let seen = null, has = false;
     try { seen = localStorage.getItem('la_data_alert'); has = Object.keys(localStorage).some(k => k.indexOf('la_d_') === 0); } catch (e) { return; }
-    if (seen === DATA_ALERT_ID || !has) return;
+    if (seen === DATA_ALERT_ID) return;
     const m = openModal('la-data-alert', '🔔 업데이트 안내', `<div class="da-wrap">
-      <div class="da-hero"><span class="da-ico">📦</span><div><b>데이터 구조가 바뀌었어요</b><span>이전에 불러온 데이터는 새 파일로 교체해 주세요</span></div></div>
+      ${has ? `<div class="da-hero"><span class="da-ico">📦</span><div><b>데이터 구조가 바뀌었어요</b><span>이전에 불러온 데이터는 새 파일로 교체해 주세요</span></div></div>
       <p class="da-lead">이전 데이터를 그대로 쓰면 <b>계산 결과가 달라지거나</b> 아래 기능이 동작하지 않을 수 있습니다.</p>
-      <div class="da-chips"><i>스킬 레벨</i><i>만찬 · 음식</i><i>축복의 여신</i><i>상태 조건 토글</i><i>트라이포드 태그 조건</i></div>
+      <div class="da-chips"><i>스킬 레벨</i><i>만찬 · 음식</i><i>축복의 여신</i><i>상태 조건 토글</i><i>모션별 계산</i><i>트라이포드 태그 조건</i></div>
       <ol class="da-steps">
         <li><b>공용 · 스킬 · 아크패시브</b> 데이터를 최신 파일로 다시 받습니다.</li>
         <li><b>컨트롤 패널 &gt; 데이터 불러오기</b>에서 모두 올립니다.</li>
-      </ol>
-      <div class="da-btns"><button type="button" class="btn primary" id="la-da-data">📂 데이터 불러오기</button><button type="button" class="btn" id="la-da-never">🚫 다시 보지 않기</button></div></div>
+      </ol>` : ''}
+      <div class="da-pause"><div class="da-ph"><span>⏸️</span><b>업데이트 일시 중단 안내</b></div>
+        <p>게임 <b>2부</b>에서 아크패시브 · 아크 그리드 · 장비 등 <b>바뀌는 내용이 많아</b>, 시뮬레이터 업데이트를 <b>일단 중단</b>합니다.</p>
+        <p><b>2부가 나오면</b> 새 시스템에 맞춰 <b>업데이트 지원을 다시 시작</b>하겠습니다. 그동안 시뮬레이터는 현재 버전 그대로 이용하실 수 있지만, 개편 이후의 수치는 반영되지 않습니다.</p></div>
+      <div class="da-btns">${has ? '<button type="button" class="btn primary" id="la-da-data">📂 데이터 불러오기</button>' : '<button type="button" class="btn primary" id="la-da-ok">확인</button>'}<button type="button" class="btn" id="la-da-never">🚫 다시 보지 않기</button></div></div>
       <style>.da-wrap{font-size:13px;line-height:1.65}.da-hero{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;background:linear-gradient(90deg,rgba(66,140,214,.28),rgba(139,92,246,.18));border:1px solid rgba(96,165,250,.35)}
       .da-ico{font-size:28px}.da-hero b{display:block;font-size:15px}.da-hero span:not(.da-ico){display:block;font-size:12px;opacity:.8}.da-lead{margin:12px 2px 8px}
       .da-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.da-chips i{font-style:normal;font-size:11.5px;padding:3px 9px;border-radius:999px;background:rgba(250,204,21,.12);border:1px solid rgba(250,204,21,.35);color:#fde68a}
       .da-steps{margin:0 0 14px;padding:10px 12px 10px 30px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}.da-steps li{margin:3px 0}
+      .da-pause{margin:0 0 14px;padding:12px 14px;border-radius:10px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.4)}.da-pause p{margin:6px 0 0}.da-ph{display:flex;align-items:center;gap:8px;font-size:14.5px;color:#fcd34d}.da-ph span{font-size:20px}
       .da-btns{display:flex;gap:8px}.da-btns .btn{flex:1;padding:9px 0;font-weight:700}</style>`, 480);
     const never = () => { try { localStorage.setItem('la_data_alert', DATA_ALERT_ID); } catch (e) { /* 저장 불가 */ } };
     m.el.querySelector('#la-da-never').onclick = () => { never(); m.close(); };
-    m.el.querySelector('#la-da-data').onclick = () => { m.close(); openDataModal(); };
+    const dd = m.el.querySelector('#la-da-data'); if (dd) dd.onclick = () => { m.close(); openDataModal(); };
+    const ok = m.el.querySelector('#la-da-ok'); if (ok) ok.onclick = () => m.close();
   }
   dataAlert();
   window.LAApp = { getState: () => state, undo, redo, histInfo: () => ({ u: HIST.undo.length, r: HIST.redo.length }), saveChar, loadSavedChar, runOpt, runCalc, lastRun: () => lastRun, loadDataFiles, loadFromFiles, applyRaw, openDataModal, DATA: () => DATA, FLAGS };

@@ -144,26 +144,7 @@
         }
       ]
     },
-    {
-      "name": "공이속 만찬",
-      "effects": [
-        {
-          "category": "이동 속도",
-          "val": 5,
-          "unit": "%"
-        }
-      ]
-    },
-    {
-      "name": "만찬 무기 공격력",
-      "effects": [
-        {
-          "category": "무기 공격력",
-          "val": 1800,
-          "unit": ""
-        }
-      ]
-    },
+
     {
       "name": "기본 치명타 피해",
       "effects": [
@@ -204,7 +185,171 @@
         }
       ]
     }
+
   ],
+
+
+    
+  "consumables": {
+    "feasts": [
+      {
+        "name": "PC방 만찬 - 공이속",
+        "effects": [
+          {
+            "category": "무기 공격력",
+            "val": 1600,
+            "unit": ""
+          },
+          {
+            "category": "공격 속도",
+            "val": 5,
+            "unit": "%"
+          },
+          {
+            "category": "이동 속도",
+            "val": 5,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "name": "PC방 만찬 - 체력",
+        "effects": [
+          {
+            "category": "무기 공격력",
+            "val": 1600,
+            "unit": ""
+          }
+        ]
+      },
+      {
+        "name": "PC방 만찬 - 물마방",
+        "effects": [
+          {
+            "category": "무기 공격력",
+            "val": 1600,
+            "unit": ""
+          }
+        ]
+      },
+      {
+        "name": "만년 절임 - 공이속",
+        "effects": [
+          {
+            "category": "무기 공격력",
+            "val": 1800,
+            "unit": ""
+          },
+          {
+            "category": "공격 속도",
+            "val": 5,
+            "unit": "%"
+          },
+          {
+            "category": "이동 속도",
+            "val": 5,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "name": "만년 절임 - 체력",
+        "effects": [
+          {
+            "category": "무기 공격력",
+            "val": 1800,
+            "unit": ""
+          }
+        ]
+      },
+      {
+        "name": "만년 절임 - 물마방",
+        "effects": [
+          {
+            "category": "무기 공격력",
+            "val": 1800,
+            "unit": ""
+          }
+        ]
+      }
+    ],
+    "foods": [
+        {
+        "name": "아제나의 축복",
+        "effects": [
+          {
+            "category": "주스탯",
+            "val": 6000,
+            "unit": ""
+          }
+        ]
+      },
+      {
+        "name": "거장의 채끝 스테이크",
+        "effects": [
+          {
+            "category": "주스탯",
+            "val": 12000,
+            "unit": ""
+          }
+        ]
+      },
+      {
+        "name": "대가의 안심 스테이크",
+        "effects": [
+          {
+            "category": "주스탯",
+            "val": 8000,
+            "unit": ""
+          }
+        ]
+      },
+      {
+        "name": "명인의 허브 스테이크",
+        "effects": [
+          {
+            "category": "주스탯",
+            "val": 6000,
+            "unit": ""
+          }
+        ]
+      },
+      {
+        "name": "명인의 쫄깃한 꼬치구이",
+        "effects": [
+          {
+            "category": "주스탯",
+            "val": 3000,
+            "unit": ""
+          }
+        ]
+      },
+      {
+        "name": "베르닐 와인",
+        "effects": [
+          {
+            "category": "이동 속도",
+            "val": 3,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "name": "에아달린의 축복",
+        "effects": [
+          {
+            "category": "공격 속도",
+            "val": 3,
+            "unit": "%"
+          }
+        ]
+      }
+    ]
+  },
+  
+
+
+
   "evolutionNodes": [
     [
       {
@@ -3982,4 +4127,6 @@
       "하": 80
     }
   }
+
+
 }

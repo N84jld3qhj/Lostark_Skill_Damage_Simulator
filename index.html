@@ -594,7 +594,7 @@ button,input,select,textarea{font-family:inherit}
 .cp-btn em{position:absolute;right:7px;top:50%;transform:translateY(-50%);width:16px;height:16px;border-radius:50%;background:#f59e0b;color:#1a1200;font-style:normal;font-size:11px;font-weight:800;display:grid;place-items:center}
 .cp-sec{display:flex;flex-direction:column;gap:6px;padding:7px 0;border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07)}
 .cp-sec.off{opacity:.4}.cp-sec.off .cp-tg{cursor:default}
-.cp-lab{font-size:11px;font-weight:600;padding-left:2px}.cp-lab.party{color:#a5b4fc}.cp-lab.esther{color:#fcd34d}
+.cp-lab{font-size:11px;font-weight:600;padding-left:2px}.cp-lab.party{color:#a5b4fc}.cp-lab.feast{color:#86efac}.cp-lab.esther{color:#fcd34d}
 .cp-sel{width:100%;background:#0f172a;color:#fff;border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:7px 8px;font-size:12px;font-weight:700}
 .cp-tg{padding:6px 0;font-size:11.5px;font-weight:700;background:#0f172a;border-color:rgba(255,255,255,.15);color:#94a3b8}
 .cp-tg.on{background:#78350f;border-color:#f59e0b;color:#fef3c7}.cp-tg.multi.on{background:#7c2d12;border-color:#fb923c;color:#ffedd5}
@@ -606,7 +606,7 @@ button,input,select,textarea{font-family:inherit}
 .ss-card.noapi{opacity:.72}
 .ss-head{display:flex;align-items:center;gap:9px;padding-bottom:8px;border-bottom:1px solid #26364a}
 .ss-ico{width:32px;height:32px;border-radius:7px;object-fit:cover}
-.ss-title{flex:1;min-width:0;display:flex;align-items:baseline;gap:7px}.ss-title b{font-size:13.5px}.ss-title small{color:var(--muted);font-size:11px}
+.ss-title{flex:1;min-width:0;display:flex;align-items:baseline;gap:7px}.ss-title b{font-size:13.5px}.ss-title small{color:var(--muted);font-size:11px}.ss-ntrow{display:flex;flex-wrap:wrap;gap:4px;width:100%;margin-top:4px}.ss-chip.off{opacity:.45;text-decoration:line-through}.ss-opt.lock{opacity:.4}.ss-lock{color:#f5b94a;font-size:10.5px;margin-left:6px}.ss-lv{display:inline-flex;align-items:center;gap:3px}.ss-lv button{width:20px;height:20px;line-height:1;padding:0;border:1px solid var(--line,#2b3a4a);background:#0f1923;color:var(--text);border-radius:5px;cursor:pointer;font-size:13px}.ss-lv button:disabled{opacity:.35;cursor:default}.ss-lv small.mod{color:#f5b94a}
 .ss-rst{padding:3px 9px!important;font-size:11px!important}
 .ss-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
 .ss-stats span{background:#0f1923;border-radius:6px;padding:4px 2px;text-align:center;font-size:10px;color:var(--muted)}.ss-stats b{display:block;font-size:12px;color:var(--text)}
@@ -1266,12 +1266,14 @@ function makeEnv(o) {
         orderDataSets: o.orderDataSets || {},
         chaosDataSets: o.chaosDataSets || chaosDataSets,
         specDB,
-        selectedTripods: o.selectedTripods || {}
+        selectedTripods: o.selectedTripods || {},
+        stateTags: Array.isArray(o.stateTags) ? o.stateTags : []
     };
 }
 
     function matchTags(ctx, { require = [], exclude = [] } = {}, { all = false, exName = true, reqName = true } = {}) {
-        const has = (t, byName) => ctx.tags.includes(t) || (byName && t === ctx.name);
+        const nz = x => String(x == null ? '' : x).replace(/\s+/g, '');
+        const has = (t, byName) => ctx.tags.some(x => x === t || nz(x) === nz(t)) || (byName && nz(t) === nz(ctx.name));
         if (exclude.some(t => has(t, exName))) return false;
         if (require.length === 0) return true;
         return all ? require.every(t => has(t, reqName)) : require.some(t => has(t, reqName));
@@ -1682,6 +1684,7 @@ function makeEnv(o) {
     function resolveSkillTags(skillData, env, tagModifiers) {
         const { name: skillName, tags: baseTags = [], tripods: currentTripods = [] } = skillData;
         const tagSet = new Set(baseTags);
+        (env.stateTags || []).forEach(t => tagSet.add(t));
 
         const selectedForThisSkill = env.selectedTripods[skillName] || env.selectedTripods[skillData.id] || {};
         const selectedNames = Object.values(selectedForThisSkill);
@@ -1759,6 +1762,9 @@ function makeEnv(o) {
 
             const sourceType = `트라이포드(${tp.tier ? tp.tier + '트포 - ' : ''}${tp.name})`;
             const processEffect = (eff) => {
+                const effEx = eff.excludeTags || eff.excludeSkillTags || [];
+                const effReq = eff.requireTags || eff.requireSkillTags || [];
+                if ((effEx.length || effReq.length) && !matchTags(ctx, { require: effReq, exclude: effEx }, { exName: false, reqName: false })) return;
                 if (eff.category !== "태그 추가" && eff.category !== "태그 제거" && eff.type !== "태그 추가" && eff.type !== "태그 제거") {
                     addStat(stats, eff.category || eff.type, sourceType, eff.val, eff.unit ?? "%");
                 }
@@ -2142,7 +2148,7 @@ if (typeof module !== 'undefined') module.exports = api; else root.LAEngine = ap
     if (sum <= 0) return { sum, other, total: null, reason: 'zero' };
     let total = other / 100;
     curRes.forEach((c, i) => {
-      const b = baseRes.find(x => x.skillName === c.skillName) || baseRes[i]; if (!b) return;
+      const b = baseRes.find(x => x.skillName === c.skillName) || (baseRes.length === curRes.length ? baseRes[i] : null); if (!b) return;
       const r = makeCompareRow(c.skillName, b, c);
       const v = Number((cdRatio || {})[c.skillName]); const u = (isFinite(v) && v > 0) ? Math.min(Math.max(v, 5), 100) / 100 : 1;
       total += (Number(weights[c.skillName]) || 0) / 100 * modeRatio(basis, r.baseDmg, r.currDmg, r.baseCd, r.currCd, u);
@@ -3284,6 +3290,25 @@ render();
     });
     out.gemDataTable = t; normCache.set(g, out); return out;
   }
+  const skLvMax = s => (s && Array.isArray(s.coefficient) && s.coefficient.length > 1) ? s.coefficient.length : 0;
+  const skApi = s => (state.skills || []).find(x => norm(x.name) === norm(s.name));
+  function skLvApi(s) { const mx = skLvMax(s); if (!mx) return 0; const a = skApi(s); const v = Number(a && a.level); return v >= 1 ? Math.min(mx, Math.round(v)) : mx; }
+  function skLvCur(s) { const mx = skLvMax(s); if (!mx) return 0; const o = Number(state.skillLv && state.skillLv[s.name]); return o >= 1 ? Math.min(mx, Math.round(o)) : skLvApi(s); }
+  const TIER_MIN_LV = { 1: 4, 2: 7, 3: 10 };
+  function skLvEff(s) { const mx = skLvMax(s); if (mx) return skLvCur(s); const a = skApi(s), v = Number(a && a.level); return v >= 1 ? v : 99; }
+  const tierLocked = (s, tier) => skLvEff(s) < (TIER_MIN_LV[tier] || 0);
+  function resolveSkill(s) {
+    const mx = skLvMax(s), i = mx ? skLvCur(s) - 1 : 0;
+    const pick = v => Array.isArray(v) ? (v.length ? v[Math.min(i, v.length - 1)] : undefined) : v;
+    return Object.assign({}, s, { coefficient: pick(s.coefficient), constant: pick(s.constant), mana: Array.isArray(s.mana) ? (pick(s.mana) ?? 0) : s.mana });
+  }
+  function normalizeSkillDb(list) {
+    return list.map(s => {
+      const o = Object.assign({}, s);
+      o.tripods = (s.tripods || []).map(t => { const n = Object.assign({}, t); if (n.tier == null && n.key != null) n.tier = n.key <= 3 ? 1 : (n.key <= 6 ? 2 : 3); return n; });
+      return o;
+    });
+  }
   const D = () => ({ game: normalizeGame(DATA.game), skills: Array.isArray(DATA.skills) ? DATA.skills : [], addStat: Array.isArray(DATA.addStat) ? DATA.addStat : [], spec: DATA.spec || {}, cores: DATA.cores || {} });
   const missing = () => DATA_KEYS.filter(k => DATA_REQ[k] && (DATA[k] == null || (k === 'skills' && !DATA[k].length)));
   const ready = () => missing().length === 0;
@@ -3308,13 +3333,29 @@ render();
     engraving(name) { const g = D().game; const e = g && (g.engravingTable || {})[name]; return (e && e.icon) || null; }
   };
 
-  const FLAGS = Object.assign({ party: 0, est1: false, est2: false }, jget('la_flags', {}));
+  const FLAGS = Object.assign({ party: 0, est1: false, est2: false, bless: false, cond: {} }, jget('la_flags', {}));
+  if (!FLAGS.cond || typeof FLAGS.cond !== 'object') FLAGS.cond = {};
   if (!['', 'crit', 'dmg', 'def'].includes(FLAGS.syn)) FLAGS.syn = '';
   if (!['', '치명', '신속', '특화'].includes(FLAGS.pet)) FLAGS.pet = '';
   const SYN_DEF = [['crit', '치명타 적중률 +10%', '치명타 적중률', 10], ['dmg', '적에게 주는 피해 +6%', '적에게 주는 피해', 6], ['def', '방어력 감소 12%', '방어력 무시', 12]];
   const PET_STATS = ['치명', '신속', '특화'], PET_VAL = 160;
   let cpTab = store.get('la_cp_tab') === 'pet' ? 'pet' : 'syn';
   const saveFlags = () => store.set('la_flags', JSON.stringify(FLAGS));
+  // 만찬/음식: 공용 데이터 consumables {feasts:[{name,effects}], foods:[...]} 에서 선택. 없으면 기존 하드코딩 만찬을 기본 항목으로 사용
+  const FEAST_RE = /만찬/;
+  const normCons = arr => (Array.isArray(arr) ? arr : []).filter(x => x && x.name && Array.isArray(x.effects));
+  function consList(kind) {
+    const G = (D().game) || {}, c = G.consumables || {};
+    const own = normCons(kind === 'feast' ? c.feasts : c.foods);
+    if (own.length || kind !== 'feast') return { list: own, legacy: false };
+    const eff = []; (G.DEFAULT_ADD_STAT_BASE || []).forEach(i => { if (i && FEAST_RE.test(i.name || '')) (i.effects || []).forEach(e => eff.push(e)); });
+    return eff.length ? { list: [{ name: '기본 만찬 (기존 값)', effects: eff }], legacy: true } : { list: [], legacy: false };
+  }
+  function consSel(kind) {
+    const { list, legacy } = consList(kind), v = FLAGS[kind];
+    const name = v === undefined ? (legacy ? list[0].name : '') : v;
+    return { item: list.find(x => x.name === name) || null, list, legacy };
+  }
   let paused = false;
 
   const EVO_TIER_POINTS = [40, 30, 20, 20, 30], EVO_LEVEL_COST = [1, 10, 10, 10, 15];
@@ -3327,13 +3368,23 @@ render();
     return state.evo;
   }
 
+  let tripodAlias = [];
+  function matchApiTripod(j, t) {
+    const list = j.tripods || [];
+    let m = list.find(x => norm(x.name) === norm(t.name));
+    if (m) return m;
+    const key = Number(t.tier) * 3 + Number(t.slot);
+    if (isFinite(key) && Number(t.tier) >= 0 && Number(t.slot) >= 1) m = list.find(x => x.key != null && Number(x.key) === key);
+    return m || null;
+  }
   function deriveTripodSel() {
     const dbBy = {}; D().skills.forEach(s => dbBy[norm(s.name)] = s);
-    const out = {};
+    const out = {}; tripodAlias = [];
     (state.skills || []).forEach(s => {
       const j = dbBy[norm(s.name)]; if (!j) return;
       (s.tripods || []).forEach(t => {
-        const m = (j.tripods || []).find(x => norm(x.name) === norm(t.name)); if (!m) return;
+        const m = matchApiTripod(j, t); if (!m) return;
+        if (norm(m.name) !== norm(t.name)) tripodAlias.push(`${j.name}: ${t.name} → ${m.name}`);
         const o = out[j.name] = out[j.name] || {};
         let key = String(m.tier), n = 1; while (o[key] != null) key = m.tier + '#' + (++n);
         o[key] = m.name;
@@ -3354,18 +3405,25 @@ render();
     (state.skills || []).forEach(s => {
       const j = dbBy[norm(s.name)];
       if (!j) { unmatchedSkills.push({ name: s.name, level: s.level }); return; }
-      (s.tripods || []).forEach(t => { if (!(j.tripods || []).some(x => norm(x.name) === norm(t.name))) ignoredTripods.push({ skill: s.name, tripod: t.name }); });
+      (s.tripods || []).forEach(t => { if (!matchApiTripod(j, t)) ignoredTripods.push({ skill: s.name, tripod: t.name }); });
     });
     const sel = {};
-    Object.entries(ensureTripodSel()).forEach(([k, v]) => { const j = dbBy[norm(k)]; if (j && v && Object.keys(v).length) sel[j.name] = Object.assign({}, v); });
+    Object.entries(ensureTripodSel()).forEach(([k, v]) => {
+      const j = dbBy[norm(k)]; if (!j || !v) return;
+      const o = {}; Object.keys(v).forEach(key => { if (!tierLocked(j, parseInt(key, 10))) o[key] = v[key]; });
+      if (Object.keys(o).length) sel[j.name] = o;
+    });
 
     const ex = LAAdapter.apiStateToExtracted(state);
     const inputs = E.transformToInputs(E.mapExtractedDataToInputs(ex));
     inputs.selectedTripods = sel;
     const noAv = i => !/아바타/.test(i && i.name || '');
     const baseNames = new Set((G.DEFAULT_ADD_STAT_BASE || []).map(i => i.name));
-    const statList = [...(G.DEFAULT_ADD_STAT_BASE || []).filter(noAv), ...(d.addStat || []).filter(i => i && i.name && !baseNames.has(i.name) && noAv(i) && !i.type && !/^시너지/.test(i.name) && !/^펫\s*(치명|신속|특화)/.test(i.name))];
-    arkSimStats().forEach(x => statList.push(x));
+    const BLESS = '축복의 여신';
+    const noFeast = i => !FEAST_RE.test(i && i.name || '') && (FLAGS.bless || (i && i.name) !== BLESS);
+    const statList = [...(G.DEFAULT_ADD_STAT_BASE || []).filter(noAv).filter(noFeast), ...(d.addStat || []).filter(i => i && i.name && !baseNames.has(i.name) && noAv(i) && noFeast(i) && !i.type && !/^시너지/.test(i.name) && !/^펫\s*(치명|신속|특화)/.test(i.name))];
+    [['feast', '만찬'], ['food', '음식']].forEach(([k, lb]) => { const it = consSel(k).item; if (it) statList.push({ name: lb + ': ' + it.name, effects: JSON.parse(JSON.stringify(it.effects)) }); });
+    const arkStats = arkSimStats(); arkStats.forEach(x => statList.push(x));
     SYN_DEF.forEach(([k, , cat, v]) => { if (FLAGS.syn === k) statList.push({ name: '시너지 - ' + cat.replace('방어력 무시', '방어력 감소'), effects: [{ category: cat, val: v, unit: '%' }] }); });
     if (FLAGS.pet) statList.push({ name: '펫 ' + FLAGS.pet, effects: [{ category: FLAGS.pet, val: PET_VAL, unit: '' }] });
 
@@ -3376,12 +3434,30 @@ render();
       const nL = avKeys.filter(k => avs[k] === 'legend').length, nH = avKeys.filter(k => avs[k] === 'hero').length;
       statList.push({ name: '아바타 (' + [nL ? '전설 ' + nL : '', nH ? '영웅 ' + nH : ''].filter(Boolean).join(' · ') + ')', effects: [{ category: '주스탯 %', val: avPct, unit: '%' }] });
     }
-    const env = E.makeEnv({ addStatBase: statList, specializationDatabase: d.spec, orderDataSets: LAEngine.parseOrderDataSets(d.cores), selectedTripods: sel,
+    // 태그 조건이 문자열("여우비")로 적혀 있어도 배열로 취급 (쉼표 구분 허용)
+    const TAGK = ['requireTags', 'excludeTags', 'targetTags', 'requireSkillTags', 'excludeSkillTags'];
+    const toArr = v => Array.isArray(v) ? v : String(v).split(',').map(x => x.trim()).filter(Boolean);
+    const fixEff = e => { if (!e || typeof e !== 'object' || !TAGK.some(k => typeof e[k] === 'string')) return e; const o = Object.assign({}, e); TAGK.forEach(k => { if (typeof o[k] === 'string') o[k] = toArr(o[k]); }); return o; };
+    for (let i = 0; i < statList.length; i++) { const it = statList[i]; if (!it) continue; if (Array.isArray(it.effects)) { if (it.effects.some(e => e && TAGK.some(k => typeof e[k] === 'string'))) { const ni = Object.assign({}, it, { effects: it.effects.map(fixEff) }); if (arkStats.includes(it)) arkStats[arkStats.indexOf(it)] = ni; statList[i] = ni; } } else statList[i] = fixEff(it); }
+    // 상태 조건 태그: 선택된 효과의 requireTags 중 어떤 스킬도 갖지 않는 태그 → 계산 설정 토글(ON이면 모든 스킬에 태그 추가)
+    const nzT = x => String(x == null ? '' : x).replace(/\s+/g, '');
+    const known = new Set();
+    (d.skills || []).forEach(sk => { known.add(nzT(sk.name)); (sk.tags || []).forEach(t => known.add(nzT(t))); (sk.tripods || []).forEach(tp => (Array.isArray(tp.effects) ? tp.effects : [tp]).forEach(e => { if ((e.category || e.type) === '태그 추가' && e.val) known.add(nzT(e.val)); })); });
+    statList.forEach(it => (it && Array.isArray(it.effects) ? it.effects : [it]).forEach(e => { if (e && (e.category || e.type) === '태그 추가' && e.val) known.add(nzT(e.val)); }));
+    const stateTags = [];
+    const scanEff = e => { if (!e) return; const cat = e.category || e.type; if (cat === '태그 추가' || cat === '태그 제거') return; (fixEff(e).requireTags || []).forEach(t => { const tt = String(t).trim(); if (tt && !known.has(nzT(tt)) && !stateTags.includes(tt)) stateTags.push(tt); }); };
+    // 아크패시브 노드는 레벨 0(안 찍은 노드)도 포함, 트라이포드는 선택 여부와 무관하게 전부 포함
+    const nodeSrc = [...statList.filter(it => arkStats.includes(it) || /^(깨달음|도약|진화)/.test(it && it.name || '')), ...(d.addStat || []).filter(it => it && (it.type === '깨달음' || it.type === '도약'))];
+    nodeSrc.forEach(it => (it && Array.isArray(it.effects) ? it.effects : []).forEach(scanEff));
+    (d.skills || []).forEach(sk => (sk.tripods || []).forEach(tp => (Array.isArray(tp.effects) ? tp.effects : []).forEach(scanEff)));
+    const stateOn = t => FLAGS.cond[t] !== false;
+    const env = E.makeEnv({ addStatBase: statList, stateTags: stateTags.filter(stateOn), specializationDatabase: d.spec, orderDataSets: LAEngine.parseOrderDataSets(d.cores), selectedTripods: sel,
       partyCritCount: FLAGS.party, multiCrit: true, estherBonding1: FLAGS.est1, estherBonding2: FLAGS.est2 });
     const vis = r => !(r && [...ssHid].some(h => norm(h) === norm(r.skillName)));
-    const calcVis = () => E.calculate(inputs, env, d.skills).filter(vis);
+    const calcSkills = d.skills.map(resolveSkill).map(sk => (Array.isArray(sk.tripods) && sk.tripods.some(tp => Array.isArray(tp.effects) && tp.effects.some(e => e && TAGK.some(k => typeof e[k] === 'string')))) ? Object.assign({}, sk, { tripods: sk.tripods.map(tp => Array.isArray(tp.effects) ? Object.assign({}, tp, { effects: tp.effects.map(fixEff) }) : tp) }) : sk).filter(x => ((Number(x.coefficient) || 0) > 0 || (Number(x.constant) || 0) > 0));
+    const calcVis = () => E.calculate(inputs, env, calcSkills).filter(vis);
     const res = calcVis();
-    return { res, unmatchedSkills, ignoredTripods, ex, inputs, calc: calcVis };
+    return { res, unmatchedSkills, ignoredTripods, ex, inputs, calc: calcVis, stateTags };
   }
 
   let lastRun = null, calcTimer = null;
@@ -3544,6 +3620,7 @@ render();
   }
 
   function classify(json) {
+    if (json && !Array.isArray(json) && Array.isArray(json.skills) && json.skills.length && json.skills[0] && 'coefficient' in json.skills[0] && 'constant' in json.skills[0]) return 'skills';
     if (Array.isArray(json)) {
       if (json.length && json[0] && 'constant' in json[0] && 'coefficient' in json[0]) return 'skills';
       if (json.length && json[0] && Array.isArray(json[0].effects)) return 'addStat';
@@ -3569,6 +3646,7 @@ render();
       let json; try { json = JSON.parse(await f.text()); } catch (e) { msgs.push(`${f.name}: JSON 형식 오류`); continue; }
       const kind = classify(json);
       if (!kind) { msgs.push(`${f.name}: 종류를 알 수 없음`); continue; }
+      if (kind === 'skills') json = normalizeSkillDb(Array.isArray(json) ? json : json.skills);
       if (kind === 'cores') DATA.cores = Object.assign({}, DATA.cores || {}, json); else DATA[kind] = json;
       saveData(kind);
       msgs.push(`${f.name} → ${DATA_LABEL[kind]}`);
@@ -3665,7 +3743,7 @@ render();
   }
 
   const HIST = { undo: [], redo: [], cur: null, t: 0, busy: false };
-  const snap = () => JSON.stringify(state);
+  const snap = () => JSON.stringify({ __h: 1, state, flags: FLAGS });
   function histBtns() {
     const u = $q('#cp-undo'), r = $q('#cp-redo');
     if (u) { u.disabled = !HIST.undo.length; u.title = `실행 취소 (Ctrl+Z) · ${HIST.undo.length}단계`; }
@@ -3681,7 +3759,15 @@ render();
   }
   function restoreSnap(s) {
     HIST.busy = true;
-    try { state = JSON.parse(s); HIST.cur = s; HIST.t = 0; render(); renderEvo(); renderSkillSim(); }
+    try {
+      const o = JSON.parse(s);
+      if (o && o.__h) {
+        state = o.state;
+        Object.keys(FLAGS).forEach(k => { delete FLAGS[k]; }); Object.assign(FLAGS, { party: 0, est1: false, est2: false, bless: false, cond: {} }, o.flags || {});
+        saveFlags(); syncCp();
+      } else state = o;
+      HIST.cur = s; HIST.t = 0; render(); renderEvo(); renderSkillSim();
+    }
     finally { HIST.busy = false; }
     scheduleCalc(); histBtns();
   }
@@ -3848,24 +3934,35 @@ render();
       const api = apiBy[norm(s.name)], mine = sel[s.name] || {};
       const tiers = {}; (s.tripods || []).forEach(t => { (tiers[t.tier || 1] = tiers[t.tier || 1] || []).push(t); });
       const tags = (Array.isArray(s.tags) ? s.tags : String(s.tags || '').split(',').map(x => x.trim()).filter(Boolean)).map(t => `<span class="ss-tag">#${esc(t)}</span>`).join('');
-      const tierHtml = Object.keys(tiers).sort((a, b) => a - b).map(tier => `<div class="ss-tier"><div class="ss-th"><b>${tier}티어</b><button type="button" class="ss-link" data-clr="${esc(s.name)}|${tier}">선택 해제</button></div>
-        ${tiers[tier].map(t => { const on = mine[tier] === t.name; return `<label class="ss-opt ${on ? 'on' : ''}"><input type="radio" name="ss-${esc(s.name)}-${tier}" data-sk="${esc(s.name)}" data-tier="${tier}" data-tp="${esc(t.name)}" ${on ? 'checked' : ''}><span class="ss-n">${esc(t.name)}</span><span class="ss-e">${tripodEffText(t) || '<i>효과 없음</i>'}</span></label>`; }).join('')}</div>`).join('') || '<div class="muted">등록된 트라이포드가 없습니다.</div>';
-      return `<div class="ss-card ${api ? '' : 'noapi'}"><div class="ss-head">${api && api.icon ? `<img class="ss-ico" src="${esc(api.icon)}" alt="" loading="lazy" onerror="this.remove()">` : ''}<div class="ss-title"><b>${esc(s.name)}</b>${api ? `<small>Lv.${esc(api.level)}</small>` : '<small>캐릭터에 없음</small>'}</div>
+      const tierHtml = Object.keys(tiers).sort((a, b) => a - b).map(tier => `<div class="ss-tier"><div class="ss-th"><b>${tier}티어</b>${tierLocked(s, Number(tier)) ? `<span class="ss-lock">🔒 스킬 Lv.${TIER_MIN_LV[tier]} 이상 필요</span>` : ''}<button type="button" class="ss-link" data-clr="${esc(s.name)}|${tier}">선택 해제</button></div>
+        ${tiers[tier].map(t => { const on = mine[tier] === t.name, lk = tierLocked(s, Number(tier)); return `<label class="ss-opt ${on ? 'on' : ''} ${lk ? 'lock' : ''}"><input type="radio" name="ss-${esc(s.name)}-${tier}" data-sk="${esc(s.name)}" data-tier="${tier}" data-tp="${esc(t.name)}" ${on ? 'checked' : ''} ${lk ? 'disabled' : ''}><span class="ss-n">${esc(t.name)}</span><span class="ss-e">${tripodEffText(t) || '<i>효과 없음</i>'}</span></label>`; }).join('')}</div>`).join('') || '<div class="muted">등록된 트라이포드가 없습니다.</div>';
+      return `<div class="ss-card ${api ? '' : 'noapi'}"><div class="ss-head">${api && api.icon ? `<img class="ss-ico" src="${esc(api.icon)}" alt="" loading="lazy" onerror="this.remove()">` : ''}<div class="ss-title"><b>${esc(s.name)}</b>${(() => { const mx = skLvMax(s); if (mx) { const cur = skLvCur(s), ap = skLvApi(s), mod = cur !== ap; return `<span class="ss-lv"><button type="button" data-lv="${esc(s.name)}|-1" ${cur <= 1 ? 'disabled' : ''} title="스킬 레벨 -1">−</button><small class="${mod ? 'mod' : ''}" title="${api ? 'API 레벨 ' + esc(api.level) : '캐릭터에 없음'}">Lv.${cur}</small><button type="button" data-lv="${esc(s.name)}|1" ${cur >= mx ? 'disabled' : ''} title="스킬 레벨 +1">＋</button></span>`; } return api ? `<small>Lv.${esc(api.level)}</small>` : '<small>캐릭터에 없음</small>'; })()}</div>
         <button type="button" class="btn ss-rst" data-rst="${esc(s.name)}">초기화</button><button type="button" class="btn ss-hide" data-hide="${esc(s.name)}" title="이 스킬을 목록에서 숨기고 계산·비교에서 제외합니다">숨김</button></div>
-        <div class="ss-stats"><span>상수 <b>${s.constant ?? '-'}</b></span><span>계수 <b>${s.coefficient ?? '-'}</b></span><span>쿨타임 <b>${s.baseCooldown ?? '-'}</b></span><span>마나 <b>${s.mana ?? s.baseMana ?? '-'}</b></span></div>
+        <div class="ss-stats">${(() => { const r = resolveSkill(s); return `<span>상수 <b>${r.constant ?? '-'}</b></span><span>계수 <b>${r.coefficient ?? '-'}</b></span><span>쿨타임 <b>${r.baseCooldown ?? '-'}</b></span><span>마나 <b>${r.mana ?? r.baseMana ?? '-'}</b></span>`; })()}</div>
         <div class="ss-tags">${tags}</div>${tierHtml}</div>`;
     }).join('');
     const keepTop = box.scrollTop;
-    box.innerHTML = `<div class="ss-bar"><span>🔱 트라이포드 선택 <small>${state.skills && state.skills.length ? 'API 값으로 시작합니다' : '캐릭터를 불러오면 API 값으로 시작합니다'}${diffCount ? ` · API와 다른 항목 ${diffCount}개` : ''}</small>${dbAll.length > db.length ? `<small class="ss-hid">트라이포드 없는 스킬 ${dbAll.length - db.length}개(${dbAll.filter(s => !(s.tripods || []).length).map(s => esc(s.name)).join(', ')})는 표시하지 않음</small>` : ''}</span>
+    box.innerHTML = `<div class="ss-bar"><span>🔱 트라이포드 선택 <small>${state.skills && state.skills.length ? 'API 값으로 시작합니다' : '캐릭터를 불러오면 API 값으로 시작합니다'}${diffCount ? ` · API와 다른 항목 ${diffCount}개` : ''}${tripodAlias.length ? ` · <span title="${esc(tripodAlias.join('\n'))}" style="cursor:help;border-bottom:1px dotted">이름이 달라 자리로 매칭 ${tripodAlias.length}개</span>` : ''}</small>${(() => { const nt = dbAll.filter(s => !(s.tripods || []).length && ((Number(s.coefficient?.[0] ?? s.coefficient) || 0) > 0 || (Number(s.constant?.[0] ?? s.constant) || 0) > 0)); return nt.length ? `<small class="ss-hid">트라이포드 없는 스킬 — 눌러서 계산·비교에서 숨김/표시 <button type="button" class="ss-link" id="ss-nt-all">모두 숨김</button> <button type="button" class="ss-link" id="ss-nt-none">모두 표시</button></small><span class="ss-ntrow">${nt.map(s => `<button type="button" class="ss-chip ${ssHid.has(s.name) ? 'off' : ''}" data-ntog="${esc(s.name)}" title="${ssHid.has(s.name) ? '숨김 상태 — 눌러서 표시' : '표시 중 — 눌러서 숨김'}">${ssHid.has(s.name) ? '✕' : '✓'} ${esc(s.name)}</button>`).join('')}</span>` : ''; })()}</span>
       <span class="ss-btns"><button class="btn" type="button" id="ss-api">API 값으로 되돌리기</button><button class="btn" type="button" id="ss-all">전체 해제</button></span></div>${(() => { const hl = db.filter(s => ssHid.has(s.name)); return hl.length ? `<div class="ss-hidrow"><span class="ss-hidlab">숨긴 스킬 ${hl.length}개</span>${hl.map(s => `<button type="button" class="ss-chip" data-unhide="${esc(s.name)}" title="숨김 취소">${esc(s.name)} <i>↩</i></button>`).join('')}<button type="button" class="ss-link" id="ss-unhide-all">모두 숨김 취소</button></div>` : ''; })()}<div class="ss-grid">${cards}</div>`;
     box.scrollTop = keepTop;
     const apply = () => { renderSkillSim(); scheduleCalc(); };
-    box.querySelector('#ss-api').onclick = () => { ensureTripodSel(true); apply(); };
+    box.querySelector('#ss-api').onclick = () => { ensureTripodSel(true); state.skillLv = {}; apply(); };
+    box.querySelectorAll('[data-lv]').forEach(b => b.onclick = () => {
+      const [k, dl] = b.dataset.lv.split('|'); const sk = dbAll.find(x => x.name === k); if (!sk) return;
+      const mx = skLvMax(sk), nv = Math.max(1, Math.min(mx, skLvCur(sk) + Number(dl)));
+      state.skillLv = state.skillLv || {};
+      if (nv === skLvApi(sk)) delete state.skillLv[k]; else state.skillLv[k] = nv;
+      apply();
+    });
     box.querySelector('#ss-all').onclick = () => { if (confirm('모든 스킬의 트라이포드 선택을 해제할까요?')) { state.tripodSel = {}; apply(); } };
+    const ntNames = () => dbAll.filter(s => !(s.tripods || []).length).map(s => s.name);
+    box.querySelectorAll('[data-ntog]').forEach(b => b.onclick = () => { const n = b.dataset.ntog; if (ssHid.has(n)) ssHid.delete(n); else ssHid.add(n); ssSave(); renderSkillSim(); scheduleCalc(); });
+    const ntA = box.querySelector('#ss-nt-all'); if (ntA) ntA.onclick = () => { ntNames().forEach(n => ssHid.add(n)); ssSave(); renderSkillSim(); scheduleCalc(); };
+    const ntN = box.querySelector('#ss-nt-none'); if (ntN) ntN.onclick = () => { ntNames().forEach(n => ssHid.delete(n)); ssSave(); renderSkillSim(); scheduleCalc(); };
     box.querySelectorAll('[data-hide]').forEach(b => b.onclick = () => { ssHid.add(b.dataset.hide); ssSave(); renderSkillSim(); scheduleCalc(); });
     box.querySelectorAll('[data-unhide]').forEach(b => b.onclick = () => { ssHid.delete(b.dataset.unhide); ssSave(); renderSkillSim(); scheduleCalc(); });
     const uh = box.querySelector('#ss-unhide-all'); if (uh) uh.onclick = () => { ssHid.clear(); ssSave(); renderSkillSim(); scheduleCalc(); };
-    box.querySelectorAll('[data-rst]').forEach(b => b.onclick = () => { const a = deriveTripodSel(); const k = b.dataset.rst; if (a[k]) state.tripodSel[k] = a[k]; else delete state.tripodSel[k]; apply(); });
+    box.querySelectorAll('[data-rst]').forEach(b => b.onclick = () => { const a = deriveTripodSel(); const k = b.dataset.rst; if (state.skillLv) delete state.skillLv[k]; if (a[k]) state.tripodSel[k] = a[k]; else delete state.tripodSel[k]; apply(); });
     box.querySelectorAll('[data-clr]').forEach(b => b.onclick = () => { const [k, t] = b.dataset.clr.split('|'); const o = state.tripodSel[k]; if (o) { Object.keys(o).forEach(x => { if (x === t || x.startsWith(t + '#')) delete o[x]; }); } apply(); });
     box.querySelectorAll('input[data-sk]').forEach(r => r.onchange = () => {
       const o = state.tripodSel[r.dataset.sk] = state.tripodSel[r.dataset.sk] || {};
@@ -3878,7 +3975,7 @@ render();
   let weights = jget('la_weights', {}), cdRatio = jget('la_cdratio', {}), basis = store.get('la_basis') || 'real';
   let excluded = new Set(jget('la_evo_excl', []));
   let cmpView = store.get('la_cmp_view') || 'chart', cmpMetric = store.get('la_cmp_metric') || 'dmg', weightOpen = false, weightSig = '';
-  const DISCORD_URL = 'https://discord.gg/RCXdwn5xtf'; 
+  const DISCORD_URL = 'https://discord.gg/여기에_초대링크'; // 디스코드 초대 링크를 여기에 넣으세요
   const MAX_BASELINES = 10;
   let weightSets = jget('la_weight_sets', []), activeWSet = store.get('la_wset_active') || '';
   const persistWS = () => { store.set('la_weight_sets', JSON.stringify(weightSets)); store.set('la_wset_active', activeWSet || ''); };
@@ -3930,7 +4027,7 @@ render();
   }
   function compareRows() {
     const base = activeSet(); if (!lastRun || !base) return [];
-    return lastRun.res.map((c, i) => { const b = base.results.find(x => x.skillName === c.skillName) || base.results[i]; return b ? LAOpt.makeCompareRow(c.skillName, b, c) : null; }).filter(Boolean);
+    return lastRun.res.map((c, i) => { const b = base.results.find(x => x.skillName === c.skillName) || (base.results.length === lastRun.res.length ? base.results[i] : null); return b ? LAOpt.makeCompareRow(c.skillName, b, c) : null; }).filter(Boolean);
   }
 
   function drawChart(el, rows, metric, labels) {
@@ -3939,6 +4036,7 @@ render();
       dps: { b: r => r.baseDps, c: r => r.currDps, p: r => r.dpsPct, good: p => p > 0 },
       cd: { b: r => r.baseCd, c: r => r.currCd, p: r => r.cdPct, good: p => p < 0 }
     }[metric];
+    rows = [...rows].sort((x, y) => (M.c(y) - M.c(x)) || (M.b(y) - M.b(x)));
     const max = Math.max(...rows.map(r => Math.max(M.b(r), M.c(r))), 1e-9), H = 220;
     el.innerHTML = `<div class="cc-plot">` + rows.map((r, i) => { const p = M.p(r), c = p === 0 ? 'zero' : (M.good(p) ? 'pos' : 'neg');
       return `<div class="cc-col" data-i="${i}"><div class="cc-diff ${c}">${p > 0 ? '+' : ''}${p.toFixed(1)}%</div><div class="cc-pair"><div class="cc-bar base" style="height:${(M.b(r) / max * H).toFixed(1)}px"></div><div class="cc-bar curr" style="height:${(M.c(r) / max * H).toFixed(1)}px"></div></div></div>`; }).join('')
@@ -4265,13 +4363,7 @@ render();
     mini.classList.toggle('min', store.get('la_mini_hidden') === '1');
     const mt = mini.querySelector('.mini-tg'); if (mt) mt.textContent = mini.classList.contains('min') ? '펼치기 ▴' : '숨기기 ▾';
     if (!mini.dataset.bound) { mini.dataset.bound = '1'; mini.addEventListener('change', e => { if (e.target.classList.contains('mini-sksel')) { store.set('la_mini_skill', e.target.value); drawMiniSkill(mini); } }); mini.addEventListener('click', e => { if (!e.target.closest('.mini-tg')) return; mini.classList.toggle('min'); store.set('la_mini_hidden', mini.classList.contains('min') ? '1' : '0'); e.target.closest('.mini-tg').textContent = mini.classList.contains('min') ? '펼치기 ▴' : '숨기기 ▾'; }); }
-    if (!miniObs && 'IntersectionObserver' in window) {
-      const target = $q('#result-panel');
-      if (target) {
-        miniObs = new IntersectionObserver(es => es.forEach(e => { const m = $q('#sim-mini-modal'); if (m && m.innerHTML) m.classList.toggle('show', !e.isIntersecting); }), { threshold: 0.1 });
-        miniObs.observe(target);
-      }
-    }
+    mini.classList.add('show');
   }
 
   function makeDraggable(el, handle, key) {
@@ -4335,6 +4427,11 @@ render();
         <div class="cp-sec cp-tabsec"><div class="cp-tabs"><button type="button" class="cp-tab" data-cptab="syn">시너지</button><button type="button" class="cp-tab" data-cptab="pet">펫 효과</button></div>
           <select id="cp-syn" class="cp-sel"><option value="">선택 안 함</option>${SYN_DEF.map(([k, l]) => `<option value="${k}">${l}</option>`).join('')}</select>
           <select id="cp-pet" class="cp-sel"><option value="">선택 안 함</option>${PET_STATS.map(k => `<option value="${k}">${k} +${PET_VAL}</option>`).join('')}</select></div>
+        <div class="cp-sec" id="cp-states" hidden></div>
+        <div class="cp-sec"><button class="cp-tg" type="button" data-tg="bless"></button></div>
+        <div class="cp-sec"><span class="cp-lab feast">만찬 · 음식 (하나씩 / 전 스킬 적용)</span>
+          <select id="cp-feast" class="cp-sel" title="만찬"></select>
+          <select id="cp-food" class="cp-sel" title="음식"></select></div>
         <div class="cp-sec"><span class="cp-lab party">파티 치적 시너지(본인 제외)</span>
           <select id="cp-party" class="cp-sel">${[0, 1, 2].map(v => `<option value="${v}" ${FLAGS.party === v ? 'selected' : ''}>${v}명 (${v * 10}%)</option>`).join('')}</select></div>
         <div class="cp-sec" id="cp-esther"><span class="cp-lab esther">에스더 결속 효과</span>
@@ -4356,10 +4453,13 @@ render();
     cp2.querySelector('#cp2-toggle').onclick = () => { if (cp2.dataset.dragged) return; cp2.classList.toggle('closed'); store.set('la_cp2_closed', cp2.classList.contains('closed') ? '1' : '0'); };
     cp2.querySelector('#cp-syn').onchange = e => { FLAGS.syn = e.target.value; saveFlags(); syncCp(); scheduleCalc(); };
     cp2.querySelector('#cp-pet').onchange = e => { FLAGS.pet = e.target.value; saveFlags(); syncCp(); scheduleCalc(); };
-    cp2.querySelector('#cp-party').onchange = e => { FLAGS.party = Number(e.target.value); saveFlags(); scheduleCalc(); };
+    cp2.querySelector('#cp-feast').onchange = e => { FLAGS.feast = e.target.value; saveFlags(); syncCp(); scheduleCalc(); };
+    cp2.querySelector('#cp-food').onchange = e => { FLAGS.food = e.target.value; saveFlags(); syncCp(); scheduleCalc(); };
+    cp2.querySelector('#cp-party').onchange = e => { FLAGS.party = Number(e.target.value); saveFlags(); syncCp(); scheduleCalc(); };
     const onCpClick = e => {
       const b = e.target.closest('[data-cp]'), t = e.target.closest('[data-tg]');
-      const tabB = e.target.closest('[data-cptab]');
+      const tabB = e.target.closest('[data-cptab]'), cd = e.target.closest('[data-cond]');
+      if (cd) { const k = cd.dataset.cond; FLAGS.cond[k] = FLAGS.cond[k] === false; saveFlags(); syncCp(); scheduleCalc(); return; }
       if (tabB) { cpTab = tabB.dataset.cptab; store.set('la_cp_tab', cpTab); syncCp(); return; }
       if (t) { const k = t.dataset.tg; if (t.disabled) return; FLAGS[k] = !FLAGS[k]; saveFlags(); syncCp(); scheduleCalc(); return; }
       if (!b) return;
@@ -4380,9 +4480,30 @@ render();
     const setTg = (btn, on, label) => { btn.textContent = (on ? '⚡ ' : '💤 ') + label + ' : ' + (on ? 'ON' : 'OFF'); btn.classList.toggle('on', !!on); };
     const e1 = cp.querySelector('[data-tg="est1"]'), e2 = cp.querySelector('[data-tg="est2"]');
     if (!isEsther && (FLAGS.est1 || FLAGS.est2) && lastRun) { FLAGS.est1 = FLAGS.est2 = false; saveFlags(); }
+    const stBox = cp.querySelector('#cp-states'), sts = (lastRun && lastRun.stateTags) || [];
+    if (stBox) {
+      const sig = sts.join('\u0001') + '|' + sts.map(t => FLAGS.cond[t] !== false ? 1 : 0).join('');
+      if (stBox.dataset.sig !== sig) {
+        stBox.dataset.sig = sig; stBox.hidden = !sts.length;
+        stBox.innerHTML = sts.map(t => `<button class="cp-tg" type="button" data-cond="${esc(t)}"></button>`).join('');
+        stBox.querySelectorAll('[data-cond]').forEach(b => { const on = FLAGS.cond[b.dataset.cond] !== false; b.textContent = (on ? '⚡ ' : '💤 ') + b.dataset.cond + ' : ' + (on ? 'ON' : 'OFF'); b.classList.toggle('on', on); });
+      }
+    }
+    setTg(cp.querySelector('[data-tg="bless"]'), FLAGS.bless, '축복의 여신');
     setTg(e1, FLAGS.est1, '결속 1단계'); setTg(e2, FLAGS.est2, '결속 2단계');
     e1.disabled = e2.disabled = !isEsther; cp.querySelector('#cp-esther').classList.toggle('off', !isEsther);
+    cp.querySelector('#cp-party').value = String(FLAGS.party);
     cp.querySelector('#cp-syn').value = FLAGS.syn; cp.querySelector('#cp-pet').value = FLAGS.pet;
+    [['feast', '만찬'], ['food', '음식']].forEach(([k, lb]) => {
+      const el = cp.querySelector('#cp-' + k), { item, list } = consSel(k);
+      const sig = list.map(x => x.name).join('\u0001');
+      if (el.dataset.sig !== sig) {
+        el.innerHTML = `<option value="">${lb}: 선택 안 함</option>` + list.map(x => `<option value="${esc(x.name)}">${esc(lb + ': ' + x.name)}</option>`).join('');
+        el.dataset.sig = sig; el.disabled = !list.length;
+        el.title = list.length ? lb : lb + ' 데이터가 아직 없습니다 (공용 데이터 consumables)';
+      }
+      el.value = item ? item.name : '';
+    });
     cp.querySelector('#cp-syn').hidden = cpTab !== 'syn'; cp.querySelector('#cp-pet').hidden = cpTab !== 'pet';
     cp.querySelectorAll('[data-cptab]').forEach(b => { b.classList.toggle('on', b.dataset.cptab === cpTab); b.classList.toggle('set', !!FLAGS[b.dataset.cptab]); });
     const pb = cp.querySelector('[data-cp="pause"]'); pb.textContent = paused ? '⏸️ 실시간 계산 : OFF' : '▶️ 실시간 계산 : ON'; pb.classList.toggle('off', paused);
@@ -4495,6 +4616,31 @@ render();
   try { const rs = sessionStorage.getItem('la_report_state'); if (rs) { sessionStorage.removeItem('la_report_state'); reportInfo = JSON.parse(rs); if (reportInfo && reportInfo.state) state = reportInfo.state; } } catch (e) { reportInfo = null; }
   ensureEvo(); ensureTripodSel(); renderEvo(); renderOptBody(); renderSkillSim(); runCalc(); histReset();
   if (reportInfo) { const er = (reportInfo.errors || []).slice(-5).map(x => esc(x.kind + ': ' + x.msg)); warnModal([{ title: '오류 제보 상황을 불러왔어요', chips: [esc((reportInfo.env && reportInfo.env.ua || '').slice(0, 60) || '환경 정보 없음')], desc: (reportInfo.note ? '제보 내용: ' + esc(reportInfo.note) + '<br>' : '') + (er.length ? '기록된 오류<br>' + er.join('<br>') : '기록된 오류 없음') }]); }
+  // 업데이트로 데이터 구조가 바뀐 경우 안내 (저장된 데이터가 있는 사용자에게만, '다시 보지 않기' 지원). 구조가 또 바뀌면 DATA_ALERT_ID만 바꾸면 다시 표시됨
+  const DATA_ALERT_ID = 'data-structure-2026-11-20';
+  function dataAlert() {
+    let seen = null, has = false;
+    try { seen = localStorage.getItem('la_data_alert'); has = Object.keys(localStorage).some(k => k.indexOf('la_d_') === 0); } catch (e) { return; }
+    if (seen === DATA_ALERT_ID || !has) return;
+    const m = openModal('la-data-alert', '🔔 업데이트 안내', `<div class="da-wrap">
+      <div class="da-hero"><span class="da-ico">📦</span><div><b>데이터 구조가 바뀌었어요</b><span>이전에 불러온 데이터는 새 파일로 교체해 주세요</span></div></div>
+      <p class="da-lead">이전 데이터를 그대로 쓰면 <b>계산 결과가 달라지거나</b> 아래 기능이 동작하지 않을 수 있습니다.</p>
+      <div class="da-chips"><i>스킬 레벨</i><i>만찬 · 음식</i><i>축복의 여신</i><i>상태 조건 토글</i><i>트라이포드 태그 조건</i></div>
+      <ol class="da-steps">
+        <li><b>공용 · 스킬 · 아크패시브</b> 데이터를 최신 파일로 다시 받습니다.</li>
+        <li><b>컨트롤 패널 &gt; 데이터 불러오기</b>에서 모두 올립니다.</li>
+      </ol>
+      <div class="da-btns"><button type="button" class="btn primary" id="la-da-data">📂 데이터 불러오기</button><button type="button" class="btn" id="la-da-never">🚫 다시 보지 않기</button></div></div>
+      <style>.da-wrap{font-size:13px;line-height:1.65}.da-hero{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;background:linear-gradient(90deg,rgba(66,140,214,.28),rgba(139,92,246,.18));border:1px solid rgba(96,165,250,.35)}
+      .da-ico{font-size:28px}.da-hero b{display:block;font-size:15px}.da-hero span:not(.da-ico){display:block;font-size:12px;opacity:.8}.da-lead{margin:12px 2px 8px}
+      .da-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.da-chips i{font-style:normal;font-size:11.5px;padding:3px 9px;border-radius:999px;background:rgba(250,204,21,.12);border:1px solid rgba(250,204,21,.35);color:#fde68a}
+      .da-steps{margin:0 0 14px;padding:10px 12px 10px 30px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}.da-steps li{margin:3px 0}
+      .da-btns{display:flex;gap:8px}.da-btns .btn{flex:1;padding:9px 0;font-weight:700}</style>`, 480);
+    const never = () => { try { localStorage.setItem('la_data_alert', DATA_ALERT_ID); } catch (e) { /* 저장 불가 */ } };
+    m.el.querySelector('#la-da-never').onclick = () => { never(); m.close(); };
+    m.el.querySelector('#la-da-data').onclick = () => { m.close(); openDataModal(); };
+  }
+  dataAlert();
   window.LAApp = { getState: () => state, undo, redo, histInfo: () => ({ u: HIST.undo.length, r: HIST.redo.length }), saveChar, loadSavedChar, runOpt, runCalc, lastRun: () => lastRun, loadDataFiles, loadFromFiles, applyRaw, openDataModal, DATA: () => DATA, FLAGS };
 })();
 </script></body></html>

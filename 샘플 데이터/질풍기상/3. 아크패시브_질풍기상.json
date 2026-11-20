@@ -86,7 +86,8 @@
             {
                 "category": "적에게 주는 피해",
                 "val": 1.2,
-                "unit": "%"
+                "unit": "%",
+                "requireTags":["여우비"]
             }
         ]
     },

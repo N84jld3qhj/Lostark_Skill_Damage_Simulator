@@ -609,7 +609,7 @@ button,input,select,textarea{font-family:inherit}
 .ss-title{flex:1;min-width:0;display:flex;align-items:baseline;gap:7px}.ss-title b{font-size:13.5px}.ss-title small{color:var(--muted);font-size:11px}.ss-ntrow{display:flex;flex-wrap:wrap;gap:4px;width:100%;margin-top:4px}.ss-chip.off{opacity:.45;text-decoration:line-through}.ss-opt.lock{opacity:.4}.ss-lock{color:#f5b94a;font-size:10.5px;margin-left:6px}.ss-lv{display:inline-flex;align-items:center;gap:3px}.ss-lv button{width:20px;height:20px;line-height:1;padding:0;border:1px solid var(--line,#2b3a4a);background:#0f1923;color:var(--text);border-radius:5px;cursor:pointer;font-size:13px}.ss-lv button:disabled{opacity:.35;cursor:default}.ss-lv small.mod{color:#f5b94a}
 .ss-rst{padding:3px 9px!important;font-size:11px!important}
 .ss-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
-.ss-stats span{background:#0f1923;border-radius:6px;padding:4px 2px;text-align:center;font-size:10px;color:var(--muted)}.ss-stats b{display:block;font-size:12px;color:var(--text)}
+.ss-stats .ss-mo{grid-column:1/-1;font-style:normal;font-size:11.5px;font-weight:700;color:#7dd3fc;margin-top:3px;background:#0f1923;border-radius:6px;padding:5px 2px;text-align:center}.ss-stats .ss-mo.sum{color:#fde68a;position:relative}.ss-stats .ss-mobtn{position:absolute;right:5px;top:50%;transform:translateY(-50%);font-size:10px;padding:1px 6px;border-radius:4px;border:1px solid #334155;background:#1e293b;color:#cbd5e1;cursor:pointer;line-height:1.4}.ss-stats .ss-mobtn:hover{background:#334155}.ss-stats .ss-modet{display:none}.ss-stats.mo-open .ss-modet{display:contents}.ss-stats span{background:#0f1923;border-radius:6px;padding:4px 2px;text-align:center;font-size:10px;color:var(--muted)}.ss-stats b{display:block;font-size:12px;color:var(--text)}
 .ss-tags{display:flex;flex-wrap:wrap;gap:4px}.ss-tag{font-size:10.5px;color:#7ec4ff;background:#1c3047;border-radius:10px;padding:1px 8px}
 .ss-tier{background:#17263a;border-left:3px solid #2d6bb5;border-radius:7px;padding:8px;display:grid;gap:5px}
 .ss-th{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:#7ec4ff}
@@ -1765,7 +1765,7 @@ function makeEnv(o) {
                 const effEx = eff.excludeTags || eff.excludeSkillTags || [];
                 const effReq = eff.requireTags || eff.requireSkillTags || [];
                 if ((effEx.length || effReq.length) && !matchTags(ctx, { require: effReq, exclude: effEx }, { exName: false, reqName: false })) return;
-                if (eff.category !== "태그 추가" && eff.category !== "태그 제거" && eff.type !== "태그 추가" && eff.type !== "태그 제거") {
+                if (eff.category !== "태그 추가" && eff.category !== "태그 제거" && eff.type !== "태그 추가" && eff.type !== "태그 제거" && eff.category !== "모션 추가" && eff.type !== "모션 추가") {
                     addStat(stats, eff.category || eff.type, sourceType, eff.val, eff.unit ?? "%");
                 }
             };
@@ -2090,6 +2090,38 @@ function makeEnv(o) {
         };
     }
 
+    // 모션: 스킬을 모션(타격 묶음)별로 나누어 계산. 모션N 태그가 해당 모션 계산에만 붙어 트라이포드 등의 requireTags:["모션N"] 이 그 모션에만 적용됨
+    function expandMotions(skillData, env, shared) {
+        const hasM = Array.isArray(skillData.motions) && skillData.motions.length;
+        const list = hasM
+            ? skillData.motions.map((m, i) => { const h = Number(m.hits) > 0 ? Number(m.hits) : 1; return { tag: "모션" + (i + 1), c: (Number(m.coefficient) || 0) * h, k: (Number(m.constant) || 0) * h }; })
+            : [{ tag: "모션1", c: Number(skillData.coefficient) || 0, k: Number(skillData.constant) || 0 }];
+        const sumC = list.reduce((a, m) => a + m.c, 0), sumK = list.reduce((a, m) => a + m.k, 0);
+        const { skillTags, selectedNames } = resolveSkillTags(skillData, env, shared.tagModifiers);
+        const ctx0 = { tags: skillTags, name: skillData.name };
+        (skillData.tripods || []).forEach(tp => {
+            if (!selectedNames.includes(tp.name)) return;
+            (Array.isArray(tp.effects) ? tp.effects : [tp]).forEach(eff => {
+                if (!eff || (eff.category || eff.type) !== "모션 추가") return;
+                const ex = eff.excludeTags || [], rq = eff.requireTags || [];
+                if ((ex.length || rq.length) && !matchTags(ctx0, { require: rq, exclude: ex }, { exName: false, reqName: false })) return;
+                const ratio = (Number(eff.ratio) || 0) / 100;
+                const c = eff.coefficient != null ? Number(eff.coefficient) || 0 : sumC * ratio;
+                const k = eff.constant != null ? Number(eff.constant) || 0 : sumK * ratio;
+                list.push({ tag: (eff.tag && String(eff.tag).trim()) || ("모션" + (list.length + 1)), c, k, added: tp.name });
+            });
+        });
+        return list;
+    }
+
+    function calculateSkillWithMotions(skillData, inputs, env, shared) {
+        const ms = expandMotions(skillData, env, shared);
+        const rs = ms.map(m => calculateOneSkill(Object.assign({}, skillData, { coefficient: m.c, constant: m.k, tags: [...(skillData.tags || []), m.tag] }), inputs, env, shared));
+        const out = Object.assign({}, rs[0], { expDmg: rs.reduce((a, r) => a + (r.expDmg || 0), 0) });
+        if (ms.length > 1) out.motions = ms.map((m, i) => ({ tag: m.tag, added: m.added || '', coefficient: m.c, constant: m.k, expDmg: rs[i].expDmg || 0 }));
+        return out;
+    }
+
     function computeAllSkills(inputs, env, skillDatabase) {
         const { commonStats, skillGemMap, braceletSkillEffects } = buildCommonStats(inputs, env);
 
@@ -2107,7 +2139,7 @@ function makeEnv(o) {
         };
 
         const results = [];
-        skillDatabase.forEach(skillData => results.push(calculateOneSkill(skillData, inputs, env, shared)));
+        skillDatabase.forEach(skillData => results.push(calculateSkillWithMotions(skillData, inputs, env, shared)));
         return results;
     }
 
@@ -2499,7 +2531,7 @@ if (window.isArkPassiveOpen === undefined) window.isArkPassiveOpen = true;
                     <td style="padding: 10px; font-weight: bold; ${isSelected ? 'color: #38bdf8;' : 'color: #e2e8f0;'}">
                         ${res.skillName} ${isSelected ? '✔' : ''}
                     </td>
-                    <td style="padding: 10px; color: #facc15; font-weight: bold;">${Math.floor(res.expDmg || 0).toLocaleString()}</td>
+                    <td style="padding: 10px; color: #facc15; font-weight: bold;">${Math.floor(res.expDmg || 0).toLocaleString()}${Array.isArray(res.motions) && res.motions.length > 1 ? `<div style="font-weight:400;font-size:0.74rem;color:#94a3b8;margin-top:3px;line-height:1.5">${res.motions.map(m => `<span style="white-space:nowrap;margin-right:8px">${m.tag}${m.added ? '<sup title="트라이포드 ' + m.added + '로 추가">＋</sup>' : ''} <b style="color:#e2e8f0">${Math.floor(m.expDmg).toLocaleString()}</b> (${res.expDmg > 0 ? (m.expDmg / res.expDmg * 100).toFixed(0) : 0}%)</span>`).join('')}</div>` : ''}</td>
                     <td style="padding: 10px; color: #38bdf8;">${(res.finalCooldown || 0).toFixed(2)}초</td>
                 </tr>
             `;
@@ -3290,7 +3322,8 @@ render();
     });
     out.gemDataTable = t; normCache.set(g, out); return out;
   }
-  const skLvMax = s => (s && Array.isArray(s.coefficient) && s.coefficient.length > 1) ? s.coefficient.length : 0;
+  const skLvArr = s => !s ? null : (Array.isArray(s.coefficient) ? s.coefficient : (Array.isArray(s.motions) && s.motions[0] && Array.isArray(s.motions[0].coefficient) ? s.motions[0].coefficient : null));
+  const skLvMax = s => { const a = skLvArr(s); return a && a.length > 1 ? a.length : 0; };
   const skApi = s => (state.skills || []).find(x => norm(x.name) === norm(s.name));
   function skLvApi(s) { const mx = skLvMax(s); if (!mx) return 0; const a = skApi(s); const v = Number(a && a.level); return v >= 1 ? Math.min(mx, Math.round(v)) : mx; }
   function skLvCur(s) { const mx = skLvMax(s); if (!mx) return 0; const o = Number(state.skillLv && state.skillLv[s.name]); return o >= 1 ? Math.min(mx, Math.round(o)) : skLvApi(s); }
@@ -3300,7 +3333,14 @@ render();
   function resolveSkill(s) {
     const mx = skLvMax(s), i = mx ? skLvCur(s) - 1 : 0;
     const pick = v => Array.isArray(v) ? (v.length ? v[Math.min(i, v.length - 1)] : undefined) : v;
-    return Object.assign({}, s, { coefficient: pick(s.coefficient), constant: pick(s.constant), mana: Array.isArray(s.mana) ? (pick(s.mana) ?? 0) : s.mana });
+    const o = Object.assign({}, s, { coefficient: pick(s.coefficient), constant: pick(s.constant), mana: Array.isArray(s.mana) ? (pick(s.mana) ?? 0) : s.mana });
+    if (Array.isArray(s.motions) && s.motions.length) {
+      o.motions = s.motions.map(m => Object.assign({}, m, { coefficient: pick(m.coefficient), constant: pick(m.constant) }));
+      const hh = m => Number(m.hits) > 0 ? Number(m.hits) : 1;
+      o.coefficient = o.motions.reduce((a, m) => a + (Number(m.coefficient) || 0) * hh(m), 0);
+      o.constant = o.motions.reduce((a, m) => a + (Number(m.constant) || 0) * hh(m), 0);
+    }
+    return o;
   }
   function normalizeSkillDb(list) {
     return list.map(s => {
@@ -3445,7 +3485,7 @@ render();
     (d.skills || []).forEach(sk => { known.add(nzT(sk.name)); (sk.tags || []).forEach(t => known.add(nzT(t))); (sk.tripods || []).forEach(tp => (Array.isArray(tp.effects) ? tp.effects : [tp]).forEach(e => { if ((e.category || e.type) === '태그 추가' && e.val) known.add(nzT(e.val)); })); });
     statList.forEach(it => (it && Array.isArray(it.effects) ? it.effects : [it]).forEach(e => { if (e && (e.category || e.type) === '태그 추가' && e.val) known.add(nzT(e.val)); }));
     const stateTags = [];
-    const scanEff = e => { if (!e) return; const cat = e.category || e.type; if (cat === '태그 추가' || cat === '태그 제거') return; (fixEff(e).requireTags || []).forEach(t => { const tt = String(t).trim(); if (tt && !known.has(nzT(tt)) && !stateTags.includes(tt)) stateTags.push(tt); }); };
+    const scanEff = e => { if (!e) return; const cat = e.category || e.type; if (cat === '태그 추가' || cat === '태그 제거' || cat === '모션 추가') return; (fixEff(e).requireTags || []).forEach(t => { const tt = String(t).trim(); if (tt && !/^모션\d+$/.test(tt) && !known.has(nzT(tt)) && !stateTags.includes(tt)) stateTags.push(tt); }); };
     // 아크패시브 노드는 레벨 0(안 찍은 노드)도 포함, 트라이포드는 선택 여부와 무관하게 전부 포함
     const nodeSrc = [...statList.filter(it => arkStats.includes(it) || /^(깨달음|도약|진화)/.test(it && it.name || '')), ...(d.addStat || []).filter(it => it && (it.type === '깨달음' || it.type === '도약'))];
     nodeSrc.forEach(it => (it && Array.isArray(it.effects) ? it.effects : []).forEach(scanEff));
@@ -3620,7 +3660,7 @@ render();
   }
 
   function classify(json) {
-    if (json && !Array.isArray(json) && Array.isArray(json.skills) && json.skills.length && json.skills[0] && 'coefficient' in json.skills[0] && 'constant' in json.skills[0]) return 'skills';
+    if (json && !Array.isArray(json) && Array.isArray(json.skills) && json.skills.length && json.skills[0] && ('coefficient' in json.skills[0] || 'motions' in json.skills[0]) && ('constant' in json.skills[0] || 'motions' in json.skills[0])) return 'skills';
     if (Array.isArray(json)) {
       if (json.length && json[0] && 'constant' in json[0] && 'coefficient' in json[0]) return 'skills';
       if (json.length && json[0] && Array.isArray(json[0].effects)) return 'addStat';
@@ -3922,6 +3962,7 @@ render();
     return (t.effects || []).map(e => { const v = e.value ?? e.val ?? 0; return `${esc(e.category || e.type || '효과')} ${v > 0 ? '+' : ''}${esc(v)}${esc(e.unit || '')}`; }).join(', ');
   }
   const ssHid = new Set(jget('la_ss_hidden', []));
+  const ssMoOpen = new Set();
   const ssSave = () => store.set('la_ss_hidden', JSON.stringify([...ssHid]));
   function renderSkillSim() {
     const box = $q('#skill-body'); if (!box) return;
@@ -3938,7 +3979,16 @@ render();
         ${tiers[tier].map(t => { const on = mine[tier] === t.name, lk = tierLocked(s, Number(tier)); return `<label class="ss-opt ${on ? 'on' : ''} ${lk ? 'lock' : ''}"><input type="radio" name="ss-${esc(s.name)}-${tier}" data-sk="${esc(s.name)}" data-tier="${tier}" data-tp="${esc(t.name)}" ${on ? 'checked' : ''} ${lk ? 'disabled' : ''}><span class="ss-n">${esc(t.name)}</span><span class="ss-e">${tripodEffText(t) || '<i>효과 없음</i>'}</span></label>`; }).join('')}</div>`).join('') || '<div class="muted">등록된 트라이포드가 없습니다.</div>';
       return `<div class="ss-card ${api ? '' : 'noapi'}"><div class="ss-head">${api && api.icon ? `<img class="ss-ico" src="${esc(api.icon)}" alt="" loading="lazy" onerror="this.remove()">` : ''}<div class="ss-title"><b>${esc(s.name)}</b>${(() => { const mx = skLvMax(s); if (mx) { const cur = skLvCur(s), ap = skLvApi(s), mod = cur !== ap; return `<span class="ss-lv"><button type="button" data-lv="${esc(s.name)}|-1" ${cur <= 1 ? 'disabled' : ''} title="스킬 레벨 -1">−</button><small class="${mod ? 'mod' : ''}" title="${api ? 'API 레벨 ' + esc(api.level) : '캐릭터에 없음'}">Lv.${cur}</small><button type="button" data-lv="${esc(s.name)}|1" ${cur >= mx ? 'disabled' : ''} title="스킬 레벨 +1">＋</button></span>`; } return api ? `<small>Lv.${esc(api.level)}</small>` : '<small>캐릭터에 없음</small>'; })()}</div>
         <button type="button" class="btn ss-rst" data-rst="${esc(s.name)}">초기화</button><button type="button" class="btn ss-hide" data-hide="${esc(s.name)}" title="이 스킬을 목록에서 숨기고 계산·비교에서 제외합니다">숨김</button></div>
-        <div class="ss-stats">${(() => { const r = resolveSkill(s); return `<span>상수 <b>${r.constant ?? '-'}</b></span><span>계수 <b>${r.coefficient ?? '-'}</b></span><span>쿨타임 <b>${r.baseCooldown ?? '-'}</b></span><span>마나 <b>${r.mana ?? r.baseMana ?? '-'}</b></span>`; })()}</div>
+        <div class="ss-stats ${ssMoOpen.has(s.name) ? 'mo-open' : ''}">${(() => {
+          const r = resolveSkill(s);
+          const f4 = v => { if (v === undefined || v === null || v === '') return '-'; const n = Number(v); return isFinite(n) ? String(Math.round(n * 1e4) / 1e4) : esc(v); };
+          const row = (c, k) => `<span>상수 <b>${f4(k)}</b></span><span>계수 <b>${f4(c)}</b></span><span>쿨타임 <b>${f4(r.baseCooldown)}</b></span><span>마나 <b>${f4(r.mana ?? r.baseMana)}</b></span>`;
+          const ms = Array.isArray(r.motions) && r.motions.length > 1 ? r.motions : null;
+          if (!ms) return `<em class="ss-mo sum">합계</em>` + row(r.coefficient, r.constant);
+          const open = ssMoOpen.has(s.name);
+          return `<em class="ss-mo sum">합계<button type="button" class="ss-mobtn" data-mo="${esc(s.name)}">${open ? '접기 ▴' : '상세 ▾'}</button></em>` + row(r.coefficient, r.constant)
+            + `<div class="ss-modet">` + ms.map((m, i) => { const h = Number(m.hits) > 1 ? ' ×' + Number(m.hits) : ''; return `<em class="ss-mo">${esc(m.name || '모션' + (i + 1))}${h}</em>` + row(m.coefficient, m.constant); }).join('') + `</div>`;
+        })()}</div>
         <div class="ss-tags">${tags}</div>${tierHtml}</div>`;
     }).join('');
     const keepTop = box.scrollTop;
@@ -3956,6 +4006,7 @@ render();
     });
     box.querySelector('#ss-all').onclick = () => { if (confirm('모든 스킬의 트라이포드 선택을 해제할까요?')) { state.tripodSel = {}; apply(); } };
     const ntNames = () => dbAll.filter(s => !(s.tripods || []).length).map(s => s.name);
+    box.querySelectorAll('[data-mo]').forEach(b => b.onclick = () => { const n = b.dataset.mo, st = b.closest('.ss-stats'); if (ssMoOpen.has(n)) ssMoOpen.delete(n); else ssMoOpen.add(n); st.classList.toggle('mo-open', ssMoOpen.has(n)); b.textContent = ssMoOpen.has(n) ? '접기 ▴' : '상세 ▾'; });
     box.querySelectorAll('[data-ntog]').forEach(b => b.onclick = () => { const n = b.dataset.ntog; if (ssHid.has(n)) ssHid.delete(n); else ssHid.add(n); ssSave(); renderSkillSim(); scheduleCalc(); });
     const ntA = box.querySelector('#ss-nt-all'); if (ntA) ntA.onclick = () => { ntNames().forEach(n => ssHid.add(n)); ssSave(); renderSkillSim(); scheduleCalc(); };
     const ntN = box.querySelector('#ss-nt-none'); if (ntN) ntN.onclick = () => { ntNames().forEach(n => ssHid.delete(n)); ssSave(); renderSkillSim(); scheduleCalc(); };
@@ -4617,7 +4668,7 @@ render();
   ensureEvo(); ensureTripodSel(); renderEvo(); renderOptBody(); renderSkillSim(); runCalc(); histReset();
   if (reportInfo) { const er = (reportInfo.errors || []).slice(-5).map(x => esc(x.kind + ': ' + x.msg)); warnModal([{ title: '오류 제보 상황을 불러왔어요', chips: [esc((reportInfo.env && reportInfo.env.ua || '').slice(0, 60) || '환경 정보 없음')], desc: (reportInfo.note ? '제보 내용: ' + esc(reportInfo.note) + '<br>' : '') + (er.length ? '기록된 오류<br>' + er.join('<br>') : '기록된 오류 없음') }]); }
   // 업데이트로 데이터 구조가 바뀐 경우 안내 (저장된 데이터가 있는 사용자에게만, '다시 보지 않기' 지원). 구조가 또 바뀌면 DATA_ALERT_ID만 바꾸면 다시 표시됨
-  const DATA_ALERT_ID = 'data-structure-2026-11-20';
+  const DATA_ALERT_ID = 'data-structure-2026-11-20_2';
   function dataAlert() {
     let seen = null, has = false;
     try { seen = localStorage.getItem('la_data_alert'); has = Object.keys(localStorage).some(k => k.indexOf('la_d_') === 0); } catch (e) { return; }

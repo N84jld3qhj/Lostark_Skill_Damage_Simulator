@@ -1,2737 +1,3379 @@
 {
-    "version": 3,
-    "source": "261119_1009_Skill_AllLevels.json",
-    "levelRange": {
-        "min": 1,
-        "max": 14
-    },
-    "skills": [
+  "version": 3,
+  "source": "261119_1009_Skill_AllLevels.json",
+  "levelRange": {
+    "min": 1,
+    "max": 14
+  },
+  "skills": [
+    {
+      "id": 32330,
+      "name": "공간가르기",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 1,
+      "baseCooldown": 22.0,
+      "coefficient": [
+        175.337
+      ],
+      "constant": [
+        7799.0
+      ],
+      "mana": [],
+      "tags": [
+        "공간가르기",
+        "타대",
+        "우산"
+      ],
+      "tripods": [],
+      "motions": [
         {
-            "id": 32330,
-            "name": "공간가르기",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 1,
-            "baseCooldown": 22,
-            "coefficient": [
-                175.337
-            ],
-            "constant": [
-                7799
-            ],
-            "mana": [],
-            "tags": [
-                "공간가르기",
-                "타대",
-                "우산"
-            ],
-            "tripods": []
+          "name": "모션1",
+          "coefficient": [
+            83.98
+          ],
+          "constant": [
+            2340.0
+          ]
         },
         {
-            "id": 32280,
-            "name": "나르가의 칼날",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 1,
-            "baseCooldown": 300,
-            "coefficient": [
-                254.713
-            ],
-            "constant": [
-                15280
-            ],
-            "mana": [],
-            "tags": [],
-            "tripods": []
-        },
-        {
-            "id": 32200,
-            "name": "날아가기",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 14,
-            "baseCooldown": 18,
-            "coefficient": [
-                2.61,
-                2.866,
-                3.002,
-                3.099,
-                3.174,
-                3.234,
-                3.284,
-                3.326,
-                3.362,
-                3.393,
-                3.691,
-                3.875,
-                4.019,
-                4.147
-            ],
-            "constant": [
-                156.5,
-                279,
-                356.5,
-                419,
-                468,
-                506.5,
-                540,
-                571,
-                594.5,
-                618,
-                618,
-                618,
-                618,
-                618
-            ],
-            "mana": [
-                85,
-                116,
-                140,
-                169,
-                216,
-                249,
-                307,
-                329,
-                394,
-                441,
-                441,
-                441,
-                441,
-                441
-            ],
-            "tags": [
-                "날아가기",
-                "마나",
-                "타대",
-                "기상"
-            ],
-            "tripods": [
-                {
-                    "key": 1,
-                    "tier": 1,
-                    "name": "탁월한 기동성",
-                    "description": "이동하는 거리가 3m 증가되며, 자유 이동 시 홀딩 시간이 0.5초 증가된다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 2,
-                    "tier": 1,
-                    "name": "빠른 준비",
-                    "description": "재사용 대기시간이 -6.0초 감소한다.",
-                    "effects": [
-                        {
-                            "category": "고정 쿨타임 감소",
-                            "val": 6,
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 3,
-                    "tier": 1,
-                    "name": "증기 획득",
-                    "description": "공격 적중 시 빗방울 게이지 회복량이 45% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 4,
-                    "tier": 2,
-                    "name": "성장 공격",
-                    "description": "기류에 피해를 입을 수록 피해가 점점 커져 최대 108.0% 증가된 피해를 준다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 108,
-                            "unit": "%"
-                        },
-                        {
-                            "category": "태그 추가",
-                            "val": "성장공격",
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 5,
-                    "tier": 2,
-                    "name": "한기",
-                    "description": "기류의 피해가 [수] 속성으로 변경되며, 40% 증가된 피해를 주고, 2.0초간 이동속도를 -30.0% 감소시킨다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 40,
-                            "unit": "%"
-                        },
-                        {
-                            "category": "태그 추가",
-                            "val": "한기",
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 6,
-                    "tier": 2,
-                    "name": "낙뢰",
-                    "description": "기류 발생 대신 낙뢰가 떨어지며 [뇌] 속성으로 변경된다. 적에게 주는 피해가 60% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 60,
-                            "unit": "%"
-                        },
-                        {
-                            "category": "태그 추가",
-                            "val": "낙뢰",
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 7,
-                    "tier": 3,
-                    "name": "자유 이동",
-                    "description": "홀딩 스킬로 변경된다. 자유롭게 날아다닐 수 있게 변경되어 모험가 및 가디언 몬스터까지 충돌이 무시되고, 적에게 주는 피해가 70% 증가한다.\n\n낙뢰 적용 시 주변 14.0m 이내 높은 등급의 적에게 우선적으로 낙뢰가 떨어진다.",
-                    "effects": [
-                        {
-                            "category": "태그 추가",
-                            "val": "홀딩",
-                            "unit": ""
-                        },
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 70,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 8,
-                    "tier": 3,
-                    "name": "기류 강화",
-                    "description": "성장 공격 : 적에게 주는 피해가 추가로 80% 증가한다.\n한기 : 적에게 주는 피해가 추가로 60% 증가하고, 2.0초간 이동속도를 -60.0% 감소시킨다.\n낙뢰 : 낙뢰로 주는 피해가 70% 증가하고, 스킬의 무력화 단계가 [중] 으로 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 80,
-                            "unit": "%",
-                            "requireTags": [
-                                "성장공격"
-                            ]
-                        },
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 60,
-                            "unit": "%",
-                            "requireTags": [
-                                "한기"
-                            ]
-                        },
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 70,
-                            "unit": "%",
-                            "requireTags": [
-                                "낙뢰"
-                            ]
-                        }
-                    ],
-                    "effectsVerified": true
-                }
-            ]
-        },
-        {
-            "id": 32130,
-            "name": "내려찍기",
-            "class": "기상술사",
-            "attackType": "백어택",
-            "maxLevel": 14,
-            "baseCooldown": 7,
-            "coefficient": [
-                7.756,
-                8.516,
-                8.92,
-                9.208,
-                9.43,
-                9.61,
-                9.758,
-                9.882,
-                9.99,
-                10.084,
-                10.97,
-                11.516,
-                11.944,
-                12.324
-            ],
-            "constant": [
-                464,
-                829,
-                1062,
-                1249,
-                1396,
-                1511,
-                1611,
-                1704,
-                1773,
-                1842,
-                1842,
-                1842,
-                1842,
-                1842
-            ],
-            "mana": [
-                49,
-                67,
-                81,
-                98,
-                125,
-                145,
-                179,
-                191,
-                229,
-                256,
-                256,
-                256,
-                256,
-                256
-            ],
-            "tags": [
-                "내려찍기",
-                "백어택",
-                "마나",
-                "우산"
-            ],
-            "tripods": [
-                {
-                    "key": 1,
-                    "tier": 1,
-                    "name": "기류 발생",
-                    "description": "공격 적중 시 빗방울 게이지 획득량이 -30% 줄어들지만 4.0초간 자신의 최대 생명력에 15.0%에 해당하는 기류 보호막이 생성된다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 2,
-                    "tier": 1,
-                    "name": "마력 조절",
-                    "description": "마나 소모량이 -67.0% 감소한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 3,
-                    "tier": 1,
-                    "name": "증기 획득",
-                    "description": "공격 적중 시 빗방울 게이지 회복량이 75% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 4,
-                    "tier": 2,
-                    "name": "튼튼한 우산",
-                    "description": "콤보 조작으로 변경된다. 강하게 한번 내려찍은 후 우산을 펼쳐 적을 공격하며, 우산을 펼칠 때 방향 전환이 가능하다. 적에게 주는 피해가 60% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 60,
-                            "unit": "%"
-                        },
-                        {
-                            "category": "태그 추가",
-                            "val": "콤보",
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 5,
-                    "tier": 2,
-                    "name": "낙뢰",
-                    "description": "[뇌] 속성으로 변경되며, 지점 조작으로 변경된다. 힘차게 도약하여 6.0m 내의 지정된 위치에 번개를 머금은 우산으로 내려쳐 45% 증가된 피해를 준다.",
-                    "effects": [
-                        {
-                            "category": "태그 추가",
-                            "val": "지점",
-                            "unit": ""
-                        },
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 45,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 6,
-                    "tier": 2,
-                    "name": "햇살 방출",
-                    "description": "우산으로 바닥을 내려찍으면 하늘에서 태양빛이 내려와 적에게 70.0% 해당하는 추가 피해를 준다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 70,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 7,
-                    "tier": 3,
-                    "name": "꿰뚫는 일격",
-                    "description": "공격 적중 시 적의 모든 방어력을 80.0% 무시한다.",
-                    "effects": [
-                        {
-                            "category": "방어력 무시",
-                            "val": 80,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 8,
-                    "tier": 3,
-                    "name": "강인함",
-                    "description": "스킬 시전 중 피격이상에 면역이 되고, 재사용 대기 시간이 9.0초 증가한다.",
-                    "effects": [
-                        {
-                            "category": "고정 쿨타임 증가",
-                            "val": 9,
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                }
-            ]
-        },
-        {
-            "id": 32340,
-            "name": "눈부신 나날들",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 1,
-            "baseCooldown": 30,
-            "coefficient": [
-                65.4
-            ],
-            "constant": [
-                3924.5
-            ],
-            "mana": [],
-            "tags": [],
-            "tripods": []
-        },
-        {
-            "id": 32170,
-            "name": "돌개바람",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 14,
-            "baseCooldown": 14,
-            "coefficient": [
-                12.928,
-                14.192,
-                14.864,
-                15.344,
-                15.712,
-                16.008,
-                16.256,
-                16.464,
-                16.64,
-                16.792,
-                18.264,
-                19.176,
-                19.888,
-                20.52
-            ],
-            "constant": [
-                772,
-                1376,
-                1760,
-                2072,
-                2312,
-                2508,
-                2676,
-                2828,
-                2944,
-                3056,
-                3056,
-                3056,
-                3056,
-                3056
-            ],
-            "mana": [
-                74,
-                100,
-                121,
-                146,
-                187,
-                216,
-                266,
-                284,
-                341,
-                382,
-                382,
-                382,
-                382,
-                382
-            ],
-            "tags": [
-                "돌개바람",
-                "우산",
-                "타대",
-                "마나"
-            ],
-            "tripods": [
-                {
-                    "key": 1,
-                    "tier": 1,
-                    "name": "추가 공격",
-                    "description": "스택이 가능하게 변경되며, 최대 2회 스택이 가능하다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 2,
-                    "tier": 1,
-                    "name": "마력 조절",
-                    "description": "마나 소모량이 -67.0% 감소한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 3,
-                    "tier": 1,
-                    "name": "급소 노출",
-                    "description": "공격 적중 시 대상이 자신 및 파티원에게 받는 치명타 저항률이 12.0초간 10.0% 감소한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 4,
-                    "tier": 2,
-                    "name": "약육강식",
-                    "description": "하급 및 일반 몬스터에게 주는 피해가 145.0% 증가된다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 5,
-                    "tier": 2,
-                    "name": "약점 포착",
-                    "description": "피격이상 면역인 적에게 공격 적중 시 주는 피해가 60.0% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 60,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 6,
-                    "tier": 2,
-                    "name": "회전력 강화",
-                    "description": "우산의 이동속도가 감소하지만 지속시간이 2.0초 증가하고 주변으로 회오리 바람을 발사하는 우산을 발사한다. 회오리의 공격 횟수는 최대 9회까지 적용되며 공격 당 4%의 추가 피해를 준다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 7,
-                    "tier": 3,
-                    "name": "부메랑 우산",
-                    "description": "우산의 최대 이동거리가 길어지고, 우산이 자신에게 돌아오게 되며 우산의 회전 공격 적중 시 주는 피해가 105% 증가한다.\n회전력 강화를 적용할 경우 회오리 바람 공격 횟수가 2배 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 105,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 8,
-                    "tier": 3,
-                    "name": "우산 복제",
-                    "description": "전방으로 3개의 우산을 날리는 대신 우산의 최대 이동거리가 짧아지고 공격 횟수가 1회로 변경되며 우산의 회전 공격 적중 시 치명타 피해가 210.0% 증가한다. 회전력 강화 적용 시 우산 생성 각도가 좁아지고 회오리가 천천히 발생하지만, 공격 범위가 30% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "치명타 피해",
-                            "val": 210,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                }
-            ]
-        },
-        {
-            "id": 32240,
-            "name": "뙤약볕",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 14,
-            "baseCooldown": 30,
-            "coefficient": [
-                13.74,
-                15.08,
-                15.8,
-                16.32,
-                16.72,
-                17.04,
-                17.3,
-                17.52,
-                17.7,
-                17.86,
-                19.42,
-                20.38,
-                21.14,
-                21.82
-            ],
-            "constant": [
-                820,
-                1470,
-                1890,
-                2220,
-                2490,
-                2690,
-                2870,
-                3020,
-                3160,
-                3290,
-                3290,
-                3290,
-                3290,
-                3290
-            ],
-            "mana": [
-                114,
-                155,
-                188,
-                227,
-                290,
-                335,
-                412,
-                441,
-                529,
-                592,
-                592,
-                592,
-                592,
-                592
-            ],
-            "tags": [
-                "뙤약볕",
-                "기상",
-                "마나",
-                "타대",
-                "지점"
-            ],
-            "tripods": [
-                {
-                    "key": 1,
-                    "tier": 1,
-                    "name": "빠른 준비",
-                    "description": "재사용 대기시간이 -11.0초 감소한다.",
-                    "effects": [
-                        {
-                            "category": "고정 쿨타임 감소",
-                            "val": 11,
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 2,
-                    "tier": 1,
-                    "name": "통찰력",
-                    "description": "스킬 사용거리가 2.0m 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 3,
-                    "tier": 1,
-                    "name": "마력 조절",
-                    "description": "마나 소모량이 -67.0% 감소한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 4,
-                    "tier": 2,
-                    "name": "증기 조절",
-                    "description": "공격 적중 시 적에게 주는 피해가 60% 증가하고, 여우비 상태일 경우 적에게 주는 피해가 추가로 20.0% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 60,
-                            "unit": "%",
-                            "excludeTags": [
-                                "여우비"
-                            ]
-                        },
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 80,
-                            "unit": "%",
-                            "requireTags": [
-                                "여우비"
-                            ]
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 5,
-                    "tier": 2,
-                    "name": "뇌진탕",
-                    "description": "스킬의 무력화 단계가 [최상] 으로 증가하고, 적에게 주는 피해가 60% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 60,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 6,
-                    "tier": 2,
-                    "name": "가벼운 표적",
-                    "description": "피격이상 중인 대상을 타격했을 때 주는 피해량이 70.0% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 7,
-                    "tier": 3,
-                    "name": "빛의 부름",
-                    "description": "일반 조작으로 변경되고 태양빛이 지면을 갈라 16m 거리에 피해를 가하며 날려버린다. 적에게 주는 피해가 120% 증가한다. 통찰력 적용 시 공격거리가 4.0m 증가한다.",
-                    "effects": [
-                        {
-                            "category": "태그 제거",
-                            "val": "지점",
-                            "unit": ""
-                        },
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 120,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 8,
-                    "tier": 3,
-                    "name": "흑점 폭발",
-                    "description": "태양빛이 0.5초 뒤에 늦게 떨어지지만, 공격 범위가 30.0% 증가하고 적에게 주는 피해가 145% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 145,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                }
-            ]
-        },
-        {
-            "id": 32230,
-            "name": "마주바람",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 14,
-            "baseCooldown": 20,
-            "coefficient": [
-                44.655,
-                49.031,
-                51.353,
-                53.014,
-                54.296,
-                55.328,
-                56.181,
-                56.9,
-                57.516,
-                58.052,
-                63.152,
-                66.296,
-                68.756,
-                70.942
-            ],
-            "constant": [
-                2679,
-                4778,
-                6118,
-                7190,
-                8039,
-                8709,
-                9290,
-                9825.5,
-                10228,
-                10630,
-                10630,
-                10630,
-                10630,
-                10630
-            ],
-            "mana": [
-                91,
-                123,
-                149,
-                179,
-                230,
-                265,
-                326,
-                349,
-                419,
-                469,
-                469,
-                469,
-                469,
-                469
-            ],
-            "tags": [
-                "마주바람",
-                "마나",
-                "우산",
-                "타대"
-            ],
-            "tripods": [
-                {
-                    "key": 1,
-                    "tier": 1,
-                    "name": "마력 조절",
-                    "description": "마나 소모량이 -67.0% 감소한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 2,
-                    "tier": 1,
-                    "name": "빠른 준비",
-                    "description": "재사용 대기시간이 -6.0초 감소한다.",
-                    "effects": [
-                        {
-                            "category": "고정 쿨타임 감소",
-                            "val": 6,
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 3,
-                    "tier": 1,
-                    "name": "확고한 신념",
-                    "description": "적의 공격에 피격될 때 1회만 빗방울 게이지를 20% 획득한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 4,
-                    "tier": 2,
-                    "name": "마주바람 강화",
-                    "description": "홀딩 조작으로 변경되고 반격 가능 시간이 0.7초 증가한다. 입력 종료 시 즉시 반격을 가할 수 있으며 적에게 주는 피해가 45% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 45,
-                            "unit": "%"
-                        },
-                        {
-                            "category": "태그 추가",
-                            "val": "홀딩",
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 5,
-                    "tier": 2,
-                    "name": "우산 방패",
-                    "description": "반격 가능 시간이 0.5초 증가하고, 반격에 성공하면 즉시 넓은 범위에 바람을 방출하여 적을 더 멀리 날려버리며, 반동으로 뒤로 밀려난다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 6,
-                    "tier": 2,
-                    "name": "신성한 장막",
-                    "description": "반격이 사라지는 대신 후방에 거대한 바람을 형성한다. 바람 내에 있는 파티원의 받는 모든 피해를 -50.0% 감소시킨다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 7,
-                    "tier": 3,
-                    "name": "조화의 의지",
-                    "description": "스킬 시전 중 상태이상 면역 상태가 된다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 8,
-                    "tier": 3,
-                    "name": "불굴의 의지",
-                    "description": "스킬 시전 중 받는 피해가 -75.0% 감소한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                }
-            ]
-        },
-        {
-            "id": 32120,
-            "name": "몰아치기",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 14,
-            "baseCooldown": 18,
-            "coefficient": [
-                23.16,
-                25.43,
-                26.634,
-                27.495,
-                28.159,
-                28.693,
-                29.136,
-                29.509,
-                29.829,
-                30.107,
-                32.751,
-                34.381,
-                35.657,
-                36.791
-            ],
-            "constant": [
-                1390,
-                2479,
-                3174,
-                3730,
-                4170,
-                4517.5,
-                4819,
-                5097,
-                5304.5,
-                5512.5,
-                5512.5,
-                5512.5,
-                5512.5,
-                5512.5
-            ],
-            "mana": [
-                85,
-                116,
-                140,
-                169,
-                216,
-                249,
-                307,
-                329,
-                394,
-                441,
-                441,
-                441,
-                441,
-                441
-            ],
-            "tags": [
-                "몰아치기",
-                "마나",
-                "우산",
-                "타대"
-            ],
-            "tripods": [
-                {
-                    "key": 1,
-                    "tier": 1,
-                    "name": "역류",
-                    "description": "기류 보호막을 가지고 있을 경우 기류를 역류시켜 적에게 주는 피해를 60.0% 증가시킨다. 단, 기류 보호막은 사라진다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 60,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 2,
-                    "tier": 1,
-                    "name": "혼신",
-                    "description": "발도 준비 시간이 길어지지만, 발도의 피해량이 60% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 60,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 3,
-                    "tier": 1,
-                    "name": "재빠른 손놀림",
-                    "description": "발도 준비 시간이 짧아지고, 재사용 대기 시간이 -5.0초 감소한다.",
-                    "effects": [
-                        {
-                            "category": "고정 쿨타임 감소",
-                            "val": 5,
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 4,
-                    "tier": 2,
-                    "name": "부위파괴 강화",
-                    "description": "발도의 피해가 60% 증가하고, 부위파괴 1레벨이 적용된다. 공간 베기와 상승 기류 적용 시 발생하는 추가 공격에도 피해 증가 효과가 적용된다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 60,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 5,
-                    "tier": 2,
-                    "name": "서리검",
-                    "description": "발도 공격이 [수] 속성으로 변경되고 피해가 45% 증가한다. 3.0초간 이동속도를 -40.0% 감소시킨다. 공간 베기와 상승 기류 적용 시 발생하는 추가 공격에도 피해 증가 효과가 적용된다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 45,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 6,
-                    "tier": 2,
-                    "name": "우레",
-                    "description": "발도 공격이 [뇌] 속성으로 변경되고 치명타 피해가 180.0% 증가한다. 공간 베기와 상승 기류 적용 시 발생하는 추가 공격에도 피해 증가 효과가 적용된다.",
-                    "effects": [
-                        {
-                            "category": "치명타 피해",
-                            "val": 180,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 7,
-                    "tier": 3,
-                    "name": "공간베기",
-                    "description": "발도 이후 검풍을 발생시켜 94.8% 추가 피해를 준다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 94.8,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 8,
-                    "tier": 3,
-                    "name": "상승기류",
-                    "description": "발도 이후 우산으로 상승기류를 발생시켜 80.0% 추가 피해를 주고 적중된 대상을 높이 띄운다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 80,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                }
-            ]
-        },
-        {
-            "id": 32250,
-            "name": "바람송곳",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 14,
-            "baseCooldown": 27,
-            "coefficient": [
-                37.261,
-                40.915,
-                42.854,
-                44.24,
-                45.311,
-                46.172,
-                46.886,
-                47.488,
-                47.999,
-                48.447,
-                52.703,
-                55.328,
-                57.379,
-                59.206
-            ],
-            "constant": [
-                2233,
-                3983,
-                5103,
-                5995.5,
-                6706,
-                7266,
-                7745.5,
-                8190,
-                8526,
-                8858.5,
-                8858.5,
-                8858.5,
-                8858.5,
-                8858.5
-            ],
-            "mana": [
-                108,
-                146,
-                177,
-                213,
-                273,
-                315,
-                388,
-                415,
-                497,
-                557,
-                557,
-                557,
-                557,
-                557
-            ],
-            "tags": [
-                "바람송곳",
-                "마나",
-                "우산",
-                "타대"
-            ],
-            "tripods": [
-                {
-                    "key": 1,
-                    "tier": 1,
-                    "name": "역류",
-                    "description": "기류 보호막을 가지고 있을 경우 기류를 역류시켜 적에게 주는 피해를 60.0% 증가시킨다. 단, 기류 보호막은 사라진다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 60,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 2,
-                    "tier": 1,
-                    "name": "관통",
-                    "description": "공격 적중 시 적의 모든 방어력을 52.0% 무시하며, 보호막에는 추가로 50.0% 증가된 피해를 준다.",
-                    "effects": [
-                        {
-                            "category": "방어력 무시",
-                            "val": 52,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 3,
-                    "tier": 1,
-                    "name": "뇌진탕",
-                    "description": "스킬의 무력화 단계가 [상] 으로 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 4,
-                    "tier": 2,
-                    "name": "후벼파기",
-                    "description": "홀딩 조작으로 변경되며, 홀딩 조작 중 이동하면서 적을 공격하며 날려버리며 경직 면역 상태가 된다. 홀딩을 끝까지 완료하면 넘어지며 적을 추가로 공격하여 최대 70% 증가된 피해를 입힌다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 70,
-                            "unit": "%"
-                        },
-                        {
-                            "category": "태그 추가",
-                            "val": "홀딩",
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 5,
-                    "tier": 2,
-                    "name": "번개 바람",
-                    "description": "[뇌]속성으로 변경되고 치명타 피해가 140.0% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "치명타 피해",
-                            "val": 140,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 6,
-                    "tier": 2,
-                    "name": "큰 센바람",
-                    "description": "공격 거리가 60.0% 증가하고, 마지막에 우산에서 바람 충격파를 발사하며 적에게 60.0% 추가 피해를 입히며 날려버린다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 60,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 7,
-                    "tier": 3,
-                    "name": "연쇄 공격",
-                    "description": "공격에 적중 된 적 하나 당 재사용 대기시간이 1.8초씩 최대 18.0초 감소한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 8,
-                    "tier": 3,
-                    "name": "집중 공격",
-                    "description": "적에게 주는 피해가 95% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 95,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                }
-            ]
-        },
-        {
-            "id": 32220,
-            "name": "봄바람",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 14,
-            "baseCooldown": 24,
-            "coefficient": [
-                10.02,
-                11.002,
-                11.523,
-                11.896,
-                12.184,
-                12.415,
-                12.606,
-                12.767,
-                12.905,
-                13.025,
-                14.169,
-                14.874,
-                15.426,
-                15.917
-            ],
-            "constant": [
-                601,
-                1072,
-                1373.5,
-                1614.5,
-                1804.5,
-                1954.5,
-                2084.5,
-                2204.5,
-                2294.5,
-                2384.5,
-                2384.5,
-                2384.5,
-                2384.5,
-                2384.5
-            ],
-            "mana": [
-                101,
-                136,
-                165,
-                199,
-                255,
-                294,
-                363,
-                388,
-                465,
-                521,
-                521,
-                521,
-                521,
-                521
-            ],
-            "tags": [
-                "봄바람",
-                "기상",
-                "마나",
-                "타대"
-            ],
-            "tripods": [
-                {
-                    "key": 1,
-                    "tier": 1,
-                    "name": "마력 조절",
-                    "description": "마나 소모량이 -67.0% 감소한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 2,
-                    "tier": 1,
-                    "name": "빠른 준비",
-                    "description": "재사용 대기시간이 -8.0초 감소한다.",
-                    "effects": [
-                        {
-                            "category": "고정 쿨타임 감소",
-                            "val": 8,
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 3,
-                    "tier": 1,
-                    "name": "단단한 갑옷",
-                    "description": "스킬 시전 중 받는 피해가 -40.8% 감소한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 4,
-                    "tier": 2,
-                    "name": "약육강식",
-                    "description": "하급 및 일반 몬스터에게 주는 피해가 145.0% 증가된다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 5,
-                    "tier": 2,
-                    "name": "넓은 공격",
-                    "description": "공격 범위가 20.0% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 6,
-                    "tier": 2,
-                    "name": "강인함",
-                    "description": "스킬 시전 중 피격이상에 면역이 된다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 7,
-                    "tier": 3,
-                    "name": "마파람",
-                    "description": "차지 조작으로 변경된다. 오버차지 시 더 강력한 바람이 발생하여 적에게 주는 피해가 120% 증가하고 공격 범위가 20.0% 증가하며 적을 날려버린다.",
-                    "effects": [
-                        {
-                            "category": "태그 추가",
-                            "val": "차지",
-                            "unit": ""
-                        },
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 120,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 8,
-                    "tier": 3,
-                    "name": "높새바람",
-                    "description": "제자리에서 3초간 지속되는 바람 기류를 생성한다. 공격 적중 시 적을 경직시키며 기류 범위 안의 자신 및 파티원에게 5.0초간 자신의 최대 생명력에 25.0%에 해당하는 보호막을 부여한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                }
-            ]
-        },
-        {
-            "id": 32160,
-            "name": "센바람",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 14,
-            "baseCooldown": 24,
-            "coefficient": [
-                12.115,
-                13.3,
-                13.93,
-                14.38,
-                14.73,
-                15.01,
-                15.24,
-                15.435,
-                15.6,
-                15.745,
-                17.13,
-                17.985,
-                18.65,
-                19.245
-            ],
-            "constant": [
-                727.5,
-                1300,
-                1667.5,
-                1960,
-                2195,
-                2377.5,
-                2540,
-                2682.5,
-                2795,
-                2905,
-                2905,
-                2905,
-                2905,
-                2905
-            ],
-            "mana": [
-                101,
-                136,
-                165,
-                199,
-                255,
-                294,
-                363,
-                388,
-                465,
-                521,
-                521,
-                521,
-                521,
-                521
-            ],
-            "tags": [
-                "센바람",
-                "기상",
-                "마나",
-                "타대"
-            ],
-            "tripods": [
-                {
-                    "key": 1,
-                    "tier": 1,
-                    "name": "기분 좋은 바람",
-                    "description": "자신 및 파티원에게 바람 적중 시 6.0초간 공격 속도가 12.5% 증가하고, 이동 속도가 12.5% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 2,
-                    "tier": 1,
-                    "name": "빠른 준비",
-                    "description": "재사용 대기시간이 -8.0초 감소한다.",
-                    "effects": [
-                        {
-                            "category": "고정 쿨타임 감소",
-                            "val": 8,
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 3,
-                    "tier": 1,
-                    "name": "약육강식",
-                    "description": "시드 이하 몬스터에게 주는 피해가 80.0% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 4,
-                    "tier": 2,
-                    "name": "재빠른 손놀림",
-                    "description": "공격속도가 27.0% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 5,
-                    "tier": 2,
-                    "name": "증기 획득",
-                    "description": "공격 적중 시 빗방울 게이지 회복량이 45% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 6,
-                    "tier": 2,
-                    "name": "증기 조절",
-                    "description": "공격 적중 시 적에게 주는 피해가 60% 증가하고, 여우비 상태일 경우 적에게 주는 피해가 추가로 20.0% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 60,
-                            "unit": "%",
-                            "excludeTags": [
-                                "여우비"
-                            ]
-                        },
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 80,
-                            "unit": "%",
-                            "requireTags": [
-                                "여우비"
-                            ]
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 7,
-                    "tier": 3,
-                    "name": "향풍",
-                    "description": "콤보 조작으로 변경되고 전방으로 최대 3회까지 바람을 날릴 수 있게 된다. 바람의 속도가 20.0% 증가하며 적에게 주는 피해가 80% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "태그 추가",
-                            "val": "콤보",
-                            "unit": ""
-                        },
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 80,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 8,
-                    "tier": 3,
-                    "name": "댑바람",
-                    "description": "바람의 속도가 50% 감소하지만 최대 공격 횟수가 3회 증가하고 공격 범위가 30.0% 증가한다. 적에게 주는 피해가 95% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 95,
-                            "unit": "%",
-                            "requireTags": [
-                                "돌개바람"
-                            ]
-                        }
-                    ],
-                    "effectsVerified": true
-                }
-            ]
-        },
-        {
-            "id": 32150,
-            "name": "소나기",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 14,
-            "baseCooldown": 16,
-            "coefficient": [
-                11.49,
-                12.618,
-                13.218,
-                13.644,
-                13.974,
-                14.238,
-                14.46,
-                14.646,
-                14.802,
-                14.94,
-                16.254,
-                17.064,
-                17.7,
-                18.264
-            ],
-            "constant": [
-                687,
-                1227,
-                1572,
-                1848,
-                2067,
-                2241,
-                2388,
-                2526,
-                2634,
-                2739,
-                2739,
-                2739,
-                2739,
-                2739
-            ],
-            "mana": [
-                80,
-                108,
-                131,
-                158,
-                202,
-                233,
-                287,
-                307,
-                368,
-                412,
-                412,
-                412,
-                412,
-                412
-            ],
-            "tags": [
-                "소나기",
-                "기상",
-                "타대",
-                "마나"
-            ],
-            "tripods": [
-                {
-                    "key": 1,
-                    "tier": 1,
-                    "name": "증기 획득",
-                    "description": "공격 적중 시 빗방울 게이지 회복량이 45% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 2,
-                    "tier": 1,
-                    "name": "약육강식",
-                    "description": "하급 및 일반 몬스터에게 주는 피해가 60.0% 증가된다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 3,
-                    "tier": 1,
-                    "name": "무기 파괴",
-                    "description": "피격된 적의 공격력이 3.0초간 -25.0% 감소한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 4,
-                    "tier": 2,
-                    "name": "한파주의보",
-                    "description": "공격 적중 시 적의 이동속도를 1.0초간 -10.0% 감소시키며 이동속도 감소 효과가 5회 중첩 시 4.0초간 동결시킨다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 5,
-                    "tier": 2,
-                    "name": "낙뢰주의보",
-                    "description": "범위 내 랜덤한 위치에 낙뢰가 10회 떨어져 [뇌] 속성 피해를 입히고 적에게 주는 피해가 최대 70.8% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 70.8,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 6,
-                    "tier": 2,
-                    "name": "호우주의보",
-                    "description": "공격 횟수가 3회 증가하고, 공격 범위가 20.0% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 7,
-                    "tier": 3,
-                    "name": "국지성 소나기",
-                    "description": "소나기가 적을 추적하는 능력이 생긴다. 지속시간이 2.0초 증가하여 적에게 주는 피해가 총 145% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 145,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 8,
-                    "tier": 3,
-                    "name": "강수량 증가",
-                    "description": "지점 스킬로 변경되며 스킬 시전 속도가 빨라진다. 스택이 가능하게 변경되고 최대 2회 까지 충전된다.",
-                    "effects": [
-                        {
-                            "category": "태그 추가",
-                            "val": "지점",
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                }
-            ]
-        },
-        {
-            "id": 32190,
-            "name": "소용돌이",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 14,
-            "baseCooldown": 16,
-            "coefficient": [
-                14.67,
-                16.109,
-                16.871,
-                17.418,
-                17.839,
-                18.178,
-                18.458,
-                18.696,
-                18.897,
-                19.075,
-                20.752,
-                21.784,
-                22.593,
-                23.312
-            ],
-            "constant": [
-                880,
-                1567,
-                2008.5,
-                2361.5,
-                2640,
-                2860.5,
-                3051,
-                3228.5,
-                3359.5,
-                3492,
-                3492,
-                3492,
-                3492,
-                3492
-            ],
-            "mana": [
-                80,
-                108,
-                131,
-                158,
-                202,
-                233,
-                287,
-                307,
-                368,
-                412,
-                412,
-                412,
-                412,
-                412
-            ],
-            "tags": [
-                "소용돌이",
-                "기상",
-                "타대",
-                "마나"
-            ],
-            "tripods": [
-                {
-                    "key": 1,
-                    "tier": 1,
-                    "name": "뇌진탕",
-                    "description": "스킬의 무력화 단계가 [상]으로 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 2,
-                    "tier": 1,
-                    "name": "마력 조절",
-                    "description": "마나 소모량이 -67.0% 감소한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 3,
-                    "tier": 1,
-                    "name": "증기 획득",
-                    "description": "공격 적중 시 빗방울 게이지 회복량이 45% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 4,
-                    "tier": 2,
-                    "name": "바람 기둥",
-                    "description": "공격 횟수가 2회 증가하고 마지막에 소용돌이 중심부에서 바람 폭발이 발생하며 적을 높이 띄운다. 적에게 주는 총 피해가 58.6% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 58.6,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 5,
-                    "tier": 2,
-                    "name": "죽음의 소용돌이",
-                    "description": "마지막에 강한 피해가 제거되고, 자신을 중심으로 거대한 소용돌이를 발생시킨다. 공격 범위가 50.0% 증가하고 적에게 주는 총 피해가 70% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 70,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 6,
-                    "tier": 2,
-                    "name": "지속력 강화",
-                    "description": "지점 조작으로 변경되고 스킬 사용 거리가 증가한다. 소용돌이의 지속시간이 2.0초 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 7,
-                    "tier": 3,
-                    "name": "신속한 준비",
-                    "description": "끌어모으는 공격으로 적을 타격할 때마다 재사용 대기시간이 0.2초씩 감소하여 최대 10.0초까지 감소된다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 8,
-                    "tier": 3,
-                    "name": "증기 조절",
-                    "description": "공격 적중 시 적에게 주는 피해가 80% 증가하고, 여우비 상태일 경우 적에게 주는 피해가 추가로 20.0% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 80,
-                            "unit": "%",
-                            "excludeTags": [
-                                "여우비"
-                            ]
-                        },
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 100,
-                            "unit": "%",
-                            "requireTags": [
-                                "여우비"
-                            ]
-                        }
-                    ],
-                    "effectsVerified": true
-                }
-            ]
-        },
-        {
-            "id": 32210,
-            "name": "싹쓸바람",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 14,
-            "baseCooldown": 30,
-            "coefficient": [
-                16.038,
-                17.609,
-                18.441,
-                19.039,
-                19.499,
-                19.869,
-                20.177,
-                20.436,
-                20.657,
-                20.848,
-                22.679,
-                23.808,
-                24.69,
-                25.478
-            ],
-            "constant": [
-                963.5,
-                1718,
-                2198,
-                2585,
-                2887,
-                3129.5,
-                3339,
-                3531,
-                3675.5,
-                3818,
-                3818,
-                3818,
-                3818,
-                3818
-            ],
-            "mana": [
-                114,
-                155,
-                188,
-                227,
-                290,
-                335,
-                412,
-                441,
-                529,
-                592,
-                592,
-                592,
-                592,
-                592
-            ],
-            "tags": [
-                "싹쓸바람",
-                "마나",
-                "기상",
-                "타대",
-                "지점"
-            ],
-            "tripods": [
-                {
-                    "key": 1,
-                    "tier": 1,
-                    "name": "재빠른 손놀림",
-                    "description": "공격속도가 18.0% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 2,
-                    "tier": 1,
-                    "name": "빠른 준비",
-                    "description": "재사용 대기시간이 -11.0초 감소한다.",
-                    "effects": [
-                        {
-                            "category": "고정 쿨타임 감소",
-                            "val": 11,
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 3,
-                    "tier": 1,
-                    "name": "넓은 공격",
-                    "description": "공격 범위가 20.0% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 4,
-                    "tier": 2,
-                    "name": "소멸",
-                    "description": "마우스 위치에 즉시 풍압이 강해진 회오리가 발생하며 공격 횟수가 4회 증가하고 마지막에 충격파를 발생시켜 적을 날려버리며 적에게 주는 피해가 70.8% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 70.8,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 5,
-                    "tier": 2,
-                    "name": "꿰뚫는 회오리",
-                    "description": "홀딩 조작으로 변경되며, 전방에 회오리 바람을 발사하며 적에게 주는 피해가 90% 증가하고 방향 전환이 가능해진다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 90,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 6,
-                    "tier": 2,
-                    "name": "폭풍의 눈",
-                    "description": "3초간 전방으로 추적하는 회오리를 날린다. 공격 적중 시 표식을 남기고 4회 중첩 시 적을 4.0초간 기절 시킨다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 7,
-                    "tier": 3,
-                    "name": "증기 조절",
-                    "description": "공격 적중 시 적에게 주는 피해가 80% 증가하고, 여우비 상태일 경우 적에게 주는 피해가 추가로 20.0% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 80,
-                            "unit": "%",
-                            "excludeTags": [
-                                "여우비"
-                            ]
-                        },
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 100,
-                            "unit": "%",
-                            "requireTags": [
-                                "여우비"
-                            ]
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 8,
-                    "tier": 3,
-                    "name": "강인함",
-                    "description": "스킬 시전 중 피격이상에 면역이 된다.",
-                    "effects": [],
-                    "effectsVerified": true
-                }
-            ]
-        },
-        {
-            "id": 32290,
-            "name": "아카샤의 너울",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 1,
-            "baseCooldown": 300,
-            "coefficient": [
-                0
-            ],
-            "constant": [
-                0
-            ],
-            "mana": [],
-            "tags": [],
-            "tripods": []
-        },
-        {
-            "id": 32320,
-            "name": "여름 햇살",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 1,
-            "baseCooldown": 70,
-            "coefficient": [
-                276.21
-            ],
-            "constant": [
-                16572.5
-            ],
-            "mana": [
-                901
-            ],
-            "tags": [],
-            "tripods": []
-        },
-        {
-            "id": 32310,
-            "name": "우레바람",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 1,
-            "baseCooldown": 50,
-            "coefficient": [
-                357.673
-            ],
-            "constant": [
-                21460
-            ],
-            "mana": [
-                794
-            ],
-            "tags": [
-                "우레바람",
-                "마나",
-                "우산",
-                "타대",
-                "홀딩"
-            ],
-            "tripods": []
-        },
-        {
-            "id": 32140,
-            "name": "짙은 안개",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 14,
-            "baseCooldown": 14,
-            "coefficient": [
-                8.775,
-                9.637,
-                10.098,
-                10.423,
-                10.673,
-                10.874,
-                11.038,
-                11.176,
-                11.3,
-                11.401,
-                12.401,
-                13.015,
-                13.502,
-                13.928
-            ],
-            "constant": [
-                525.5,
-                943,
-                1205,
-                1417,
-                1580.5,
-                1722,
-                1830.5,
-                1941.5,
-                2022,
-                2108,
-                2108,
-                2108,
-                2108,
-                2108
-            ],
-            "mana": [
-                74,
-                100,
-                121,
-                146,
-                187,
-                216,
-                266,
-                284,
-                341,
-                382,
-                382,
-                382,
-                382,
-                382
-            ],
-            "tags": [
-                "짙은 안개",
-                "마나",
-                "타대",
-                "기상"
-            ],
-            "tripods": [
-                {
-                    "key": 1,
-                    "tier": 1,
-                    "name": "날렵한 움직임",
-                    "description": "스킬 시전 시 6.0초간 자신의 이동속도가 30.0% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 2,
-                    "tier": 1,
-                    "name": "급소 노출",
-                    "description": "공격 적중 시 대상이 자신 및 파티원에게 받는 치명타 저항률이 12.0초간 10.0% 감소한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 3,
-                    "tier": 1,
-                    "name": "마력 조절",
-                    "description": "마나 소모량이 -67.0% 감소한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 4,
-                    "tier": 2,
-                    "name": "탁월한 기동성",
-                    "description": "뒤로 이동하는 거리가 2.0m 증가하며, 안개의 지속 시간이 2.0초 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 5,
-                    "tier": 2,
-                    "name": "전투의 달인",
-                    "description": "충격파 공격에 적중 된 적 하나 당 재사용 대기시간이 1.2초씩 최대 8.0초 감소한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 6,
-                    "tier": 2,
-                    "name": "습도 강화",
-                    "description": "안개의 공격 범위가 20.0% 증가하고 안개 속에서 1초마다 경직 피해가 추가로 발생한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 7,
-                    "tier": 3,
-                    "name": "질식",
-                    "description": "공격 적중 시 이동속도 감소 효과가 최대 5회까지 중첩되고 최대 중첩 시 적을 4.0초간 기절 시킨다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 8,
-                    "tier": 3,
-                    "name": "증기 조절",
-                    "description": "공격 적중 시 적에게 주는 피해가 80% 증가하고, 여우비 상태일 경우 적에게 주는 피해가 추가로 20.0% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 80,
-                            "unit": "%",
-                            "excludeTags": [
-                                "여우비"
-                            ]
-                        },
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 100,
-                            "unit": "%",
-                            "requireTags": [
-                                "여우비"
-                            ]
-                        }
-                    ],
-                    "effectsVerified": true
-                }
-            ]
-        },
-        {
-            "id": 32300,
-            "name": "칸의 영역",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 1,
-            "baseCooldown": 300,
-            "coefficient": [
-                0
-            ],
-            "constant": [
-                0
-            ],
-            "mana": [],
-            "tags": [],
-            "tripods": []
-        },
-        {
-            "id": 32260,
-            "name": "칼바람",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 14,
-            "baseCooldown": 27,
-            "coefficient": [
-                35.04,
-                38.474,
-                40.296,
-                41.599,
-                42.605,
-                43.414,
-                44.083,
-                44.647,
-                45.131,
-                45.551,
-                49.552,
-                52.019,
-                53.949,
-                55.665
-            ],
-            "constant": [
-                2102,
-                3749,
-                4800,
-                5641,
-                6306.5,
-                6832,
-                7288,
-                7708,
-                8023.5,
-                8339,
-                8339,
-                8339,
-                8339,
-                8339
-            ],
-            "mana": [
-                108,
-                146,
-                177,
-                213,
-                273,
-                315,
-                388,
-                415,
-                497,
-                557,
-                557,
-                557,
-                557,
-                557
-            ],
-            "tags": [
-                "칼바람",
-                "마나",
-                "우산",
-                "타대"
-            ],
-            "tripods": [
-                {
-                    "key": 1,
-                    "tier": 1,
-                    "name": "질풍검",
-                    "description": "발도 준비 시간이 단축되고, 전방으로 11.0m 신속하게 이동하며 가디언 몬스터를 통과할 수 있게 된다. 적을 베고 지나가며 적에게 주는 피해가 45% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 45,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 2,
-                    "tier": 1,
-                    "name": "거대 돌풍",
-                    "description": "발도 준비 시간이 증가하고, 기를 모은 후 전방에 거대한 검기를 발사하여 적에게 주는 피해가 45% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 45,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 3,
-                    "tier": 1,
-                    "name": "화려한 움직임",
-                    "description": "자신을 중심으로 360도 범위 내에 발도 기술을 펼쳐 적에게 주는 피해가 45% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 45,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 4,
-                    "tier": 2,
-                    "name": "약육강식",
-                    "description": "시드 이하 몬스터에게 주는 피해가 120.0% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 5,
-                    "tier": 2,
-                    "name": "절단",
-                    "description": "적에게 주는 피해가 60% 증가하고, 보호막에는 추가로 50.0% 증가된 피해를 준다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 60,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 6,
-                    "tier": 2,
-                    "name": "역류",
-                    "description": "기류 보호막을 가지고 있을 경우 기류를 역류시켜 적에게 주는 피해를 95.0% 증가시킨다. 단, 기류 보호막은 사라진다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 95,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 7,
-                    "tier": 3,
-                    "name": "벼락",
-                    "description": "[뇌] 속성으로 변경되고, 번개의 힘을 담아 발도 기술을 펼치며 적에게 주는 치명타 피해량이 210.0% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "치명타 피해",
-                            "val": 210,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 8,
-                    "tier": 3,
-                    "name": "결빙",
-                    "description": "[수] 속성으로 변경되며 냉기가 서린 발도 기술을 펼치고 적중된 대상을 4.0초간 동결시킨다.",
-                    "effects": [],
-                    "effectsVerified": true
-                }
-            ]
-        },
-        {
-            "id": 32110,
-            "name": "펼치기",
-            "class": "기상술사",
-            "attackType": "백어택",
-            "maxLevel": 14,
-            "baseCooldown": 7,
-            "coefficient": [
-                6.21,
-                6.819,
-                7.142,
-                7.373,
-                7.551,
-                7.694,
-                7.813,
-                7.913,
-                7.999,
-                8.073,
-                8.782,
-                9.219,
-                9.561,
-                9.865
-            ],
-            "constant": [
-                373,
-                665.5,
-                851,
-                1000,
-                1117.5,
-                1211.5,
-                1292.5,
-                1366.5,
-                1422,
-                1478,
-                1478,
-                1478,
-                1478,
-                1478
-            ],
-            "mana": [
-                49,
-                67,
-                81,
-                98,
-                125,
-                145,
-                179,
-                191,
-                229,
-                256,
-                256,
-                256,
-                256,
-                256
-            ],
-            "tags": [
-                "펼치기",
-                "백어택",
-                "마나",
-                "우산"
-            ],
-            "tripods": [
-                {
-                    "key": 1,
-                    "tier": 1,
-                    "name": "기류 발생",
-                    "description": "공격 적중 시 빗방울 게이지 획득량이 -30% 줄어들지만 4.0초간 자신의 최대 생명력에 15.0%에 해당하는 기류 보호막이 생성된다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 2,
-                    "tier": 1,
-                    "name": "급소 노출",
-                    "description": "공격 적중 시 대상이 자신 및 파티원에게 받는 치명타 저항률이 8.0초간 10.0% 감소한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 3,
-                    "tier": 1,
-                    "name": "증기 획득",
-                    "description": "공격 적중 시 빗방울 게이지 회복량이 75% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 4,
-                    "tier": 2,
-                    "name": "외부 충격",
-                    "description": "마지막 공격 적중 시 3.0초간 기절 상태로 만든다. 재사용 대기시간이 7.0초 증가한다.",
-                    "effects": [
-                        {
-                            "category": "고정 쿨타임 증가",
-                            "val": 7,
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 5,
-                    "tier": 2,
-                    "name": "가벼운 발걸음",
-                    "description": "스킬 시전 시 4.0초간 자신의 이동속도가 30.0% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 6,
-                    "tier": 2,
-                    "name": "마나 순환",
-                    "description": "마지막 공격 적중 시 206의 마나를 돌려받는다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 7,
-                    "tier": 3,
-                    "name": "날카로운 장막",
-                    "description": "스킬 사용 시 우산을 펼친 채 돌진하는 추가 공격이 발생하고, 적중 시 우산을 접으며 전방의 적을 자신의 앞으로 당겨오며 적에게 주는 피해가 105% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 105,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 8,
-                    "tier": 3,
-                    "name": "거대 장막",
-                    "description": "스킬 사용 즉시 거대한 파라솔을 펼쳐 공격하는 형태로 변경되며 공격 범위가 100.0% 증가하고 적에게 주는 피해가 95% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 95,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                }
-            ]
-        },
-        {
-            "id": 32270,
-            "name": "풍랑주의보",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 1,
-            "baseCooldown": 300,
-            "coefficient": [
-                210.889
-            ],
-            "constant": [
-                12654
-            ],
-            "mana": [],
-            "tags": [],
-            "tripods": []
-        },
-        {
-            "id": 32180,
-            "name": "회오리 걸음",
-            "class": "기상술사",
-            "attackType": "",
-            "maxLevel": 14,
-            "baseCooldown": 20,
-            "coefficient": [
-                23.234,
-                25.51,
-                26.718,
-                27.58,
-                28.248,
-                28.787,
-                29.235,
-                29.608,
-                29.929,
-                30.211,
-                32.861,
-                34.495,
-                35.779,
-                36.912
-            ],
-            "constant": [
-                1399,
-                2496,
-                3195.5,
-                3749,
-                4192,
-                4548.5,
-                4850,
-                5131,
-                5342,
-                5557,
-                5557,
-                5557,
-                5557,
-                5557
-            ],
-            "mana": [
-                91,
-                123,
-                149,
-                179,
-                230,
-                265,
-                326,
-                349,
-                419,
-                469,
-                469,
-                469,
-                469,
-                469
-            ],
-            "tags": [
-                "회오리 걸음",
-                "마나",
-                "우산",
-                "타대"
-            ],
-            "tripods": [
-                {
-                    "key": 1,
-                    "tier": 1,
-                    "name": "재빠른 손놀림",
-                    "description": "공격속도가 18.0% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 2,
-                    "tier": 1,
-                    "name": "회전 유지",
-                    "description": "회전 시간이 0.4초 증가하고, 초고속 회전일 경우 회전 시간이 증가하지 않지만 이동거리가 2.0m 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 3,
-                    "tier": 1,
-                    "name": "넓은 타격",
-                    "description": "공격 범위가 20.0% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 4,
-                    "tier": 2,
-                    "name": "예리한 일격",
-                    "description": "치명타 피해가 160.0% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "치명타 피해",
-                            "val": 160,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 5,
-                    "tier": 2,
-                    "name": "약육강식",
-                    "description": "시드 이하 몬스터에게 주는 피해가 94.8% 증가한다.",
-                    "effects": [],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 6,
-                    "tier": 2,
-                    "name": "역류",
-                    "description": "기류 보호막을 가지고 있을 경우 기류를 역류시켜 적에게 주는 피해를 95.0% 증가시킨다. 단, 기류 보호막은 사라진다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 95,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 7,
-                    "tier": 3,
-                    "name": "마지막 결정타",
-                    "description": "홀딩 조작으로 변경되며 홀딩 조작 중 자유롭게 이동이 가능하다. 마지막 공격이 우산을 펼쳐 적을 높이 띄우는 공격으로 변경되며 총 피해가 94.8% 증가한다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 94.8,
-                            "unit": "%"
-                        },
-                        {
-                            "category": "태그 추가",
-                            "val": "홀딩",
-                            "unit": ""
-                        }
-                    ],
-                    "effectsVerified": true
-                },
-                {
-                    "key": 8,
-                    "tier": 3,
-                    "name": "초고속 회전",
-                    "description": "지점 조작으로 변경되며 모험가 및 일반 몬스터와 충돌이 무시된다. 우산을 세로로 세워 회전하며 적을 공격하고, 마지막에 내려찍으며 총 105%의 증가된 피해를 준다. 적이 공중에 뜬 상태일 때 공격 적중 시 다시 공중에 띄운다.",
-                    "effects": [
-                        {
-                            "category": "적에게 주는 피해",
-                            "val": 105,
-                            "unit": "%"
-                        }
-                    ],
-                    "effectsVerified": true
-                }
-            ]
+          "name": "모션2",
+          "coefficient": [
+            91.357
+          ],
+          "constant": [
+            5459.0
+          ]
         }
-    ]
+      ]
+    },
+    {
+      "id": 32280,
+      "name": "나르가의 칼날",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 1,
+      "baseCooldown": 300.0,
+      "coefficient": [
+        254.713
+      ],
+      "constant": [
+        15280.0
+      ],
+      "mana": [],
+      "tags": [],
+      "tripods": [],
+      "motions": [
+        {
+          "name": "모션1",
+          "coefficient": [
+            25.472
+          ],
+          "constant": [
+            1528.0
+          ]
+        },
+        {
+          "name": "모션2",
+          "coefficient": [
+            50.94
+          ],
+          "constant": [
+            3054.0
+          ]
+        },
+        {
+          "name": "모션3",
+          "coefficient": [
+            25.472
+          ],
+          "constant": [
+            1528.0
+          ]
+        },
+        {
+          "name": "모션4",
+          "coefficient": [
+            152.829
+          ],
+          "constant": [
+            9170.0
+          ]
+        }
+      ]
+    },
+    {
+      "id": 32200,
+      "name": "날아가기",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 14,
+      "baseCooldown": 18.0,
+      "coefficient": [
+        2.61,
+        2.866,
+        3.002,
+        3.099,
+        3.174,
+        3.234,
+        3.284,
+        3.326,
+        3.362,
+        3.393,
+        3.691,
+        3.875,
+        4.019,
+        4.147
+      ],
+      "constant": [
+        156.5,
+        279.0,
+        356.5,
+        419.0,
+        468.0,
+        506.5,
+        540.0,
+        571.0,
+        594.5,
+        618.0,
+        618.0,
+        618.0,
+        618.0,
+        618.0
+      ],
+      "mana": [
+        85,
+        116,
+        140,
+        169,
+        216,
+        249,
+        307,
+        329,
+        394,
+        441,
+        441,
+        441,
+        441,
+        441
+      ],
+      "tags": [
+        "날아가기",
+        "마나",
+        "타대",
+        "기상"
+      ],
+      "tripods": [
+        {
+          "key": 1,
+          "tier": 1,
+          "name": "탁월한 기동성",
+          "description": "이동하는 거리가 3m 증가되며, 자유 이동 시 홀딩 시간이 0.5초 증가된다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 2,
+          "tier": 1,
+          "name": "빠른 준비",
+          "description": "재사용 대기시간이 -6.0초 감소한다.",
+          "effects": [
+            {
+              "category": "고정 쿨타임 감소",
+              "val": 6,
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 3,
+          "tier": 1,
+          "name": "증기 획득",
+          "description": "공격 적중 시 빗방울 게이지 회복량이 45% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 4,
+          "tier": 2,
+          "name": "성장 공격",
+          "description": "기류에 피해를 입을 수록 피해가 점점 커져 최대 108.0% 증가된 피해를 준다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 108,
+              "unit": "%"
+            },
+            {
+              "category": "태그 추가",
+              "val": "성장공격",
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 5,
+          "tier": 2,
+          "name": "한기",
+          "description": "기류의 피해가 [수] 속성으로 변경되며, 40% 증가된 피해를 주고, 2.0초간 이동속도를 -30.0% 감소시킨다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 40,
+              "unit": "%"
+            },
+            {
+              "category": "태그 추가",
+              "val": "한기",
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 6,
+          "tier": 2,
+          "name": "낙뢰",
+          "description": "기류 발생 대신 낙뢰가 떨어지며 [뇌] 속성으로 변경된다. 적에게 주는 피해가 60% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 60,
+              "unit": "%"
+            },
+            {
+              "category": "태그 추가",
+              "val": "낙뢰",
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 7,
+          "tier": 3,
+          "name": "자유 이동",
+          "description": "홀딩 스킬로 변경된다. 자유롭게 날아다닐 수 있게 변경되어 모험가 및 가디언 몬스터까지 충돌이 무시되고, 적에게 주는 피해가 70% 증가한다.\n\n낙뢰 적용 시 주변 14.0m 이내 높은 등급의 적에게 우선적으로 낙뢰가 떨어진다.",
+          "effects": [
+            {
+              "category": "태그 추가",
+              "val": "홀딩",
+              "unit": ""
+            },
+            {
+              "category": "적에게 주는 피해",
+              "val": 70,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 8,
+          "tier": 3,
+          "name": "기류 강화",
+          "description": "성장 공격 : 적에게 주는 피해가 추가로 80% 증가한다.\n한기 : 적에게 주는 피해가 추가로 60% 증가하고, 2.0초간 이동속도를 -60.0% 감소시킨다.\n낙뢰 : 낙뢰로 주는 피해가 70% 증가하고, 스킬의 무력화 단계가 [중] 으로 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 80,
+              "unit": "%",
+              "requireTags": [
+                "성장공격"
+              ]
+            },
+            {
+              "category": "적에게 주는 피해",
+              "val": 60,
+              "unit": "%",
+              "requireTags": [
+                "한기"
+              ]
+            },
+            {
+              "category": "적에게 주는 피해",
+              "val": 70,
+              "unit": "%",
+              "requireTags": [
+                "낙뢰"
+              ]
+            }
+          ],
+          "effectsVerified": true
+        }
+      ]
+    },
+    {
+      "id": 32130,
+      "name": "내려찍기",
+      "class": "기상술사",
+      "attackType": "백어택",
+      "maxLevel": 14,
+      "baseCooldown": 7.0,
+      "coefficient": [
+        7.756,
+        8.516,
+        8.92,
+        9.208,
+        9.43,
+        9.61,
+        9.758,
+        9.882,
+        9.99,
+        10.084,
+        10.97,
+        11.516,
+        11.944,
+        12.324
+      ],
+      "constant": [
+        464.0,
+        829.0,
+        1062.0,
+        1249.0,
+        1396.0,
+        1511.0,
+        1611.0,
+        1704.0,
+        1773.0,
+        1842.0,
+        1842.0,
+        1842.0,
+        1842.0,
+        1842.0
+      ],
+      "mana": [
+        49,
+        67,
+        81,
+        98,
+        125,
+        145,
+        179,
+        191,
+        229,
+        256,
+        256,
+        256,
+        256,
+        256
+      ],
+      "tags": [
+        "내려찍기",
+        "백어택",
+        "마나",
+        "우산"
+      ],
+      "tripods": [
+        {
+          "key": 1,
+          "tier": 1,
+          "name": "기류 발생",
+          "description": "공격 적중 시 빗방울 게이지 획득량이 -30% 줄어들지만 4.0초간 자신의 최대 생명력에 15.0%에 해당하는 기류 보호막이 생성된다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 2,
+          "tier": 1,
+          "name": "마력 조절",
+          "description": "마나 소모량이 -67.0% 감소한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 3,
+          "tier": 1,
+          "name": "증기 획득",
+          "description": "공격 적중 시 빗방울 게이지 회복량이 75% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 4,
+          "tier": 2,
+          "name": "튼튼한 우산",
+          "description": "콤보 조작으로 변경된다. 강하게 한번 내려찍은 후 우산을 펼쳐 적을 공격하며, 우산을 펼칠 때 방향 전환이 가능하다. 적에게 주는 피해가 60% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 60,
+              "unit": "%"
+            },
+            {
+              "category": "태그 추가",
+              "val": "콤보",
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 5,
+          "tier": 2,
+          "name": "낙뢰",
+          "description": "[뇌] 속성으로 변경되며, 지점 조작으로 변경된다. 힘차게 도약하여 6.0m 내의 지정된 위치에 번개를 머금은 우산으로 내려쳐 45% 증가된 피해를 준다.",
+          "effects": [
+            {
+              "category": "태그 추가",
+              "val": "지점",
+              "unit": ""
+            },
+            {
+              "category": "적에게 주는 피해",
+              "val": 45,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 6,
+          "tier": 2,
+          "name": "햇살 방출",
+          "description": "우산으로 바닥을 내려찍으면 하늘에서 태양빛이 내려와 적에게 70.0% 해당하는 추가 피해를 준다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 70,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 7,
+          "tier": 3,
+          "name": "꿰뚫는 일격",
+          "description": "공격 적중 시 적의 모든 방어력을 80.0% 무시한다.",
+          "effects": [
+            {
+              "category": "방어력 무시",
+              "val": 80,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 8,
+          "tier": 3,
+          "name": "강인함",
+          "description": "스킬 시전 중 피격이상에 면역이 되고, 재사용 대기 시간이 9.0초 증가한다.",
+          "effects": [
+            {
+              "category": "고정 쿨타임 증가",
+              "val": 9,
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        }
+      ],
+      "motions": [
+        {
+          "name": "모션1",
+          "coefficient": [
+            3.878,
+            4.258,
+            4.46,
+            4.604,
+            4.715,
+            4.805,
+            4.879,
+            4.941,
+            4.995,
+            5.042,
+            5.485,
+            5.758,
+            5.972,
+            6.162
+          ],
+          "constant": [
+            232.0,
+            414.5,
+            531.0,
+            624.5,
+            698.0,
+            755.5,
+            805.5,
+            852.0,
+            886.5,
+            921.0,
+            921.0,
+            921.0,
+            921.0,
+            921.0
+          ]
+        },
+        {
+          "name": "모션2",
+          "coefficient": [
+            3.878,
+            4.258,
+            4.46,
+            4.604,
+            4.715,
+            4.805,
+            4.879,
+            4.941,
+            4.995,
+            5.042,
+            5.485,
+            5.758,
+            5.972,
+            6.162
+          ],
+          "constant": [
+            232.0,
+            414.5,
+            531.0,
+            624.5,
+            698.0,
+            755.5,
+            805.5,
+            852.0,
+            886.5,
+            921.0,
+            921.0,
+            921.0,
+            921.0,
+            921.0
+          ]
+        }
+      ]
+    },
+    {
+      "id": 32340,
+      "name": "눈부신 나날들",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 1,
+      "baseCooldown": 30.0,
+      "coefficient": [
+        65.4
+      ],
+      "constant": [
+        3924.5
+      ],
+      "mana": [],
+      "tags": [],
+      "tripods": []
+    },
+    {
+      "id": 32170,
+      "name": "돌개바람",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 14,
+      "baseCooldown": 14.0,
+      "coefficient": [
+        12.928,
+        14.192,
+        14.864,
+        15.344,
+        15.712,
+        16.008,
+        16.256,
+        16.464,
+        16.64,
+        16.792,
+        18.264,
+        19.176,
+        19.888,
+        20.52
+      ],
+      "constant": [
+        772.0,
+        1376.0,
+        1760.0,
+        2072.0,
+        2312.0,
+        2508.0,
+        2676.0,
+        2828.0,
+        2944.0,
+        3056.0,
+        3056.0,
+        3056.0,
+        3056.0,
+        3056.0
+      ],
+      "mana": [
+        74,
+        100,
+        121,
+        146,
+        187,
+        216,
+        266,
+        284,
+        341,
+        382,
+        382,
+        382,
+        382,
+        382
+      ],
+      "tags": [
+        "돌개바람",
+        "우산",
+        "타대",
+        "마나"
+      ],
+      "tripods": [
+        {
+          "key": 1,
+          "tier": 1,
+          "name": "추가 공격",
+          "description": "스택이 가능하게 변경되며, 최대 2회 스택이 가능하다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 2,
+          "tier": 1,
+          "name": "마력 조절",
+          "description": "마나 소모량이 -67.0% 감소한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 3,
+          "tier": 1,
+          "name": "급소 노출",
+          "description": "공격 적중 시 대상이 자신 및 파티원에게 받는 치명타 저항률이 12.0초간 10.0% 감소한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 4,
+          "tier": 2,
+          "name": "약육강식",
+          "description": "하급 및 일반 몬스터에게 주는 피해가 145.0% 증가된다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 5,
+          "tier": 2,
+          "name": "약점 포착",
+          "description": "피격이상 면역인 적에게 공격 적중 시 주는 피해가 60.0% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 60,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 6,
+          "tier": 2,
+          "name": "회전력 강화",
+          "description": "우산의 이동속도가 감소하지만 지속시간이 2.0초 증가하고 주변으로 회오리 바람을 발사하는 우산을 발사한다. 회오리의 공격 횟수는 최대 9회까지 적용되며 공격 당 4%의 추가 피해를 준다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 7,
+          "tier": 3,
+          "name": "부메랑 우산",
+          "description": "우산의 최대 이동거리가 길어지고, 우산이 자신에게 돌아오게 되며 우산의 회전 공격 적중 시 주는 피해가 105% 증가한다.\n회전력 강화를 적용할 경우 회오리 바람 공격 횟수가 2배 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 105,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 8,
+          "tier": 3,
+          "name": "우산 복제",
+          "description": "전방으로 3개의 우산을 날리는 대신 우산의 최대 이동거리가 짧아지고 공격 횟수가 1회로 변경되며 우산의 회전 공격 적중 시 치명타 피해가 210.0% 증가한다. 회전력 강화 적용 시 우산 생성 각도가 좁아지고 회오리가 천천히 발생하지만, 공격 범위가 30% 증가한다.",
+          "effects": [
+            {
+              "category": "치명타 피해",
+              "val": 210,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        }
+      ]
+    },
+    {
+      "id": 32240,
+      "name": "뙤약볕",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 14,
+      "baseCooldown": 30.0,
+      "coefficient": [
+        13.74,
+        15.08,
+        15.8,
+        16.32,
+        16.72,
+        17.04,
+        17.3,
+        17.52,
+        17.7,
+        17.86,
+        19.42,
+        20.38,
+        21.14,
+        21.82
+      ],
+      "constant": [
+        820.0,
+        1470.0,
+        1890.0,
+        2220.0,
+        2490.0,
+        2690.0,
+        2870.0,
+        3020.0,
+        3160.0,
+        3290.0,
+        3290.0,
+        3290.0,
+        3290.0,
+        3290.0
+      ],
+      "mana": [
+        114,
+        155,
+        188,
+        227,
+        290,
+        335,
+        412,
+        441,
+        529,
+        592,
+        592,
+        592,
+        592,
+        592
+      ],
+      "tags": [
+        "뙤약볕",
+        "기상",
+        "마나",
+        "타대",
+        "지점"
+      ],
+      "tripods": [
+        {
+          "key": 1,
+          "tier": 1,
+          "name": "빠른 준비",
+          "description": "재사용 대기시간이 -11.0초 감소한다.",
+          "effects": [
+            {
+              "category": "고정 쿨타임 감소",
+              "val": 11,
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 2,
+          "tier": 1,
+          "name": "통찰력",
+          "description": "스킬 사용거리가 2.0m 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 3,
+          "tier": 1,
+          "name": "마력 조절",
+          "description": "마나 소모량이 -67.0% 감소한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 4,
+          "tier": 2,
+          "name": "증기 조절",
+          "description": "공격 적중 시 적에게 주는 피해가 60% 증가하고, 여우비 상태일 경우 적에게 주는 피해가 추가로 20.0% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 60,
+              "unit": "%",
+              "excludeTags": [
+                "여우비"
+              ]
+            },
+            {
+              "category": "적에게 주는 피해",
+              "val": 80,
+              "unit": "%",
+              "requireTags": [
+                "여우비"
+              ]
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 5,
+          "tier": 2,
+          "name": "뇌진탕",
+          "description": "스킬의 무력화 단계가 [최상] 으로 증가하고, 적에게 주는 피해가 60% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 60,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 6,
+          "tier": 2,
+          "name": "가벼운 표적",
+          "description": "피격이상 중인 대상을 타격했을 때 주는 피해량이 70.0% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 7,
+          "tier": 3,
+          "name": "빛의 부름",
+          "description": "일반 조작으로 변경되고 태양빛이 지면을 갈라 16m 거리에 피해를 가하며 날려버린다. 적에게 주는 피해가 120% 증가한다. 통찰력 적용 시 공격거리가 4.0m 증가한다.",
+          "effects": [
+            {
+              "category": "태그 제거",
+              "val": "지점",
+              "unit": ""
+            },
+            {
+              "category": "적에게 주는 피해",
+              "val": 120,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 8,
+          "tier": 3,
+          "name": "흑점 폭발",
+          "description": "태양빛이 0.5초 뒤에 늦게 떨어지지만, 공격 범위가 30.0% 증가하고 적에게 주는 피해가 145% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 145,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        }
+      ]
+    },
+    {
+      "id": 32230,
+      "name": "마주바람",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 14,
+      "baseCooldown": 20.0,
+      "coefficient": [
+        44.655,
+        49.031,
+        51.353,
+        53.014,
+        54.296,
+        55.328,
+        56.181,
+        56.9,
+        57.516,
+        58.052,
+        63.152,
+        66.296,
+        68.756,
+        70.942
+      ],
+      "constant": [
+        2679.0,
+        4778.0,
+        6118.0,
+        7190.0,
+        8039.0,
+        8709.0,
+        9290.0,
+        9825.5,
+        10228.0,
+        10630.0,
+        10630.0,
+        10630.0,
+        10630.0,
+        10630.0
+      ],
+      "mana": [
+        91,
+        123,
+        149,
+        179,
+        230,
+        265,
+        326,
+        349,
+        419,
+        469,
+        469,
+        469,
+        469,
+        469
+      ],
+      "tags": [
+        "마주바람",
+        "마나",
+        "우산",
+        "타대"
+      ],
+      "tripods": [
+        {
+          "key": 1,
+          "tier": 1,
+          "name": "마력 조절",
+          "description": "마나 소모량이 -67.0% 감소한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 2,
+          "tier": 1,
+          "name": "빠른 준비",
+          "description": "재사용 대기시간이 -6.0초 감소한다.",
+          "effects": [
+            {
+              "category": "고정 쿨타임 감소",
+              "val": 6,
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 3,
+          "tier": 1,
+          "name": "확고한 신념",
+          "description": "적의 공격에 피격될 때 1회만 빗방울 게이지를 20% 획득한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 4,
+          "tier": 2,
+          "name": "마주바람 강화",
+          "description": "홀딩 조작으로 변경되고 반격 가능 시간이 0.7초 증가한다. 입력 종료 시 즉시 반격을 가할 수 있으며 적에게 주는 피해가 45% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 45,
+              "unit": "%"
+            },
+            {
+              "category": "태그 추가",
+              "val": "홀딩",
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 5,
+          "tier": 2,
+          "name": "우산 방패",
+          "description": "반격 가능 시간이 0.5초 증가하고, 반격에 성공하면 즉시 넓은 범위에 바람을 방출하여 적을 더 멀리 날려버리며, 반동으로 뒤로 밀려난다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 6,
+          "tier": 2,
+          "name": "신성한 장막",
+          "description": "반격이 사라지는 대신 후방에 거대한 바람을 형성한다. 바람 내에 있는 파티원의 받는 모든 피해를 -50.0% 감소시킨다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 7,
+          "tier": 3,
+          "name": "조화의 의지",
+          "description": "스킬 시전 중 상태이상 면역 상태가 된다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 8,
+          "tier": 3,
+          "name": "불굴의 의지",
+          "description": "스킬 시전 중 받는 피해가 -75.0% 감소한다.",
+          "effects": [],
+          "effectsVerified": true
+        }
+      ]
+    },
+    {
+      "id": 32120,
+      "name": "몰아치기",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 14,
+      "baseCooldown": 18.0,
+      "coefficient": [
+        23.16,
+        25.43,
+        26.634,
+        27.495,
+        28.159,
+        28.693,
+        29.136,
+        29.509,
+        29.829,
+        30.107,
+        32.751,
+        34.381,
+        35.657,
+        36.791
+      ],
+      "constant": [
+        1390.0,
+        2479.0,
+        3174.0,
+        3730.0,
+        4170.0,
+        4517.5,
+        4819.0,
+        5097.0,
+        5304.5,
+        5512.5,
+        5512.5,
+        5512.5,
+        5512.5,
+        5512.5
+      ],
+      "mana": [
+        85,
+        116,
+        140,
+        169,
+        216,
+        249,
+        307,
+        329,
+        394,
+        441,
+        441,
+        441,
+        441,
+        441
+      ],
+      "tags": [
+        "몰아치기",
+        "마나",
+        "우산",
+        "타대"
+      ],
+      "tripods": [
+        {
+          "key": 1,
+          "tier": 1,
+          "name": "역류",
+          "description": "기류 보호막을 가지고 있을 경우 기류를 역류시켜 적에게 주는 피해를 60.0% 증가시킨다. 단, 기류 보호막은 사라진다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 60,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 2,
+          "tier": 1,
+          "name": "혼신",
+          "description": "발도 준비 시간이 길어지지만, 발도의 피해량이 60% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 60,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 3,
+          "tier": 1,
+          "name": "재빠른 손놀림",
+          "description": "발도 준비 시간이 짧아지고, 재사용 대기 시간이 -5.0초 감소한다.",
+          "effects": [
+            {
+              "category": "고정 쿨타임 감소",
+              "val": 5,
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 4,
+          "tier": 2,
+          "name": "부위파괴 강화",
+          "description": "발도의 피해가 60% 증가하고, 부위파괴 1레벨이 적용된다. 공간 베기와 상승 기류 적용 시 발생하는 추가 공격에도 피해 증가 효과가 적용된다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 60,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 5,
+          "tier": 2,
+          "name": "서리검",
+          "description": "발도 공격이 [수] 속성으로 변경되고 피해가 45% 증가한다. 3.0초간 이동속도를 -40.0% 감소시킨다. 공간 베기와 상승 기류 적용 시 발생하는 추가 공격에도 피해 증가 효과가 적용된다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 45,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 6,
+          "tier": 2,
+          "name": "우레",
+          "description": "발도 공격이 [뇌] 속성으로 변경되고 치명타 피해가 180.0% 증가한다. 공간 베기와 상승 기류 적용 시 발생하는 추가 공격에도 피해 증가 효과가 적용된다.",
+          "effects": [
+            {
+              "category": "치명타 피해",
+              "val": 180,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 7,
+          "tier": 3,
+          "name": "공간베기",
+          "description": "발도 이후 검풍을 발생시켜 94.8% 추가 피해를 준다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 94.8,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 8,
+          "tier": 3,
+          "name": "상승기류",
+          "description": "발도 이후 우산으로 상승기류를 발생시켜 80.0% 추가 피해를 주고 적중된 대상을 높이 띄운다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 80,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        }
+      ],
+      "motions": [
+        {
+          "name": "모션1",
+          "coefficient": [
+            6.948,
+            7.629,
+            7.99,
+            8.248,
+            8.447,
+            8.607,
+            8.74,
+            8.852,
+            8.948,
+            9.031,
+            9.824,
+            10.313,
+            10.696,
+            11.036
+          ],
+          "constant": [
+            416.5,
+            743.5,
+            952.0,
+            1119.0,
+            1251.0,
+            1355.5,
+            1445.5,
+            1529.0,
+            1591.0,
+            1653.5,
+            1653.5,
+            1653.5,
+            1653.5,
+            1653.5
+          ]
+        },
+        {
+          "name": "모션2",
+          "coefficient": [
+            16.212,
+            17.801,
+            18.644,
+            19.247,
+            19.712,
+            20.086,
+            20.396,
+            20.657,
+            20.881,
+            21.076,
+            22.927,
+            24.068,
+            24.961,
+            25.755
+          ],
+          "constant": [
+            973.5,
+            1735.5,
+            2222.0,
+            2611.0,
+            2919.0,
+            3162.0,
+            3373.5,
+            3568.0,
+            3713.5,
+            3859.0,
+            3859.0,
+            3859.0,
+            3859.0,
+            3859.0
+          ]
+        }
+      ]
+    },
+    {
+      "id": 32250,
+      "name": "바람송곳",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 14,
+      "baseCooldown": 27.0,
+      "coefficient": [
+        37.261,
+        40.915,
+        42.854,
+        44.24,
+        45.311,
+        46.172,
+        46.886,
+        47.488,
+        47.999,
+        48.447,
+        52.703,
+        55.328,
+        57.379,
+        59.206
+      ],
+      "constant": [
+        2233.0,
+        3983.0,
+        5103.0,
+        5995.5,
+        6706.0,
+        7266.0,
+        7745.5,
+        8190.0,
+        8526.0,
+        8858.5,
+        8858.5,
+        8858.5,
+        8858.5,
+        8858.5
+      ],
+      "mana": [
+        108,
+        146,
+        177,
+        213,
+        273,
+        315,
+        388,
+        415,
+        497,
+        557,
+        557,
+        557,
+        557,
+        557
+      ],
+      "tags": [
+        "바람송곳",
+        "마나",
+        "우산",
+        "타대"
+      ],
+      "tripods": [
+        {
+          "key": 1,
+          "tier": 1,
+          "name": "역류",
+          "description": "기류 보호막을 가지고 있을 경우 기류를 역류시켜 적에게 주는 피해를 60.0% 증가시킨다. 단, 기류 보호막은 사라진다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 60,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 2,
+          "tier": 1,
+          "name": "관통",
+          "description": "공격 적중 시 적의 모든 방어력을 52.0% 무시하며, 보호막에는 추가로 50.0% 증가된 피해를 준다.",
+          "effects": [
+            {
+              "category": "방어력 무시",
+              "val": 52,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 3,
+          "tier": 1,
+          "name": "뇌진탕",
+          "description": "스킬의 무력화 단계가 [상] 으로 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 4,
+          "tier": 2,
+          "name": "후벼파기",
+          "description": "홀딩 조작으로 변경되며, 홀딩 조작 중 이동하면서 적을 공격하며 날려버리며 경직 면역 상태가 된다. 홀딩을 끝까지 완료하면 넘어지며 적을 추가로 공격하여 최대 70% 증가된 피해를 입힌다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 70,
+              "unit": "%"
+            },
+            {
+              "category": "태그 추가",
+              "val": "홀딩",
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 5,
+          "tier": 2,
+          "name": "번개 바람",
+          "description": "[뇌]속성으로 변경되고 치명타 피해가 140.0% 증가한다.",
+          "effects": [
+            {
+              "category": "치명타 피해",
+              "val": 140,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 6,
+          "tier": 2,
+          "name": "큰 센바람",
+          "description": "공격 거리가 60.0% 증가하고, 마지막에 우산에서 바람 충격파를 발사하며 적에게 60.0% 추가 피해를 입히며 날려버린다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 60,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 7,
+          "tier": 3,
+          "name": "연쇄 공격",
+          "description": "공격에 적중 된 적 하나 당 재사용 대기시간이 1.8초씩 최대 18.0초 감소한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 8,
+          "tier": 3,
+          "name": "집중 공격",
+          "description": "적에게 주는 피해가 95% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 95,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        }
+      ]
+    },
+    {
+      "id": 32220,
+      "name": "봄바람",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 14,
+      "baseCooldown": 24.0,
+      "coefficient": [
+        10.02,
+        11.002,
+        11.523,
+        11.896,
+        12.184,
+        12.415,
+        12.606,
+        12.767,
+        12.905,
+        13.025,
+        14.169,
+        14.874,
+        15.426,
+        15.917
+      ],
+      "constant": [
+        601.0,
+        1072.0,
+        1373.5,
+        1614.5,
+        1804.5,
+        1954.5,
+        2084.5,
+        2204.5,
+        2294.5,
+        2384.5,
+        2384.5,
+        2384.5,
+        2384.5,
+        2384.5
+      ],
+      "mana": [
+        101,
+        136,
+        165,
+        199,
+        255,
+        294,
+        363,
+        388,
+        465,
+        521,
+        521,
+        521,
+        521,
+        521
+      ],
+      "tags": [
+        "봄바람",
+        "기상",
+        "마나",
+        "타대"
+      ],
+      "tripods": [
+        {
+          "key": 1,
+          "tier": 1,
+          "name": "마력 조절",
+          "description": "마나 소모량이 -67.0% 감소한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 2,
+          "tier": 1,
+          "name": "빠른 준비",
+          "description": "재사용 대기시간이 -8.0초 감소한다.",
+          "effects": [
+            {
+              "category": "고정 쿨타임 감소",
+              "val": 8,
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 3,
+          "tier": 1,
+          "name": "단단한 갑옷",
+          "description": "스킬 시전 중 받는 피해가 -40.8% 감소한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 4,
+          "tier": 2,
+          "name": "약육강식",
+          "description": "하급 및 일반 몬스터에게 주는 피해가 145.0% 증가된다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 5,
+          "tier": 2,
+          "name": "넓은 공격",
+          "description": "공격 범위가 20.0% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 6,
+          "tier": 2,
+          "name": "강인함",
+          "description": "스킬 시전 중 피격이상에 면역이 된다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 7,
+          "tier": 3,
+          "name": "마파람",
+          "description": "차지 조작으로 변경된다. 오버차지 시 더 강력한 바람이 발생하여 적에게 주는 피해가 120% 증가하고 공격 범위가 20.0% 증가하며 적을 날려버린다.",
+          "effects": [
+            {
+              "category": "태그 추가",
+              "val": "차지",
+              "unit": ""
+            },
+            {
+              "category": "적에게 주는 피해",
+              "val": 120,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 8,
+          "tier": 3,
+          "name": "높새바람",
+          "description": "제자리에서 3초간 지속되는 바람 기류를 생성한다. 공격 적중 시 적을 경직시키며 기류 범위 안의 자신 및 파티원에게 5.0초간 자신의 최대 생명력에 25.0%에 해당하는 보호막을 부여한다.",
+          "effects": [],
+          "effectsVerified": true
+        }
+      ]
+    },
+    {
+      "id": 32160,
+      "name": "센바람",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 14,
+      "baseCooldown": 24.0,
+      "coefficient": [
+        12.115,
+        13.3,
+        13.93,
+        14.38,
+        14.73,
+        15.01,
+        15.24,
+        15.435,
+        15.6,
+        15.745,
+        17.13,
+        17.985,
+        18.65,
+        19.245
+      ],
+      "constant": [
+        727.5,
+        1300.0,
+        1667.5,
+        1960.0,
+        2195.0,
+        2377.5,
+        2540.0,
+        2682.5,
+        2795.0,
+        2905.0,
+        2905.0,
+        2905.0,
+        2905.0,
+        2905.0
+      ],
+      "mana": [
+        101,
+        136,
+        165,
+        199,
+        255,
+        294,
+        363,
+        388,
+        465,
+        521,
+        521,
+        521,
+        521,
+        521
+      ],
+      "tags": [
+        "센바람",
+        "기상",
+        "마나",
+        "타대"
+      ],
+      "tripods": [
+        {
+          "key": 1,
+          "tier": 1,
+          "name": "기분 좋은 바람",
+          "description": "자신 및 파티원에게 바람 적중 시 6.0초간 공격 속도가 12.5% 증가하고, 이동 속도가 12.5% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 2,
+          "tier": 1,
+          "name": "빠른 준비",
+          "description": "재사용 대기시간이 -8.0초 감소한다.",
+          "effects": [
+            {
+              "category": "고정 쿨타임 감소",
+              "val": 8,
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 3,
+          "tier": 1,
+          "name": "약육강식",
+          "description": "시드 이하 몬스터에게 주는 피해가 80.0% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 4,
+          "tier": 2,
+          "name": "재빠른 손놀림",
+          "description": "공격속도가 27.0% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 5,
+          "tier": 2,
+          "name": "증기 획득",
+          "description": "공격 적중 시 빗방울 게이지 회복량이 45% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 6,
+          "tier": 2,
+          "name": "증기 조절",
+          "description": "공격 적중 시 적에게 주는 피해가 60% 증가하고, 여우비 상태일 경우 적에게 주는 피해가 추가로 20.0% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 60,
+              "unit": "%",
+              "excludeTags": [
+                "여우비"
+              ]
+            },
+            {
+              "category": "적에게 주는 피해",
+              "val": 80,
+              "unit": "%",
+              "requireTags": [
+                "여우비"
+              ]
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 7,
+          "tier": 3,
+          "name": "향풍",
+          "description": "콤보 조작으로 변경되고 전방으로 최대 3회까지 바람을 날릴 수 있게 된다. 바람의 속도가 20.0% 증가하며 적에게 주는 피해가 80% 증가한다.",
+          "effects": [
+            {
+              "category": "태그 추가",
+              "val": "콤보",
+              "unit": ""
+            },
+            {
+              "category": "적에게 주는 피해",
+              "val": 80,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 8,
+          "tier": 3,
+          "name": "댑바람",
+          "description": "바람의 속도가 50% 감소하지만 최대 공격 횟수가 3회 증가하고 공격 범위가 30.0% 증가한다. 적에게 주는 피해가 95% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 95,
+              "unit": "%",
+              "requireTags": [
+                "돌개바람"
+              ]
+            }
+          ],
+          "effectsVerified": true
+        }
+      ]
+    },
+    {
+      "id": 32150,
+      "name": "소나기",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 14,
+      "baseCooldown": 16.0,
+      "coefficient": [
+        11.49,
+        12.618,
+        13.218,
+        13.644,
+        13.974,
+        14.238,
+        14.46,
+        14.646,
+        14.802,
+        14.94,
+        16.254,
+        17.064,
+        17.7,
+        18.264
+      ],
+      "constant": [
+        687.0,
+        1227.0,
+        1572.0,
+        1848.0,
+        2067.0,
+        2241.0,
+        2388.0,
+        2526.0,
+        2634.0,
+        2739.0,
+        2739.0,
+        2739.0,
+        2739.0,
+        2739.0
+      ],
+      "mana": [
+        80,
+        108,
+        131,
+        158,
+        202,
+        233,
+        287,
+        307,
+        368,
+        412,
+        412,
+        412,
+        412,
+        412
+      ],
+      "tags": [
+        "소나기",
+        "기상",
+        "타대",
+        "마나"
+      ],
+      "tripods": [
+        {
+          "key": 1,
+          "tier": 1,
+          "name": "증기 획득",
+          "description": "공격 적중 시 빗방울 게이지 회복량이 45% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 2,
+          "tier": 1,
+          "name": "약육강식",
+          "description": "하급 및 일반 몬스터에게 주는 피해가 60.0% 증가된다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 3,
+          "tier": 1,
+          "name": "무기 파괴",
+          "description": "피격된 적의 공격력이 3.0초간 -25.0% 감소한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 4,
+          "tier": 2,
+          "name": "한파주의보",
+          "description": "공격 적중 시 적의 이동속도를 1.0초간 -10.0% 감소시키며 이동속도 감소 효과가 5회 중첩 시 4.0초간 동결시킨다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 5,
+          "tier": 2,
+          "name": "낙뢰주의보",
+          "description": "범위 내 랜덤한 위치에 낙뢰가 10회 떨어져 [뇌] 속성 피해를 입히고 적에게 주는 피해가 최대 70.8% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 70.8,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 6,
+          "tier": 2,
+          "name": "호우주의보",
+          "description": "공격 횟수가 3회 증가하고, 공격 범위가 20.0% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 7,
+          "tier": 3,
+          "name": "국지성 소나기",
+          "description": "소나기가 적을 추적하는 능력이 생긴다. 지속시간이 2.0초 증가하여 적에게 주는 피해가 총 145% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 145,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 8,
+          "tier": 3,
+          "name": "강수량 증가",
+          "description": "지점 스킬로 변경되며 스킬 시전 속도가 빨라진다. 스택이 가능하게 변경되고 최대 2회 까지 충전된다.",
+          "effects": [
+            {
+              "category": "태그 추가",
+              "val": "지점",
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        }
+      ]
+    },
+    {
+      "id": 32190,
+      "name": "소용돌이",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 14,
+      "baseCooldown": 16.0,
+      "coefficient": [
+        14.67,
+        16.109,
+        16.871,
+        17.418,
+        17.839,
+        18.178,
+        18.458,
+        18.696,
+        18.897,
+        19.075,
+        20.752,
+        21.784,
+        22.593,
+        23.312
+      ],
+      "constant": [
+        880.0,
+        1567.0,
+        2008.5,
+        2361.5,
+        2640.0,
+        2860.5,
+        3051.0,
+        3228.5,
+        3359.5,
+        3492.0,
+        3492.0,
+        3492.0,
+        3492.0,
+        3492.0
+      ],
+      "mana": [
+        80,
+        108,
+        131,
+        158,
+        202,
+        233,
+        287,
+        307,
+        368,
+        412,
+        412,
+        412,
+        412,
+        412
+      ],
+      "tags": [
+        "소용돌이",
+        "기상",
+        "타대",
+        "마나"
+      ],
+      "tripods": [
+        {
+          "key": 1,
+          "tier": 1,
+          "name": "뇌진탕",
+          "description": "스킬의 무력화 단계가 [상]으로 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 2,
+          "tier": 1,
+          "name": "마력 조절",
+          "description": "마나 소모량이 -67.0% 감소한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 3,
+          "tier": 1,
+          "name": "증기 획득",
+          "description": "공격 적중 시 빗방울 게이지 회복량이 45% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 4,
+          "tier": 2,
+          "name": "바람 기둥",
+          "description": "공격 횟수가 2회 증가하고 마지막에 소용돌이 중심부에서 바람 폭발이 발생하며 적을 높이 띄운다. 적에게 주는 총 피해가 58.6% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 58.6,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 5,
+          "tier": 2,
+          "name": "죽음의 소용돌이",
+          "description": "마지막에 강한 피해가 제거되고, 자신을 중심으로 거대한 소용돌이를 발생시킨다. 공격 범위가 50.0% 증가하고 적에게 주는 총 피해가 70% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 70,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 6,
+          "tier": 2,
+          "name": "지속력 강화",
+          "description": "지점 조작으로 변경되고 스킬 사용 거리가 증가한다. 소용돌이의 지속시간이 2.0초 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 7,
+          "tier": 3,
+          "name": "신속한 준비",
+          "description": "끌어모으는 공격으로 적을 타격할 때마다 재사용 대기시간이 0.2초씩 감소하여 최대 10.0초까지 감소된다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 8,
+          "tier": 3,
+          "name": "증기 조절",
+          "description": "공격 적중 시 적에게 주는 피해가 80% 증가하고, 여우비 상태일 경우 적에게 주는 피해가 추가로 20.0% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 80,
+              "unit": "%",
+              "excludeTags": [
+                "여우비"
+              ]
+            },
+            {
+              "category": "적에게 주는 피해",
+              "val": 100,
+              "unit": "%",
+              "requireTags": [
+                "여우비"
+              ]
+            }
+          ],
+          "effectsVerified": true
+        }
+      ],
+      "motions": [
+        {
+          "name": "모션1",
+          "coefficient": [
+            5.868,
+            6.444,
+            6.748,
+            6.968,
+            7.136,
+            7.272,
+            7.384,
+            7.48,
+            7.56,
+            7.632,
+            8.304,
+            8.716,
+            9.04,
+            9.328
+          ],
+          "constant": [
+            352.0,
+            626.0,
+            804.0,
+            946.0,
+            1058.0,
+            1146.0,
+            1222.0,
+            1294.0,
+            1346.0,
+            1400.0,
+            1400.0,
+            1400.0,
+            1400.0,
+            1400.0
+          ]
+        },
+        {
+          "name": "모션2",
+          "coefficient": [
+            8.802,
+            9.665,
+            10.123,
+            10.45,
+            10.703,
+            10.906,
+            11.074,
+            11.216,
+            11.337,
+            11.443,
+            12.448,
+            13.068,
+            13.553,
+            13.984
+          ],
+          "constant": [
+            528.0,
+            941.0,
+            1204.5,
+            1415.5,
+            1582.0,
+            1714.5,
+            1829.0,
+            1934.5,
+            2013.5,
+            2092.0,
+            2092.0,
+            2092.0,
+            2092.0,
+            2092.0
+          ]
+        }
+      ]
+    },
+    {
+      "id": 32210,
+      "name": "싹쓸바람",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 14,
+      "baseCooldown": 30.0,
+      "coefficient": [
+        16.038,
+        17.609,
+        18.441,
+        19.039,
+        19.499,
+        19.869,
+        20.177,
+        20.436,
+        20.657,
+        20.848,
+        22.679,
+        23.808,
+        24.69,
+        25.478
+      ],
+      "constant": [
+        963.5,
+        1718.0,
+        2198.0,
+        2585.0,
+        2887.0,
+        3129.5,
+        3339.0,
+        3531.0,
+        3675.5,
+        3818.0,
+        3818.0,
+        3818.0,
+        3818.0,
+        3818.0
+      ],
+      "mana": [
+        114,
+        155,
+        188,
+        227,
+        290,
+        335,
+        412,
+        441,
+        529,
+        592,
+        592,
+        592,
+        592,
+        592
+      ],
+      "tags": [
+        "싹쓸바람",
+        "마나",
+        "기상",
+        "타대",
+        "지점"
+      ],
+      "tripods": [
+        {
+          "key": 1,
+          "tier": 1,
+          "name": "재빠른 손놀림",
+          "description": "공격속도가 18.0% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 2,
+          "tier": 1,
+          "name": "빠른 준비",
+          "description": "재사용 대기시간이 -11.0초 감소한다.",
+          "effects": [
+            {
+              "category": "고정 쿨타임 감소",
+              "val": 11,
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 3,
+          "tier": 1,
+          "name": "넓은 공격",
+          "description": "공격 범위가 20.0% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 4,
+          "tier": 2,
+          "name": "소멸",
+          "description": "마우스 위치에 즉시 풍압이 강해진 회오리가 발생하며 공격 횟수가 4회 증가하고 마지막에 충격파를 발생시켜 적을 날려버리며 적에게 주는 피해가 70.8% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 70.8,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 5,
+          "tier": 2,
+          "name": "꿰뚫는 회오리",
+          "description": "홀딩 조작으로 변경되며, 전방에 회오리 바람을 발사하며 적에게 주는 피해가 90% 증가하고 방향 전환이 가능해진다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 90,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 6,
+          "tier": 2,
+          "name": "폭풍의 눈",
+          "description": "3초간 전방으로 추적하는 회오리를 날린다. 공격 적중 시 표식을 남기고 4회 중첩 시 적을 4.0초간 기절 시킨다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 7,
+          "tier": 3,
+          "name": "증기 조절",
+          "description": "공격 적중 시 적에게 주는 피해가 80% 증가하고, 여우비 상태일 경우 적에게 주는 피해가 추가로 20.0% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 80,
+              "unit": "%",
+              "excludeTags": [
+                "여우비"
+              ]
+            },
+            {
+              "category": "적에게 주는 피해",
+              "val": 100,
+              "unit": "%",
+              "requireTags": [
+                "여우비"
+              ]
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 8,
+          "tier": 3,
+          "name": "강인함",
+          "description": "스킬 시전 중 피격이상에 면역이 된다.",
+          "effects": [],
+          "effectsVerified": true
+        }
+      ],
+      "motions": [
+        {
+          "name": "모션1",
+          "coefficient": [
+            8.02,
+            8.805,
+            9.22,
+            9.52,
+            9.75,
+            9.935,
+            10.09,
+            10.22,
+            10.33,
+            10.425,
+            11.34,
+            11.905,
+            12.345,
+            12.74
+          ],
+          "constant": [
+            482.5,
+            860.0,
+            1100.0,
+            1295.0,
+            1445.0,
+            1567.5,
+            1672.5,
+            1767.5,
+            1840.0,
+            1910.0,
+            1910.0,
+            1910.0,
+            1910.0,
+            1910.0
+          ]
+        },
+        {
+          "name": "모션2",
+          "coefficient": [
+            8.018,
+            8.804,
+            9.221,
+            9.519,
+            9.749,
+            9.934,
+            10.087,
+            10.216,
+            10.327,
+            10.423,
+            11.339,
+            11.903,
+            12.345,
+            12.738
+          ],
+          "constant": [
+            481.0,
+            858.0,
+            1098.0,
+            1290.0,
+            1442.0,
+            1562.0,
+            1666.5,
+            1763.5,
+            1835.5,
+            1908.0,
+            1908.0,
+            1908.0,
+            1908.0,
+            1908.0
+          ]
+        }
+      ]
+    },
+    {
+      "id": 32290,
+      "name": "아카샤의 너울",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 1,
+      "baseCooldown": 300.0,
+      "coefficient": [
+        0.0
+      ],
+      "constant": [
+        0.0
+      ],
+      "mana": [],
+      "tags": [],
+      "tripods": [],
+      "motions": [
+        {
+          "name": "모션1",
+          "coefficient": [
+            0.0
+          ],
+          "constant": [
+            0.0
+          ]
+        },
+        {
+          "name": "모션2",
+          "coefficient": [
+            0.0
+          ],
+          "constant": [
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "id": 32320,
+      "name": "여름 햇살",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 1,
+      "baseCooldown": 70.0,
+      "coefficient": [
+        276.21
+      ],
+      "constant": [
+        16572.5
+      ],
+      "mana": [
+        901
+      ],
+      "tags": [],
+      "tripods": [],
+      "motions": [
+        {
+          "name": "모션1",
+          "coefficient": [
+            92.07
+          ],
+          "constant": [
+            5524.5
+          ]
+        },
+        {
+          "name": "모션2",
+          "coefficient": [
+            184.14
+          ],
+          "constant": [
+            11048.0
+          ]
+        }
+      ]
+    },
+    {
+      "id": 32310,
+      "name": "우레바람",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 1,
+      "baseCooldown": 50.0,
+      "coefficient": [
+        357.673
+      ],
+      "constant": [
+        21460.0
+      ],
+      "mana": [
+        794
+      ],
+      "tags": [
+        "우레바람",
+        "마나",
+        "우산",
+        "타대",
+        "홀딩"
+      ],
+      "tripods": [],
+      "motions": [
+        {
+          "name": "모션1",
+          "coefficient": [
+            238.29
+          ],
+          "constant": [
+            14296.5
+          ]
+        },
+        {
+          "name": "모션2",
+          "coefficient": [
+            119.383
+          ],
+          "constant": [
+            7163.5
+          ]
+        }
+      ]
+    },
+    {
+      "id": 32140,
+      "name": "짙은 안개",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 14,
+      "baseCooldown": 14.0,
+      "coefficient": [
+        8.775,
+        9.637,
+        10.098,
+        10.423,
+        10.673,
+        10.874,
+        11.038,
+        11.176,
+        11.3,
+        11.401,
+        12.401,
+        13.015,
+        13.502,
+        13.928
+      ],
+      "constant": [
+        525.5,
+        943.0,
+        1205.0,
+        1417.0,
+        1580.5,
+        1722.0,
+        1830.5,
+        1941.5,
+        2022.0,
+        2108.0,
+        2108.0,
+        2108.0,
+        2108.0,
+        2108.0
+      ],
+      "mana": [
+        74,
+        100,
+        121,
+        146,
+        187,
+        216,
+        266,
+        284,
+        341,
+        382,
+        382,
+        382,
+        382,
+        382
+      ],
+      "tags": [
+        "짙은 안개",
+        "마나",
+        "타대",
+        "기상"
+      ],
+      "tripods": [
+        {
+          "key": 1,
+          "tier": 1,
+          "name": "날렵한 움직임",
+          "description": "스킬 시전 시 6.0초간 자신의 이동속도가 30.0% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 2,
+          "tier": 1,
+          "name": "급소 노출",
+          "description": "공격 적중 시 대상이 자신 및 파티원에게 받는 치명타 저항률이 12.0초간 10.0% 감소한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 3,
+          "tier": 1,
+          "name": "마력 조절",
+          "description": "마나 소모량이 -67.0% 감소한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 4,
+          "tier": 2,
+          "name": "탁월한 기동성",
+          "description": "뒤로 이동하는 거리가 2.0m 증가하며, 안개의 지속 시간이 2.0초 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 5,
+          "tier": 2,
+          "name": "전투의 달인",
+          "description": "충격파 공격에 적중 된 적 하나 당 재사용 대기시간이 1.2초씩 최대 8.0초 감소한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 6,
+          "tier": 2,
+          "name": "습도 강화",
+          "description": "안개의 공격 범위가 20.0% 증가하고 안개 속에서 1초마다 경직 피해가 추가로 발생한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 7,
+          "tier": 3,
+          "name": "질식",
+          "description": "공격 적중 시 이동속도 감소 효과가 최대 5회까지 중첩되고 최대 중첩 시 적을 4.0초간 기절 시킨다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 8,
+          "tier": 3,
+          "name": "증기 조절",
+          "description": "공격 적중 시 적에게 주는 피해가 80% 증가하고, 여우비 상태일 경우 적에게 주는 피해가 추가로 20.0% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 80,
+              "unit": "%",
+              "excludeTags": [
+                "여우비"
+              ]
+            },
+            {
+              "category": "적에게 주는 피해",
+              "val": 100,
+              "unit": "%",
+              "requireTags": [
+                "여우비"
+              ]
+            }
+          ],
+          "effectsVerified": true
+        }
+      ],
+      "motions": [
+        {
+          "name": "모션1",
+          "coefficient": [
+            1.755,
+            1.927,
+            2.018,
+            2.083,
+            2.133,
+            2.174,
+            2.208,
+            2.236,
+            2.26,
+            2.281,
+            2.481,
+            2.605,
+            2.702,
+            2.788
+          ],
+          "constant": [
+            105.5,
+            188.0,
+            240.0,
+            282.0,
+            315.5,
+            342.0,
+            365.5,
+            386.5,
+            402.0,
+            418.0,
+            418.0,
+            418.0,
+            418.0,
+            418.0
+          ]
+        },
+        {
+          "name": "모션2",
+          "coefficient": [
+            7.02,
+            7.71,
+            8.08,
+            8.34,
+            8.54,
+            8.7,
+            8.83,
+            8.94,
+            9.04,
+            9.12,
+            9.92,
+            10.41,
+            10.8,
+            11.14
+          ],
+          "constant": [
+            420.0,
+            755.0,
+            965.0,
+            1135.0,
+            1265.0,
+            1380.0,
+            1465.0,
+            1555.0,
+            1620.0,
+            1690.0,
+            1690.0,
+            1690.0,
+            1690.0,
+            1690.0
+          ]
+        }
+      ]
+    },
+    {
+      "id": 32300,
+      "name": "칸의 영역",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 1,
+      "baseCooldown": 300.0,
+      "coefficient": [
+        0.0
+      ],
+      "constant": [
+        0.0
+      ],
+      "mana": [],
+      "tags": [],
+      "tripods": []
+    },
+    {
+      "id": 32260,
+      "name": "칼바람",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 14,
+      "baseCooldown": 27.0,
+      "coefficient": [
+        35.04,
+        38.474,
+        40.296,
+        41.599,
+        42.605,
+        43.414,
+        44.083,
+        44.647,
+        45.131,
+        45.551,
+        49.552,
+        52.019,
+        53.949,
+        55.665
+      ],
+      "constant": [
+        2102.0,
+        3749.0,
+        4800.0,
+        5641.0,
+        6306.5,
+        6832.0,
+        7288.0,
+        7708.0,
+        8023.5,
+        8339.0,
+        8339.0,
+        8339.0,
+        8339.0,
+        8339.0
+      ],
+      "mana": [
+        108,
+        146,
+        177,
+        213,
+        273,
+        315,
+        388,
+        415,
+        497,
+        557,
+        557,
+        557,
+        557,
+        557
+      ],
+      "tags": [
+        "칼바람",
+        "마나",
+        "우산",
+        "타대"
+      ],
+      "tripods": [
+        {
+          "key": 1,
+          "tier": 1,
+          "name": "질풍검",
+          "description": "발도 준비 시간이 단축되고, 전방으로 11.0m 신속하게 이동하며 가디언 몬스터를 통과할 수 있게 된다. 적을 베고 지나가며 적에게 주는 피해가 45% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 45,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 2,
+          "tier": 1,
+          "name": "거대 돌풍",
+          "description": "발도 준비 시간이 증가하고, 기를 모은 후 전방에 거대한 검기를 발사하여 적에게 주는 피해가 45% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 45,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 3,
+          "tier": 1,
+          "name": "화려한 움직임",
+          "description": "자신을 중심으로 360도 범위 내에 발도 기술을 펼쳐 적에게 주는 피해가 45% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 45,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 4,
+          "tier": 2,
+          "name": "약육강식",
+          "description": "시드 이하 몬스터에게 주는 피해가 120.0% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 5,
+          "tier": 2,
+          "name": "절단",
+          "description": "적에게 주는 피해가 60% 증가하고, 보호막에는 추가로 50.0% 증가된 피해를 준다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 60,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 6,
+          "tier": 2,
+          "name": "역류",
+          "description": "기류 보호막을 가지고 있을 경우 기류를 역류시켜 적에게 주는 피해를 95.0% 증가시킨다. 단, 기류 보호막은 사라진다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 95,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 7,
+          "tier": 3,
+          "name": "벼락",
+          "description": "[뇌] 속성으로 변경되고, 번개의 힘을 담아 발도 기술을 펼치며 적에게 주는 치명타 피해량이 210.0% 증가한다.",
+          "effects": [
+            {
+              "category": "치명타 피해",
+              "val": 210,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 8,
+          "tier": 3,
+          "name": "결빙",
+          "description": "[수] 속성으로 변경되며 냉기가 서린 발도 기술을 펼치고 적중된 대상을 4.0초간 동결시킨다.",
+          "effects": [],
+          "effectsVerified": true
+        }
+      ]
+    },
+    {
+      "id": 32110,
+      "name": "펼치기",
+      "class": "기상술사",
+      "attackType": "백어택",
+      "maxLevel": 14,
+      "baseCooldown": 7.0,
+      "coefficient": [
+        6.21,
+        6.819,
+        7.142,
+        7.373,
+        7.551,
+        7.694,
+        7.813,
+        7.913,
+        7.999,
+        8.073,
+        8.782,
+        9.219,
+        9.561,
+        9.865
+      ],
+      "constant": [
+        373.0,
+        665.5,
+        851.0,
+        1000.0,
+        1117.5,
+        1211.5,
+        1292.5,
+        1366.5,
+        1422.0,
+        1478.0,
+        1478.0,
+        1478.0,
+        1478.0,
+        1478.0
+      ],
+      "mana": [
+        49,
+        67,
+        81,
+        98,
+        125,
+        145,
+        179,
+        191,
+        229,
+        256,
+        256,
+        256,
+        256,
+        256
+      ],
+      "tags": [
+        "펼치기",
+        "백어택",
+        "마나",
+        "우산"
+      ],
+      "tripods": [
+        {
+          "key": 1,
+          "tier": 1,
+          "name": "기류 발생",
+          "description": "공격 적중 시 빗방울 게이지 획득량이 -30% 줄어들지만 4.0초간 자신의 최대 생명력에 15.0%에 해당하는 기류 보호막이 생성된다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 2,
+          "tier": 1,
+          "name": "급소 노출",
+          "description": "공격 적중 시 대상이 자신 및 파티원에게 받는 치명타 저항률이 8.0초간 10.0% 감소한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 3,
+          "tier": 1,
+          "name": "증기 획득",
+          "description": "공격 적중 시 빗방울 게이지 회복량이 75% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 4,
+          "tier": 2,
+          "name": "외부 충격",
+          "description": "마지막 공격 적중 시 3.0초간 기절 상태로 만든다. 재사용 대기시간이 7.0초 증가한다.",
+          "effects": [
+            {
+              "category": "고정 쿨타임 증가",
+              "val": 7,
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 5,
+          "tier": 2,
+          "name": "가벼운 발걸음",
+          "description": "스킬 시전 시 4.0초간 자신의 이동속도가 30.0% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 6,
+          "tier": 2,
+          "name": "마나 순환",
+          "description": "마지막 공격 적중 시 206의 마나를 돌려받는다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 7,
+          "tier": 3,
+          "name": "날카로운 장막",
+          "description": "스킬 사용 시 우산을 펼친 채 돌진하는 추가 공격이 발생하고, 적중 시 우산을 접으며 전방의 적을 자신의 앞으로 당겨오며 적에게 주는 피해가 105% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 105,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 8,
+          "tier": 3,
+          "name": "거대 장막",
+          "description": "스킬 사용 즉시 거대한 파라솔을 펼쳐 공격하는 형태로 변경되며 공격 범위가 100.0% 증가하고 적에게 주는 피해가 95% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 95,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        }
+      ],
+      "motions": [
+        {
+          "name": "모션1",
+          "coefficient": [
+            4.347,
+            4.773,
+            4.999,
+            5.161,
+            5.286,
+            5.386,
+            5.469,
+            5.539,
+            5.599,
+            5.651,
+            6.147,
+            6.453,
+            6.692,
+            6.905
+          ],
+          "constant": [
+            261.0,
+            465.5,
+            595.5,
+            700.0,
+            782.0,
+            848.0,
+            904.5,
+            956.5,
+            995.5,
+            1034.5,
+            1034.5,
+            1034.5,
+            1034.5,
+            1034.5
+          ]
+        },
+        {
+          "name": "모션2",
+          "coefficient": [
+            1.863,
+            2.046,
+            2.143,
+            2.212,
+            2.265,
+            2.308,
+            2.344,
+            2.374,
+            2.4,
+            2.422,
+            2.635,
+            2.766,
+            2.869,
+            2.96
+          ],
+          "constant": [
+            112.0,
+            200.0,
+            255.5,
+            300.0,
+            335.5,
+            363.5,
+            388.0,
+            410.0,
+            426.5,
+            443.5,
+            443.5,
+            443.5,
+            443.5,
+            443.5
+          ]
+        }
+      ]
+    },
+    {
+      "id": 32270,
+      "name": "풍랑주의보",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 1,
+      "baseCooldown": 300.0,
+      "coefficient": [
+        210.889
+      ],
+      "constant": [
+        12654.0
+      ],
+      "mana": [],
+      "tags": [],
+      "tripods": [],
+      "motions": [
+        {
+          "name": "모션1",
+          "coefficient": [
+            147.623
+          ],
+          "constant": [
+            8858.5
+          ]
+        },
+        {
+          "name": "모션2",
+          "coefficient": [
+            63.266
+          ],
+          "constant": [
+            3795.5
+          ]
+        }
+      ]
+    },
+    {
+      "id": 32180,
+      "name": "회오리 걸음",
+      "class": "기상술사",
+      "attackType": "",
+      "maxLevel": 14,
+      "baseCooldown": 20.0,
+      "coefficient": [
+        23.234,
+        25.51,
+        26.718,
+        27.58,
+        28.248,
+        28.787,
+        29.235,
+        29.608,
+        29.929,
+        30.211,
+        32.861,
+        34.495,
+        35.779,
+        36.912
+      ],
+      "constant": [
+        1399.0,
+        2496.0,
+        3195.5,
+        3749.0,
+        4192.0,
+        4548.5,
+        4850.0,
+        5131.0,
+        5342.0,
+        5557.0,
+        5557.0,
+        5557.0,
+        5557.0,
+        5557.0
+      ],
+      "mana": [
+        91,
+        123,
+        149,
+        179,
+        230,
+        265,
+        326,
+        349,
+        419,
+        469,
+        469,
+        469,
+        469,
+        469
+      ],
+      "tags": [
+        "회오리 걸음",
+        "마나",
+        "우산",
+        "타대"
+      ],
+      "tripods": [
+        {
+          "key": 1,
+          "tier": 1,
+          "name": "재빠른 손놀림",
+          "description": "공격속도가 18.0% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 2,
+          "tier": 1,
+          "name": "회전 유지",
+          "description": "회전 시간이 0.4초 증가하고, 초고속 회전일 경우 회전 시간이 증가하지 않지만 이동거리가 2.0m 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 3,
+          "tier": 1,
+          "name": "넓은 타격",
+          "description": "공격 범위가 20.0% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 4,
+          "tier": 2,
+          "name": "예리한 일격",
+          "description": "치명타 피해가 160.0% 증가한다.",
+          "effects": [
+            {
+              "category": "치명타 피해",
+              "val": 160,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 5,
+          "tier": 2,
+          "name": "약육강식",
+          "description": "시드 이하 몬스터에게 주는 피해가 94.8% 증가한다.",
+          "effects": [],
+          "effectsVerified": true
+        },
+        {
+          "key": 6,
+          "tier": 2,
+          "name": "역류",
+          "description": "기류 보호막을 가지고 있을 경우 기류를 역류시켜 적에게 주는 피해를 95.0% 증가시킨다. 단, 기류 보호막은 사라진다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 95,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 7,
+          "tier": 3,
+          "name": "마지막 결정타",
+          "description": "홀딩 조작으로 변경되며 홀딩 조작 중 자유롭게 이동이 가능하다. 마지막 공격이 우산을 펼쳐 적을 높이 띄우는 공격으로 변경되며 총 피해가 94.8% 증가한다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 94.8,
+              "unit": "%"
+            },
+            {
+              "category": "태그 추가",
+              "val": "홀딩",
+              "unit": ""
+            }
+          ],
+          "effectsVerified": true
+        },
+        {
+          "key": 8,
+          "tier": 3,
+          "name": "초고속 회전",
+          "description": "지점 조작으로 변경되며 모험가 및 일반 몬스터와 충돌이 무시된다. 우산을 세로로 세워 회전하며 적을 공격하고, 마지막에 내려찍으며 총 105%의 증가된 피해를 준다. 적이 공중에 뜬 상태일 때 공격 적중 시 다시 공중에 띄운다.",
+          "effects": [
+            {
+              "category": "적에게 주는 피해",
+              "val": 105,
+              "unit": "%"
+            }
+          ],
+          "effectsVerified": true
+        }
+      ],
+      "motions": [
+        {
+          "name": "모션1",
+          "coefficient": [
+            16.263,
+            17.856,
+            18.702,
+            19.305,
+            19.773,
+            20.151,
+            20.466,
+            20.727,
+            20.952,
+            21.15,
+            23.004,
+            24.147,
+            25.047,
+            25.839
+          ],
+          "constant": [
+            981.0,
+            1750.5,
+            2241.0,
+            2628.0,
+            2938.5,
+            3190.5,
+            3402.0,
+            3600.0,
+            3748.5,
+            3901.5,
+            3901.5,
+            3901.5,
+            3901.5,
+            3901.5
+          ]
+        },
+        {
+          "name": "모션2",
+          "coefficient": [
+            6.971,
+            7.654,
+            8.016,
+            8.275,
+            8.475,
+            8.636,
+            8.769,
+            8.881,
+            8.977,
+            9.061,
+            9.857,
+            10.348,
+            10.732,
+            11.073
+          ],
+          "constant": [
+            418.0,
+            745.5,
+            954.5,
+            1121.0,
+            1253.5,
+            1358.0,
+            1448.0,
+            1531.0,
+            1593.5,
+            1655.5,
+            1655.5,
+            1655.5,
+            1655.5,
+            1655.5
+          ]
+        }
+      ]
+    }
+  ]
 }
